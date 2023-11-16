@@ -1,14 +1,14 @@
 import express from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import './config/dotenv.js';
+import './config/db.js';
 
 const app = express();
+const { SERVER_PORT } = process.env;
 
 app.get('/', (req, res) => {
   res.send('homepage');
 });
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(SERVER_PORT, () => {
   console.log('Server is running on port: 3000');
 });

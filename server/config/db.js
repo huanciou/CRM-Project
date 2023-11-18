@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_DATABASE } = process.env;
 
-const db = mongoose
+mongoose
   .connect(
     `mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_DATABASE}`,
     {},
@@ -13,5 +13,3 @@ const db = mongoose
   .catch((err) => {
     console.log('Connection Failed: ', err);
   });
-
-export default db;

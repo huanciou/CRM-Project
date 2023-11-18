@@ -4,6 +4,11 @@ import './config/db.js';
 import profileRouter from './routes/profile.js';
 import adminRouter from './routes/admin.js';
 
+import './models/menuSchema.js';
+import './models/orderSchema.js';
+import './models/profileSchema.js';
+import './models/setupSchema.js';
+
 const app = express();
 const { SERVER_PORT } = process.env;
 

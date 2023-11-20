@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/admin/menuSetup" method="POST">
+    <input type="text" placeholder="category" name="category">
+    <button>submit</button>
+  </form>
+
+  <form action="/admin/menuEdition" method="POST" enctype="multipart/form-data">
+    <select name="category">
+      <% for(let i = 0; i < categories.length; i++){ %>
+      <option value="<%= categories[i] %>"><%= categories[i] %></option>
+      <% } %>
+    </select>
+    <input type="text" placeholder="name" name="name">
+    <input type="number" placeholder="price" name="price">
+    <input type="text" placeholder="story" name="story">
+    <input type="file" name="main_image" >
+    <input type="file" name="images" multiple>
+    <button>submit</button>
+  </form>
+
+  <div class="menuCategories"></div>
+  <div class="menus"></div>
+
+  <script>
+    const menuCategories = document.querySelector('.menuCategories');
+    const menus = document.querySelector('.menus');
+    const menuCategoryUrl = `/admin/menuEdition`;
+    const menuUrl = `/admin/menu`;
+    const menuCategoryDeletion = `/admin/deleteMeunCategory`;
+    
+    function deleteMenuCategory(i){
+      const category = i.category;
+      fetch(menuCategoryDeletion, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: i._id }),
+      })  
+        .then((res) => res.json())
+        .then((data) => {
+          if(data){
+            alert(`category: ${category} deletion`);
+          } else{
+            alert(`Deletion Failed`);
+          }       
+        })
+    }
+
+    function deleteMenu(i){
+      const meal = i.name;
+      fetch(menuUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: i._id }),
+      })  
+        .then((res) => res.json())
+        .then((data) => {
+          if(data){
+            alert(`category: ${meal} deletion`);
+          } else{
+            alert(`Deletion Failed`);
+          }
+        })
+    }
+
+    function fetchMenuCategory(){
+      fetch(menuCategoryUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach(i => {
+            const menuCategory = document.createElement('span');
+            menuCategory.classList.add('menuCategory');
+            menuCategory.innerText = i.category;
+            menuCategories.appendChild(menuCategory);
+
+            const deleteMenuCategoryButton = document.createElement('button');
+            deleteMenuCategoryButton.innerText = 'Delete';
+            deleteMenuCategoryButton.id = i._id;
+            menuCategories.appendChild(deleteMenuCategoryButton);
+
+            deleteMenuCategoryButton.addEventListener('click', () => {
+              deleteMenuCategory(i);
+            })
+            
+          });
+        })
+    }
+
+    function fetchMenu(){
+      fetch(menuUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach(i => {
+            console.log();
+            const menu = document.createElement('div');
+            menu.classList.add('menu');
+            menu.id = i._id;
+            const content = JSON.stringify(i);
+            menu.innerText = content;
+            menus.appendChild(menu);
+
+            const deleteMenuButton = document.createElement('button');
+            deleteMenuButton.innerText = 'Delete';
+            deleteMenuButton.id = i._id;
+            menus.appendChild(deleteMenuButton);
+
+            deleteMenuButton.addEventListener('click', () => {
+              deleteMenu(i);
+            })
+          });
+        })
+    }
+
+    fetchMenuCategory();
+    fetchMenu();
+
+  </script>
+</body>
+</html>

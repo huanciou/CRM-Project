@@ -8,9 +8,16 @@ import './models/menuSchema.js';
 import './models/orderSchema.js';
 import './models/profileSchema.js';
 import './models/setupSchema.js';
+import './middleware/multer.js';
 
 const app = express();
 const { SERVER_PORT } = process.env;
+
+app.set('view engine', 'ejs');
+
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use('/api', profileRouter);
 app.use('/admin', adminRouter);

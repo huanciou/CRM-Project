@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
 
 const menuSetupSchema = new mongoose.Schema({
-  category: [
-    {
-      type: String,
-      required: false,
-    },
-  ],
+  category: {
+    type: String,
+    required: false,
+    unique: true,
+  },
 });
 
 const menuSchema = new mongoose.Schema({
@@ -30,10 +29,12 @@ const menuSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: {
-    type: String,
-    required: false,
-  },
+  images: [
+    {
+      type: String,
+      required: false,
+    },
+  ],
 });
 
 export const menu = mongoose.model('Manu', menuSchema);

@@ -12,11 +12,15 @@ import {
   getMenuSetup,
   postMenuSetup,
   getMenuEdition,
+  postMenuEdition,
+  postDeleteMeunCategory,
   getMenu,
+  postMenu,
 } from '../controllers/admin/menu.js';
 
 import { getOrder, postOrder } from '../controllers/admin/order.js';
 import { getCheckout, postCheckout } from '../controllers/admin/checkout.js';
+import fieldsUpload from '../utils/fieldsUpload.js';
 
 const router = Router();
 
@@ -33,8 +37,11 @@ router.route('/menuSetup').get(getMenuSetup);
 router.route('/menuSetup').post(postMenuSetup);
 
 router.route('/menuEdition').get(getMenuEdition);
+router.route('/menuEdition').post(fieldsUpload, postMenuEdition);
+router.route('/deleteMeunCategory').post(postDeleteMeunCategory);
 
 router.route('/menu').get(getMenu);
+router.route('/menu').post(postMenu);
 
 router.route('/order').get(getOrder);
 router.route('/order').post(postOrder);

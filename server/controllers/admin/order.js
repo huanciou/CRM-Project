@@ -1,3 +1,5 @@
-export function getOrder() {}
+function getOrder(req, res) {
+  res.render('admin/order');
+}
 
-export function postOrder() {}
+export default getOrder;

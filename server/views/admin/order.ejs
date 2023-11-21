@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+    <div class="menus">
+
+    </div>
+
+    <div class="cart">
+      <h1>購物車</h1>
+    </div>
+
+<script>
+  const getMenuByCategoriesUrl = `/api/admin/getMenuByCategories`;
+  const menus = document.querySelector('.menus');
+  const cart = document.querySelector('.cart');
+
+
+  function fetchMenuByCategories(){
+    fetch(getMenuByCategoriesUrl)
+      .then(res => res.json())
+      .then(data => {
+
+        const menusArray = data.map(i => i);
+
+        menusArray.forEach((cate) => {
+          const menuCategory = document.createElement('h1');
+          menuCategory.classList.add('category');
+          menuCategory.innerText = cate._id;
+          menus.appendChild(menuCategory); 
+
+          cate.data.forEach((menu) => {
+            const menuContent= document.createElement('div');
+            menuContent.classList.add('menu');
+            menuContent.innerText = JSON.stringify(menu, null, 2);
+            menus.appendChild(menuContent);
+          })
+        })
+      })
+  }
+
+  fetchMenuByCategories();
+
+  
+</script>
+</body>
+</html>

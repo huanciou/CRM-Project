@@ -3,6 +3,7 @@ import './config/dotenv.js';
 import './config/db.js';
 import profileRouter from './routes/profile.js';
 import adminRouter from './routes/admin.js';
+import apiRouter from './routes/api/admin.js';
 
 import './models/menuSchema.js';
 import './models/orderSchema.js';
@@ -19,7 +20,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', profileRouter);
+app.use('/api', apiRouter);
+app.use('/profile', profileRouter);
 app.use('/admin', adminRouter);
 
 app.get('/', (req, res) => {

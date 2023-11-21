@@ -25,7 +25,7 @@ export async function deleteMenuContent(req, res) {
   res.send(data.acknowledged);
 }
 
-export async function getMenuByCategories(req, res) {
+export async function fetchMenuByCategories(req, res) {
   const menus = await menu.aggregate([
     {
       $group: {

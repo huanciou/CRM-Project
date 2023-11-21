@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="orderList">
+
+  </div>
+
+<script>
+  const fetchOrderUrl = `/api/admin/fetchOrder`;
+  const orderList = document.querySelector('.orderList');
+
+  function fetchOrder(){
+    fetch(fetchOrderUrl)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach((i) => {
+          const order = document.createElement('div');
+          order.innerText = JSON.stringify(i, null, 4);
+          order.classList.add('order');
+          order.style.display = 'flex';
+          order.style.marginBottom = '100px';
+          orderList.appendChild(order);
+        })
+      });
+  }
+
+  fetchOrder();
+</script>  
+</body>
+</html>

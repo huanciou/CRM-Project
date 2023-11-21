@@ -10,10 +10,10 @@ import {
   createMenuContent,
   deleteMenuCategory,
   deleteMenuContent,
-  getMenuByCategories,
+  fetchMenuByCategories,
 } from '../../controllers/api/admin/menu.js';
 
-import createOrder from '../../controllers/api/admin/order.js';
+import { createOrder, fetchOrder } from '../../controllers/api/admin/order.js';
 // import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
 
@@ -33,7 +33,9 @@ router.route('/admin/deleteMeunCategory').post(deleteMenuCategory);
 
 router.route('/admin/deleteMeunContent').post(deleteMenuContent);
 
-router.route('/admin/getMenuByCategories').get(getMenuByCategories);
+router.route('/admin/fetchMenuByCategories').get(fetchMenuByCategories);
+
+router.route('/admin/fetchOrder').get(fetchOrder);
 
 router.route('/admin/createOrder').post(createOrder);
 

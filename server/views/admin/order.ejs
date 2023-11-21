@@ -8,21 +8,69 @@
 <body>
 
     <div class="menus">
-
     </div>
-
+  
     <div class="cart">
-      <h1>購物車</h1>
     </div>
 
 <script>
-  const getMenuByCategoriesUrl = `/api/admin/getMenuByCategories`;
+  const fetchMenuByCategoriesUrl = `/api/admin/fetchMenuByCategories`;
+  const checkoutUrl = `/api/admin/createOrder`;
   const menus = document.querySelector('.menus');
   const cart = document.querySelector('.cart');
+  
+  function checkout(list){
 
+    localStorage.removeItem('cart');
 
-  function fetchMenuByCategories(){
-    fetch(getMenuByCategoriesUrl)
+    fetch(checkoutUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(list),
+    })
+      .then(res => JSON.stringify(res))
+      .then(data => console.log(data))
+  }
+
+  function cartRefreshing(){
+    const cartItem = document.createElement('div');
+    const priceTotal = document.createElement('h3');
+    const cartHeading = document.createElement('h2');
+    const checkoutButton = document.createElement('button');
+    const clearButton = document.createElement('button');
+    cart.innerText = "";
+    
+    const list = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : "";
+
+    cartHeading.innerText = '購物車';
+    cartItem.classList.add('cartItem');
+    cartItem.innerText = JSON.stringify(list, null, 4);
+    checkoutButton.innerText = 'Checkout';
+    clearButton.innerText = 'Clear All';
+
+    priceTotal.innerText = `Total: ${list.reduce((acc, i) => {
+      return acc += i.amount;
+    }, 0)}`
+
+    cart.appendChild(cartHeading);
+    cart.appendChild(priceTotal);
+    cart.appendChild(cartItem);
+    cart.appendChild(checkoutButton);
+    cart.appendChild(clearButton);
+
+    checkoutButton.addEventListener('click', (e) => {
+      checkout(list);
+    });
+
+    clearButton.addEventListener('click', () => {
+      localStorage.removeItem('cart');
+      location.reload();
+    })
+  }
+  function fetchMenuByCategories(){  
+    fetch(fetchMenuByCategoriesUrl)
       .then(res => res.json())
       .then(data => {
 
@@ -35,16 +83,69 @@
           menus.appendChild(menuCategory); 
 
           cate.data.forEach((menu) => {
-            const menuContent= document.createElement('div');
+            const menuContent = document.createElement('div');
             menuContent.classList.add('menu');
             menuContent.innerText = JSON.stringify(menu, null, 2);
             menus.appendChild(menuContent);
+            
+            const orderQty = document.createElement('input');
+            orderQty.classList.add('orderQty');
+            orderQty.type = 'number';
+            orderQty.min = '0';
+            orderQty.max = '100';
+            menuContent.appendChild(orderQty);
+
+            const orderButton = document.createElement('button');
+            orderButton.classList.add('orderButton');
+            orderButton.innerText = 'Order';
+            orderButton.id = menu._id;
+            menuContent.appendChild(orderButton);
+
+            const orderAmount = document.createElement('h2');
+            orderAmount.classList.add('orderAmount');
+            menuContent.appendChild(orderAmount);
+
+            orderQty.addEventListener('input', (i) => {
+              if(i.target.value == 0){
+                orderAmount.innerText = "";
+              } else {
+                orderAmount.innerText = (i.target.value * menu.price);
+              }         
+            })
+
+            orderButton.addEventListener('click', (i) => {
+                if(i.target.parentElement.querySelector('.orderQty').value){
+                const id = i.target.id;
+                const qty = i.target.parentElement.querySelector('.orderQty').value;
+                const price = (Number(i.target.parentElement.querySelector('.orderAmount').innerText)/qty);
+                const amount = Number(i.target.parentElement.querySelector('.orderAmount').innerText);
+
+                const list = {
+                  item_ID: id,
+                  qty,
+                  price,
+                  amount,
+                }
+
+                let storage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+                storage.push(list);
+                localStorage.setItem('cart', JSON.stringify(storage));
+
+                alert(`已加入購物車`);
+                cartRefreshing();
+                i.target.parentElement.querySelector('.orderQty').value = "";
+                i.target.parentElement.querySelector('.orderAmount').innerText = "";
+              }
+              
+            })
+             
           })
         })
       })
   }
 
   fetchMenuByCategories();
+  cartRefreshing();
 
   
 </script>

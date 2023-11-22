@@ -14,8 +14,8 @@
     </div>
 
 <script>
-  const fetchMenuByCategoriesUrl = `/api/admin/fetchMenuByCategories`;
-  const checkoutUrl = `/api/admin/createOrder`;
+  const fetchMenuByCategoriesUrl = `/api/1.0/admin/fetchMenuByCategories`;
+  const checkoutUrl = `/api/1.0/admin/createOrder`;
   const menus = document.querySelector('.menus');
   const cart = document.querySelector('.cart');
   
@@ -30,8 +30,11 @@
       },
       body: JSON.stringify(list),
     })
-      .then(res => JSON.stringify(res))
-      .then(data => console.log(data))
+      .then(res => res.json())
+      .then(data => {
+        JSON.stringify(data);
+        alert(`訂單 ${data} 已建立`);
+      })
   }
 
   function cartRefreshing(){

@@ -9,12 +9,10 @@ export async function createOrder(req, res) {
   };
 
   const orderResult = await order.create(orderList);
-  console.log(orderResult);
-  res.send('hi');
+  res.send(orderResult._id);
 }
 
 export async function fetchOrder(req, res) {
   const orderList = await order.find();
-  console.log(orderList);
   res.json(orderList);
 }

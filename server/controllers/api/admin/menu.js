@@ -4,13 +4,18 @@ import imgUpload from '../../../utils/s3Bucket.js';
 export async function createMenuCategory(req, res) {
   const { category } = req.body;
   await menuSetup.create({ category });
-  res.send('ok');
+  res.redirect('/admin/menuSetup');
 }
 
-export async function createMenuContent(req, res) {
+export async function createMenuContents(req, res) {
   const data = await imgUpload(req);
   await menu.create(data);
   res.send('ok');
+}
+
+export async function fetchMenuCategories(req, res) {
+  const data = await menuSetup.find();
+  res.json(data);
 }
 
 export async function deleteMenuCategory(req, res) {

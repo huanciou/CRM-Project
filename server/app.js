@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', apiRouter);
+app.use('/api/1.0', apiRouter);
 app.use('/profile', profileRouter);
 app.use('/admin', adminRouter);
 

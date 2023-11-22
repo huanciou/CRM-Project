@@ -6,12 +6,12 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="/api/admin/createMenuCategory" method="POST">
+  <form action="/api/1.0/admin/createMenuCategory" method="POST">
     <input type="text" placeholder="category" name="category">
     <button>submit</button>
   </form>
 
-  <form action="/api/admin/createMenuContent" method="POST" enctype="multipart/form-data">
+  <form action="/api/1.0/admin/createMenuContents" method="POST" enctype="multipart/form-data">
     <select name="category">
       <% for(let i = 0; i < categories.length; i++){ %>
       <option value="<%= categories[i] %>"><%= categories[i] %></option>
@@ -31,11 +31,11 @@
   <script>
     const menuCategories = document.querySelector('.menuCategories');
     const menus = document.querySelector('.menus');
-    const getMenuCategoryUrl = `/admin/menuEdition`;
+    const fetchMenuCategoryUrl = `/api/1.0/admin/fetchMenuCategories`;
     const getMenuUrl = `/admin/menu`;
-    const createMenuContentUrl = `/api/admin/createMenuContent`;
-    const deleteMenuCategoryUrl = `/api/admin/deleteMeunCategory`;
-    const deleteMenuContentUrl = `/api/admin/deleteMeunContent`;
+    const createMenuContentUrl = `/api/1.0/admin/createMenuContents`;
+    const deleteMenuCategoryUrl = `/api/1.0/admin/deleteMeunCategory`;
+    const deleteMenuContentUrl = `/api/1.0/admin/deleteMeunContent`;
     
     function deleteMenuCategory(i){
       const category = i.category;
@@ -50,6 +50,7 @@
         .then((data) => {
           if(data){
             alert(`category: ${category} deletion`);
+            location.reload();
           } else{
             alert(`Deletion Failed`);
           }       
@@ -69,6 +70,7 @@
         .then((data) => {
           if(data){
             alert(`category: ${meal} deletion`);
+            location.reload();
           } else{
             alert(`Deletion Failed`);
           }
@@ -76,7 +78,7 @@
     }
 
     function fetchMenuCategory(){
-      fetch(getMenuCategoryUrl)
+      fetch(fetchMenuCategoryUrl)
         .then((res) => res.json())
         .then((data) => {
           data.forEach(i => {

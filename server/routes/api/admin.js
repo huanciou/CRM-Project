@@ -7,14 +7,14 @@ import {
 
 import {
   createMenuCategory,
-  createMenuContent,
+  createMenuContents,
   deleteMenuCategory,
   deleteMenuContent,
   fetchMenuByCategories,
+  fetchMenuCategories,
 } from '../../controllers/api/admin/menu.js';
 
 import { createOrder, fetchOrder } from '../../controllers/api/admin/order.js';
-// import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
 
 const router = Router();
@@ -27,7 +27,11 @@ router.route('/auth').post(postAuth);
 
 router.route('/admin/createMenuCategory').post(createMenuCategory);
 
-router.route('/admin/createMenuContent').post(fieldsUpload, createMenuContent);
+router
+  .route('/admin/createMenuContents')
+  .post(fieldsUpload, createMenuContents);
+
+router.route('/admin/fetchMenuCategories').get(fetchMenuCategories);
 
 router.route('/admin/deleteMeunCategory').post(deleteMenuCategory);
 
@@ -38,7 +42,5 @@ router.route('/admin/fetchMenuByCategories').get(fetchMenuByCategories);
 router.route('/admin/fetchOrder').get(fetchOrder);
 
 router.route('/admin/createOrder').post(createOrder);
-
-router.route('/admin/checkout').post();
 
 export default router;

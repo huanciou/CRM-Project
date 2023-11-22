@@ -10,11 +10,6 @@ export async function getMenuSetup(req, res) {
   return res.render('admin/menu');
 }
 
-export async function getMenuEdition(req, res) {
-  const data = await menuSetup.find();
-  res.json(data);
-}
-
 export async function getMenu(req, res) {
   const data = await menu.find();
   res.json(data);

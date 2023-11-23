@@ -4,7 +4,7 @@ import {
   getCoupon,
   getInfo,
   getVip,
-} from '../controllers/profiles.js';
+} from '../controllers/user/profiles.js';
 
 const router = Router();
 

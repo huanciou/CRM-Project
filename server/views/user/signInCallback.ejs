@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+  const query = window.location.search;
+  const lineLogin = `https://api.line.me/oauth2/v2.1/token`;
+  const backend = `http://localhost:3000/user/loginAuth`;
+
+  const params = new URLSearchParams(query);
+  const code_verifier = params.get('state');
+  const code = params.get('code');
+
+  const body = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: 'http://localhost:3000/user/signInCallback',
+    client_id: '2001826171',
+    client_secret: 'cdc336f2aa07bb13d420cd48daf271cb',
+    code_verifier,  
+  }).toString();
+  
+
+  function postToServer(data){
+    fetch(backend, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      // .then(res => res.json())
+      // .then(data => {
+      //   console.log(JSON.stringify(data));
+      // })
+  }
+
+  function getToken(body){
+    fetch(lineLogin, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body,
+  })
+    .then(res => res.json())
+    .then(data => {
+      postToServer(data);
+    })
+  }
+
+  getToken(body);
+
+  
+</script>  
+</body>
+</html>

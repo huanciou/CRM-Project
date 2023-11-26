@@ -17,6 +17,8 @@
         "import/extensions": ["error", "ignorePackages", {
             "js": "always",
             "jsx": "always"
-        }]
+        }],
+        "camelcase": "off",
+        "no-shadow":"off"
     }
 }

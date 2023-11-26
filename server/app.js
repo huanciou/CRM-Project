@@ -1,10 +1,10 @@
 import express from 'express';
 import './config/dotenv.js';
 import './config/db.js';
-import profileRouter from './routes/profile.js';
+import profileRouter from './routes/user.js';
 import adminRouter from './routes/admin.js';
 import apiRouter from './routes/api/admin.js';
-import lineBotRouter from './routes/line.js';
+import lineRouter from './routes/line.js';
 
 import './models/menuSchema.js';
 import './models/orderSchema.js';
@@ -19,12 +19,12 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use('/line', lineRouter); // Need to set middleware before bodyParser
 app.use(express.json());
 
 app.use('/api/1.0', apiRouter);
-app.use('/profile', profileRouter);
+app.use('/user', profileRouter);
 app.use('/admin', adminRouter);
-app.use('/lineBot', lineBotRouter);
 
 app.get('/', (req, res) => {
   res.send('homepage');

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<button id="lineLogin">Line Login</button>
+
+<script>
+  
+  const lineLogin = document.querySelector('#lineLogin');
+
+  function login(){
+
+    let lineLoginUrl = `https://access.line.me/oauth2/v2.1/authorize?`;
+
+    lineLoginUrl += `response_type=code&`;
+    lineLoginUrl += `client_id=2001826171&`;
+    lineLoginUrl += `redirect_uri=http://localhost:3000/user/signInCallback&`;
+    lineLoginUrl += `state=123456789&`; // 防跨站請求
+    lineLoginUrl += `scope=profile%20openid%20email&`; 
+    lineLoginUrl += `ui_locales=zh-TW&`;
+    lineLoginUrl += `bot_prompt=normal`;
+
+    window.open(lineLoginUrl, '_self');
+    };
+
+    lineLogin.addEventListener('click', ()=> {
+      login();
+    });
+ 
+
+</script>
+</body>
+</html>

@@ -62,10 +62,14 @@ export function getCoupon(req, res) {
   res.send('2');
 }
 
+export function getVip(req, res) {
+  res.send('4');
+}
+
 export function getInfo(req, res) {
   res.send('3');
 }
 
-export function getVip(req, res) {
-  res.send('4');
+export function getCard(req, res) {
+  res.send('5');
 }

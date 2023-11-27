@@ -19,12 +19,13 @@
 
     lineLoginUrl += `response_type=code&`;
     lineLoginUrl += `client_id=2001826171&`;
-    lineLoginUrl += `redirect_uri=http://localhost:3000/user/signInCallback&`;
+    lineLoginUrl += `redirect_uri=https://fake-shop.store/user/signInCallback&`;
     lineLoginUrl += `state=123456789&`; // 防跨站請求
     lineLoginUrl += `scope=profile%20openid%20email&`; 
     lineLoginUrl += `ui_locales=zh-TW&`;
     lineLoginUrl += `bot_prompt=normal`;
 
+    alert(lineLoginUrl);
     window.open(lineLoginUrl, '_self');
     };
 

@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-app.use('/line', lineRouter); // Need to set middleware before bodyParser
+app.use('/line', lineRouter); // Need to set tihs middleware before bodyParser
 app.use(express.json());
 
 app.use('/api/1.0', apiRouter);

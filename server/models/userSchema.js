@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  history: [
+    {
+      id: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   est_Time: {
     type: Date,
   },

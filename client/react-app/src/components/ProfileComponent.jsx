@@ -54,8 +54,10 @@ const ProfileComponent = () => {
         {profile.picture && <img src={profile.picture} alt="Profile" />}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || 'Morty C-132'}</div>
-        <div className="profile-status">{profile.email || 'EMAIL'}</div>
+        <div className="profile-name">{profile.name || ''}</div>
+        <div className="profile-status">
+          {profile.email || '你沒有提供信箱'}
+        </div>
       </div>
       <div className="profile-actions">
         <Link to="/user/profile/info">

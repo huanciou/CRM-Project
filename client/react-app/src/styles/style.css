@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 380px;
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: #ffffff;
@@ -80,11 +80,16 @@
 .profile-component .profile-contents {
   height: 300px;
   border: 2px solid #d3d3d3;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
   .profile-component {
-    width: 300px;
+    width: 600px;
   }
 }
 .switch-component {
@@ -130,4 +135,79 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 10;
+}
+
+.card-component .navigation {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #d3d3d3;
+}
+.card-component .info-button,
+.card-component .card-button {
+  border: none;
+  background-color: #5c6bc0;
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.card-component .info-button:hover,
+.card-component .card-button:hover {
+  background-color: #4150a8;
+}
+.card-component .card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin: 10px;
+  position: relative;
+}
+.card-component .card-container .arrow {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #5c6bc0;
+}
+.card-component .card-container .arrow:hover {
+  color: #4150a8;
+}
+.card-component .card-container .arrow.left-arrow {
+  left: 10px;
+}
+.card-component .card-container .arrow.right-arrow {
+  right: 10px;
+}
+.card-component .card-container .card {
+  flex-grow: 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: 280px;
+  width: 340px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+}
+.card-component .card-container .empty {
+  text-align: center;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .card-component .card-container .card {
+    flex-grow: 1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 280px;
+    width: 540px;
+  }
 }/*# sourceMappingURL=style.css.map */

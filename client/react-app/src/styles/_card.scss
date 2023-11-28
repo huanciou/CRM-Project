@@ -1,0 +1,89 @@
+.card-component {
+  .navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #d3d3d3;
+  }
+
+  .info-button,
+  .card-button {
+    border: none;
+    background-color: #5c6bc0;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(#5c6bc0, 10%);
+    }
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; // 调整卡片区域高度
+    margin: 10px;
+    position: relative;
+
+    .arrow {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #5c6bc0;
+
+      &:hover {
+        color: darken(#5c6bc0, 10%);
+      }
+
+      &.left-arrow {
+        left: 10px;
+      }
+
+      &.right-arrow {
+        right: 10px;
+      }
+    }
+
+    .card {
+      flex-grow: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      height: 280px;
+      width: 340px;
+      transition: opacity 0.5s ease, transform 0.5s ease; // 添加过渡效果
+      opacity: 1; // 初始透明度
+    }
+
+    .empty {
+      text-align: center;
+      padding: 20px;
+    }
+  }
+}
+
+// 可以根据需要添加媒体查询，对移动端和不同屏幕尺寸进行优化
+@media (min-width: 768px) {
+  .card-component {
+    .card-container {
+      .card {
+        flex-grow: 1;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        height: 280px;
+        width: 540px;
+      }
+    }
+  }
+}

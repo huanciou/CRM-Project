@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px; // 固定寬度
+  width: 380px; // 固定寬度
   margin: 0 auto; // 置中
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 輕微陰影效果增加深度感
   background: #ffffff; // 白色背景
@@ -83,12 +83,17 @@
   .profile-contents {
     height: 300px;
     border: 2px solid #d3d3d3; // 隔線
+    padding: 10px; // 添加内边距
+    box-sizing: border-box; // 确保内边距不会影响到元素的总体尺寸
+    display: flex; // 使用flex布局使子元素居中
+    justify-content: center; // 水平居中
+    align-items: center; // 垂直居中
   }
 }
 
 // 媒體查詢，對較大屏幕進行樣式調整
 @media (min-width: 768px) {
   .profile-component {
-    width: 300px; // 可根據需要調整
+    width: 600px; // 可根據需要調整
   }
 }

@@ -54,7 +54,7 @@ const ProfileComponent = () => {
         {profile.picture && <img src={profile.picture} alt="Profile" />}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || ''}</div>
+        <div className="profile-name">{profile.name || 'Huan'}</div>
         <div className="profile-status">
           {profile.email || '你沒有提供信箱'}
         </div>

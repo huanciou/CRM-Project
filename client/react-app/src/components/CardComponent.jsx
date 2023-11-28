@@ -87,7 +87,7 @@ const CardComponent = () => {
         {profile.picture && <img src={profile.picture} alt="Profile" />}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || ''}</div>
+        <div className="profile-name">{profile.name || 'Huan'}</div>
         <div className="profile-status">
           {profile.email || '你沒有提供信箱'}
         </div>
@@ -119,7 +119,7 @@ const CardComponent = () => {
               </button>
             </div>
           ) : (
-            <div className="card-container empty">你还没有会员卡哟</div>
+            <div className="card-container empty">你還沒有會員卡哦！</div>
           )}
         </div>
       </div>

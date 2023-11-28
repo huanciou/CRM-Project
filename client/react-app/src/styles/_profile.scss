@@ -1,14 +1,19 @@
+body {
+  background-image: url('https://d3nexs9enmvorf.cloudfront.net/output.webp');
+  background-size: cover; /* 或 'contain' */
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 .profile-component {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 380px; // 固定寬度
   margin: 0 auto; // 置中
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 輕微陰影效果增加深度感
-  background: #ffffff; // 白色背景
-  border-radius: 30px; // 圓角邊框
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(15, 24, 30, 0.7);
+  border-radius: 10px; // 圓角邊框
   overflow: hidden; // 防止子元素溢出圓角邊框
-  font-family: 'Comic Sans MS', 'Arial', sans-serif; // 卡通風格字體
 
   .business-name,
   .profile-picture,
@@ -18,27 +23,31 @@
     width: calc(100% - 20px); // 考慮到邊框的寬度
     margin: 10px;
     margin-bottom: 10px;
-    border-radius: 10px; // 圓角邊框
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // 輕微陰影效果增加深度感
-    border: 2px solid #d3d3d3; // 柔和顏色的邊框
+    border-radius: 20px; // 圓角邊框
+    box-shadow: 10 2px 4px rgba(0, 0, 0, 0.05); // 輕微陰影效果增加深度感
+    border: 2px none #d3d3d3; // 柔和顏色的邊框
   }
 
   .business-name {
-    padding: 10px;
+    padding: 4px;
+    font-size: 20px;
     text-align: center;
-    background-color: #f0f0f0; // 背景顏色
+    background: rgba(233, 229, 229, 0.2);
+    color: white;
+    border-bottom: 10px groove #d3d3d3; // 隔線
+    border-radius: 10px;
   }
 
   .profile-picture {
     display: flex;
-    height: 140px;
-    width: 140px;
-    background-color: #ccc;
+    height: 160px;
+    width: 160px;
+    // background-color: #ccc;
     border-radius: 50%;
     margin-top: -20px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     align-self: center; // 將頭像置中
-    border: 4px solid #e58282; // 頭像邊框
+    border: 10px inset rgb(121, 135, 178); // 頭像邊框
 
     img {
       width: 100%;
@@ -52,26 +61,33 @@
     .profile-name,
     .profile-status {
       padding: 10px;
+      font-size: large;
+      font-weight: 400;
       text-align: center;
-      border-bottom: 2px solid #d3d3d3; // 隔線
+      border-radius: 0px;
+      margin: -6px;
+      // border-bottom: 10px groove #d3d3d3; // 隔線
+      color: #f2f2f2;
+      // background: rgba(233, 229, 229, 0.4);
     }
-    .profile-status {
-      border-bottom: none; // 移除最底部的隔線
-    }
+    // .profile-status {
+    //   border-bottom: none; // 移除最底部的隔線
+    // }
   }
 
   .profile-actions {
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    border-top: 2px solid #d3d3d3; // 隔線
+    margin-top: -10px;
+    margin-bottom: 0px;
 
     button {
-      padding: 10px 40px;
-      border: none;
+      padding: 10px 64px;
       background-color: #5c6bc0;
+      border: none;
       color: white;
-      border-radius: 4px;
+      border-radius: 4%;
       cursor: pointer;
 
       &:hover {
@@ -81,13 +97,16 @@
   }
 
   .profile-contents {
+    background: rgba(233, 229, 229, 0.2);
     height: 300px;
-    border: 2px solid #d3d3d3; // 隔線
+    // border: 14px groove #d3d3d3;
     padding: 10px; // 添加内边距
     box-sizing: border-box; // 确保内边距不会影响到元素的总体尺寸
     display: flex; // 使用flex布局使子元素居中
     justify-content: center; // 水平居中
     align-items: center; // 垂直居中
+    border-bottom: 10px groove #d3d3d3; // 隔線
+    border-radius: 10px;
   }
 }
 
@@ -95,5 +114,19 @@
 @media (min-width: 768px) {
   .profile-component {
     width: 600px; // 可根據需要調整
+    .profile-actions {
+      button {
+        padding: 10px 100px;
+        background-color: #5c6bc0;
+        border: none;
+        color: white;
+        border-radius: 4%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#5c6bc0, 10%);
+        }
+      }
+    }
   }
 }

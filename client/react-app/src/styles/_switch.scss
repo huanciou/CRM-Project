@@ -1,0 +1,49 @@
+.switch-component {
+  position: relative;
+  cursor: pointer; // 使整个组件都可以点击
+  width: 48px;
+  height: 12px;
+  margin: 10px; // 添加一点间距
+  margin-left: 80%;
+
+  .switch-button {
+    width: 100%;
+    height: 100%;
+    background: #fff; // 默认为白色背景
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: background-color 0.3s;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 0px; // 初始位置
+      width: 16px;
+      height: 12px;
+      background: green; // 滑块的背景色
+      border-radius: 40%;
+      transition: left 0.3s; // 仅位置变化的过渡效果
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &.dark:before {
+      left: 32px; // 滑块移动到开关的另一侧
+    }
+
+    &.dark {
+      background: #222; // 暗模式下开关的背景色
+    }
+  }
+
+  .dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); // 黑色半透明遮罩层
+    z-index: 10;
+  }
+}

@@ -25,22 +25,20 @@ router.route('/setup').post(postSetup);
 
 router.route('/auth').post(postAuth);
 
-router.route('/admin/createMenuCategory').post(createMenuCategory);
+router.route('/createMenuCategory').post(createMenuCategory);
 
-router
-  .route('/admin/createMenuContents')
-  .post(fieldsUpload, createMenuContents);
+router.route('/createMenuContents').post(fieldsUpload, createMenuContents);
 
-router.route('/admin/fetchMenuCategories').get(fetchMenuCategories);
+router.route('/fetchMenuCategories').get(fetchMenuCategories);
 
-router.route('/admin/deleteMeunCategory').post(deleteMenuCategory);
+router.route('/deleteMeunCategory').post(deleteMenuCategory);
 
-router.route('/admin/deleteMeunContent').post(deleteMenuContent);
+router.route('/deleteMeunContent').post(deleteMenuContent);
 
-router.route('/admin/fetchMenuByCategories').get(fetchMenuByCategories);
+router.route('/fetchMenuByCategories').get(fetchMenuByCategories);
 
-router.route('/admin/fetchOrder').get(fetchOrder);
+router.route('/fetchOrder').get(fetchOrder);
 
-router.route('/admin/createOrder').post(createOrder);
+router.route('/createOrder').post(createOrder);
 
 export default router;

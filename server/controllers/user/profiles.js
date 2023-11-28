@@ -1,5 +1,7 @@
 import axios from 'axios';
+import path from 'path';
 import user from '../../models/userSchema.js';
+import signJWT from '../../utils/signJWT.js';
 
 export function getSignIn(req, res) {
   res.render('user/signIn');
@@ -21,23 +23,31 @@ export async function loginAuth(req, res) {
       { upsert: true, new: true },
     );
     if (userProfile) {
-      console.log(userProfile);
+      const payload = {
+        id: userProfile.sub,
+        name: userProfile.name,
+        picture: userProfile.picture,
+        history: userProfile.history,
+      };
+      const jwtToken = await signJWT(payload);
+      return jwtToken;
     }
+    return null;
   }
 
-  function getUserInfo(id_token, client_id) {
+  async function getUserInfo(id_token, client_id) {
     const params = new URLSearchParams({ id_token, client_id });
     const config = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     };
-    axios.post(verify, params, config).then((response) => {
+    return axios.post(verify, params, config).then((response) => {
       const profile = {
         ...response.data,
         provider: 'Line',
       };
-      checkUserProfile(profile);
+      return checkUserProfile(profile);
     });
   }
 
@@ -47,11 +57,15 @@ export async function loginAuth(req, res) {
         access_token,
       },
     })
-    .then((respond) => {
-      getUserInfo(id_token, respond.data.client_id);
+    .then((respond) => getUserInfo(id_token, respond.data.client_id))
+    .then((jwtToken) => {
+      res.json(jwtToken);
     });
+}
 
-  res.send('ok');
+export function getReactRoute(req, res) {
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }
 
 export function getCredit(req, res) {
@@ -72,4 +86,8 @@ export function getInfo(req, res) {
 
 export function getCard(req, res) {
   res.send('5');
+}
+
+export function getProfile(req, res) {
+  res.send('hi');
 }

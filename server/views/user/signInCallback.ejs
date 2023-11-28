@@ -11,7 +11,8 @@
 
   const query = window.location.search;
   const lineLogin = `https://api.line.me/oauth2/v2.1/token`;
-  const backend = `http://localhost:3000/user/loginAuth`;
+  const backend = `${window.location.origin}/user/loginAuth`;
+  const endpoint = `${window.location.origin}/user/profile/info`;
 
   const params = new URLSearchParams(query);
   const code_verifier = params.get('state');
@@ -20,12 +21,11 @@
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
     code,
-    redirect_uri: 'http://localhost:3000/user/signInCallback',
+    redirect_uri: `${window.location.origin}/user/signInCallback`,
     client_id: '2001826171',
     client_secret: 'cdc336f2aa07bb13d420cd48daf271cb',
     code_verifier,  
   }).toString();
-  
 
   function postToServer(data){
     fetch(backend, {
@@ -35,10 +35,14 @@
       },
       body: JSON.stringify(data),
     })
-      // .then(res => res.json())
-      // .then(data => {
-      //   console.log(JSON.stringify(data));
-      // })
+      .then(res => res.json())
+      .then(data => {
+        const date = new Date();
+        date.setTime(date.getTime() + (3600 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = `jwtToken=${data}; ${expires}; path=/`;
+        window.location.href = endpoint;
+      })
   }
 
   function getToken(body){

@@ -1,5 +1,6 @@
 import line from '@line/bot-sdk';
 
+const { LOCATION_ORIGIN } = process.env;
 const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: process.env.LINE_MESSAGE_CHANNEL_ACCESS_TOKEN,
 });
@@ -115,7 +116,7 @@ function handleEvent(event) {
             action: {
               type: 'uri',
               label: 'CARD',
-              uri: 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=https://fake-shop.store/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal',
+              uri: `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=${LOCATION_ORIGIN}/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal`,
             },
           },
           {
@@ -125,7 +126,7 @@ function handleEvent(event) {
             action: {
               type: 'uri',
               label: 'WEBSITE',
-              uri: 'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=https://fake-shop.store/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal',
+              uri: `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=${LOCATION_ORIGIN}/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal`,
             },
           },
           {
@@ -151,7 +152,7 @@ function handleEvent(event) {
     });
   }
 
-  const echo = { type: 'text', text: event.message.text };
+  const echo = { type: 'text', text: 'handsome lai' };
 
   return client.replyMessage({
     replyToken: event.replyToken,

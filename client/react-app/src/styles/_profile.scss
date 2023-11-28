@@ -1,0 +1,85 @@
+.profile-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; // 固定寬度
+  margin: 0 auto; // 置中
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 輕微陰影效果增加深度感
+  background: #ffffff; // 白色背景
+  border-radius: 10px; // 圓角邊框
+  overflow: hidden; // 防止子元素溢出圓角邊框
+
+  .business-name,
+  .profile-picture,
+  .profile-info,
+  .profile-actions,
+  .profile-contents {
+    width: calc(100% - 20px); // 考慮到邊框的寬度
+    margin: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px; // 圓角邊框
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // 輕微陰影效果增加深度感
+    border: 2px solid #d3d3d3; // 柔和顏色的邊框
+  }
+
+  .business-name {
+    padding: 10px;
+    text-align: center;
+    background-color: #f0f0f0; // 背景顏色
+  }
+
+  .profile-picture {
+    height: 140px;
+    width: 140px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    align-self: center; // 將頭像置中
+    border: 4px solid #d3d3d3; // 頭像邊框
+  }
+
+  .profile-info {
+    .profile-name,
+    .profile-status {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 2px solid #d3d3d3; // 隔線
+    }
+    .profile-status {
+      border-bottom: none; // 移除最底部的隔線
+    }
+  }
+
+  .profile-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-top: 2px solid #d3d3d3; // 隔線
+
+    button {
+      padding: 10px 40px;
+      border: none;
+      background-color: #5c6bc0;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#5c6bc0, 10%);
+      }
+    }
+  }
+
+  .profile-contents {
+    height: 300px;
+    border: 2px solid #d3d3d3; // 隔線
+  }
+}
+
+// 媒體查詢，對較大屏幕進行樣式調整
+@media (min-width: 768px) {
+  .profile-component {
+    width: 300px; // 可根據需要調整
+  }
+}

@@ -6,8 +6,9 @@
   margin: 0 auto; // 置中
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 輕微陰影效果增加深度感
   background: #ffffff; // 白色背景
-  border-radius: 10px; // 圓角邊框
+  border-radius: 30px; // 圓角邊框
   overflow: hidden; // 防止子元素溢出圓角邊框
+  font-family: 'Comic Sans MS', 'Arial', sans-serif; // 卡通風格字體
 
   .business-name,
   .profile-picture,
@@ -29,6 +30,7 @@
   }
 
   .profile-picture {
+    display: flex;
     height: 140px;
     width: 140px;
     background-color: #ccc;
@@ -36,7 +38,14 @@
     margin-top: -20px;
     margin-bottom: 10px;
     align-self: center; // 將頭像置中
-    border: 4px solid #d3d3d3; // 頭像邊框
+    border: 4px solid #e58282; // 頭像邊框
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
 
   .profile-info {

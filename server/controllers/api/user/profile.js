@@ -1,7 +1,7 @@
 export function fetchProfile(req, res) {
   console.log(req.user);
   const profile = req.user;
-  res.send('hi');
+  res.json(profile);
 }
 
 export function fetchInfo() {}

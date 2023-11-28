@@ -31,6 +31,14 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  related: [
+    {
+      name: {
+        type: String,
+        unique: true,
+      },
+    },
+  ],
   est_Time: {
     type: Date,
   },

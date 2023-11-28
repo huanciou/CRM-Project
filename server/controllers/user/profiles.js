@@ -23,11 +23,14 @@ export async function loginAuth(req, res) {
       { upsert: true, new: true },
     );
     if (userProfile) {
+      console.log(userProfile);
       const payload = {
         id: userProfile.sub,
         name: userProfile.name,
         picture: userProfile.picture,
         history: userProfile.history,
+        email: userProfile.email,
+        related: userProfile.related,
       };
       const jwtToken = await signJWT(payload);
       return jwtToken;

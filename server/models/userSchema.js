@@ -20,8 +20,6 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
   },
   history: [
     {
@@ -35,7 +33,6 @@ const userSchema = new mongoose.Schema({
     {
       name: {
         type: String,
-        unique: true,
       },
     },
   ],

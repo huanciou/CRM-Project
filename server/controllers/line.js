@@ -152,7 +152,7 @@ function handleEvent(event) {
     });
   }
 
-  const echo = { type: 'text', text: 'handsome lai' };
+  const echo = { type: 'text', text: '請不要自言自語哦～' };
 
   return client.replyMessage({
     replyToken: event.replyToken,

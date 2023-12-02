@@ -1,0 +1,113 @@
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #333;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #0062cc;
+}
+
+input[type=text],
+input[type=number],
+select,
+input[type=file] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.menuCategories {
+  padding: 20px;
+}
+.menuCategories .categoryBox {
+  display: inline-block;
+  background-color: #f8f8f8;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.menuCategories .categoryBox .menuCategory {
+  background-color: #6c757d;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.menuCategories .categoryBox button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.menu .menuCategory {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.menu .menuName {
+  font-size: 1.2em;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+.menu .menuPrice {
+  font-weight: bold;
+  color: #6c757d;
+}
+.menu .menuStory {
+  font-style: italic;
+  margin: 10px 0;
+}
+.menu .menuImg {
+  max-width: 20%;
+  height: auto;
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto;
+}
+.menu button {
+  padding: 10px 520px;
+  background-color: red;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  .menu {
+    padding: 10px;
+  }
+  .menu button {
+    padding: 10px 20px;
+    background-color: red;
+  }
+  .menuImg {
+    max-width: 100%;
+  }
+}/*# sourceMappingURL=menuSetup.css.map */

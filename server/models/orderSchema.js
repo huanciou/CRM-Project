@@ -19,6 +19,9 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      amount: {
+        type: Number,
+      },
     },
   ],
   requests: {
@@ -28,12 +31,31 @@ const orderSchema = new mongoose.Schema({
   order_Time: {
     type: Date,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    select: false,
+  },
 });
 
 orderSchema.pre('save', function (next) {
   if (!this.order_Time) {
     this.order_Time = this._id.getTimestamp();
   }
+  next();
+});
+
+orderSchema.pre('save', function (next) {
+  this.order_Items.forEach((item) => {
+    if (!item.amount) {
+      item.amount = item.price * item.qty;
+    }
+  });
+  next();
+});
+
+orderSchema.pre('find', function (next) {
+  this.where({ isDeleted: false });
   next();
 });
 

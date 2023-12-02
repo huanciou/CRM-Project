@@ -14,7 +14,11 @@ import {
   fetchMenuCategories,
 } from '../../controllers/api/admin/menu.js';
 
-import { createOrder, fetchOrder } from '../../controllers/api/admin/order.js';
+import {
+  createOrder,
+  fetchOrder,
+  deleteOrder,
+} from '../../controllers/api/admin/order.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
 
 const router = Router();
@@ -40,5 +44,7 @@ router.route('/fetchMenuByCategories').get(fetchMenuByCategories);
 router.route('/fetchOrder').get(fetchOrder);
 
 router.route('/createOrder').post(createOrder);
+
+router.route('/deleteOrder').post(deleteOrder);
 
 export default router;

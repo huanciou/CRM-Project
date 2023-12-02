@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/styles/menuSetup.css">
 </head>
 <body>
+  <h1>新增種類</h1>
   <form action="/api/1.0/admin/createMenuCategory" method="POST">
     <input type="text" placeholder="category" name="category">
     <button>submit</button>
   </form>
 
+  <h1>新增餐點</h1>
   <form action="/api/1.0/admin/createMenuContents" method="POST" enctype="multipart/form-data">
     <select name="category">
       <% for(let i = 0; i < categories.length; i++){ %>
@@ -25,8 +28,11 @@
     <button>submit</button>
   </form>
 
+  <h1>種類標籤</h1>
   <div class="menuCategories"></div>
-  <div class="menus"></div>
+  <h1>菜單一覽</h1>
+  <div class="menus">
+  </div>
 
   <script>
     const menuCategories = document.querySelector('.menuCategories');
@@ -36,6 +42,7 @@
     const createMenuContentUrl = `/api/1.0/admin/createMenuContents`;
     const deleteMenuCategoryUrl = `/api/1.0/admin/deleteMeunCategory`;
     const deleteMenuContentUrl = `/api/1.0/admin/deleteMeunContent`;
+    const cdn = `https://d3nexs9enmvorf.cloudfront.net`;
     
     function deleteMenuCategory(i){
       const category = i.category;
@@ -83,14 +90,18 @@
         .then((data) => {
           data.forEach(i => {
             const menuCategory = document.createElement('span');
+            const categoryBox = document.createElement('div');
+            categoryBox.classList.add('categoryBox');
             menuCategory.classList.add('menuCategory');
             menuCategory.innerText = i.category;
-            menuCategories.appendChild(menuCategory);
+            categoryBox.appendChild(menuCategory);
 
             const deleteMenuCategoryButton = document.createElement('button');
             deleteMenuCategoryButton.innerText = 'Delete';
             deleteMenuCategoryButton.id = i._id;
-            menuCategories.appendChild(deleteMenuCategoryButton);
+            categoryBox.appendChild(deleteMenuCategoryButton);
+
+            menuCategories.appendChild(categoryBox);
 
             deleteMenuCategoryButton.addEventListener('click', () => {
               deleteMenuCategory(i);
@@ -105,18 +116,37 @@
         .then((res) => res.json())
         .then((data) => {
           data.forEach(i => {
-            console.log();
             const menu = document.createElement('div');
             menu.classList.add('menu');
+            const menuCategory = document.createElement('p');
+            menuCategory.classList.add('menuCategory');
+            const menuName = document.createElement('p')
+            menuName.classList.add('menuName');
+            const menuPrice = document.createElement('p')
+            menuPrice.classList.add('menuPrice');
+            const menuStory = document.createElement('p')
+            menuStory.classList.add('menuStory');
+            const menuImg = document.createElement('img')
+            menuImg.classList.add('menuImg');
+
             menu.id = i._id;
-            const content = JSON.stringify(i);
-            menu.innerText = content;
+            menuCategory.innerText = i.category;
+            menuName.innerText = i.name;
+            menuPrice.innerText = i.price;
+            menuStory.innerText = i.story;
+            menuImg.src = `${cdn}/${i.main_image}`;
+
+            menu.appendChild(menuCategory)
+            menu.appendChild(menuName)
+            menu.appendChild(menuPrice)
+            menu.appendChild(menuStory)
+            menu.appendChild(menuImg)
             menus.appendChild(menu);
 
             const deleteMenuButton = document.createElement('button');
             deleteMenuButton.innerText = 'Delete';
             deleteMenuButton.id = i._id;
-            menus.appendChild(deleteMenuButton);
+            menu.appendChild(deleteMenuButton);
 
             deleteMenuButton.addEventListener('click', () => {
               deleteMenuContent(i);

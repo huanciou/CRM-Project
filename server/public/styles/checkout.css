@@ -1,0 +1,14 @@
+.orderList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.orderList .order {
+  background-color: rgb(64, 62, 62) a(255, 0, 0, 0.175);
+  margin: 20px;
+  height: 160px;
+  width: 90%;
+  border: 10px solid lightgray;
+  border-radius: 10px;
+}/*# sourceMappingURL=checkout.css.map */

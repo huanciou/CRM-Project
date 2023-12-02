@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/styles/checkout.css">
 </head>
 <body>
 
+  <div class="checkout"></div>
   <div class="orderList">
 
   </div>
@@ -14,18 +16,90 @@
 <script>
   const fetchOrderUrl = `/api/1.0/admin/fetchOrder`;
   const orderList = document.querySelector('.orderList');
+  const deleteOrderUrl = `/api/1.0/admin/deleteOrder`
+  
+  function deleteOrder(id){
+    fetch(deleteOrderUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+      .then(res => res.json)
+      .then(data => {
+        alert('刪除成功');
+        location.reload();
+      })
+  }
+
+  function getOrderItems(items){
+    const item = items.order_Items;
+    const orderList = document.querySelector('.orderList');
+    const cancelButton = document.createElement('button');
+    const checkoutButton = document.createElement('button');
+
+    cancelButton.id = items._id;
+    checkoutButton.id = items._id;
+
+    cancelButton.classList.add('cancelButton');
+    checkoutButton.classList.add('checkoutButton');
+
+    cancelButton.innerText = 'Cancel';
+    checkoutButton.innerText = 'Checkout';
+
+    item.forEach((value, index) => {
+      const listBox = document.createElement('div');
+      const id = document.createElement('p');
+      const price = document.createElement('p');
+      const qty = document.createElement('p');
+      const amount = document.createElement('p');
+
+      listBox.classList.add('listBox');
+      orderList.appendChild(listBox);
+
+      id.innerText = `商品編號：${value.item_ID}`;
+      price.innerText = `單價：${value.price}`;
+      qty.innerText = `數量：${value.qty}`;
+      amount.innerText = `總價：${value.price * value.qty}`;
+
+      listBox.appendChild(id);
+      listBox.appendChild(price);
+      listBox.appendChild(qty);
+      listBox.appendChild(amount);
+
+      listBox.appendChild(cancelButton);
+      listBox.appendChild(checkoutButton);
+    })
+
+
+
+    checkoutButton.addEventListener('click', (e) => {
+        const id = e.target.id;
+        const baseUrl = window.location.origin + window.location.pathname;
+        window.location.href = `${baseUrl}/${id}`;
+    })
+
+    cancelButton.addEventListener('click', (e) => {
+        const id = e.target.id;
+        deleteOrder(id);
+    })
+
+  }
 
   function fetchOrder(){
     fetch(fetchOrderUrl)
       .then(res => res.json())
       .then(data => {
         data.forEach((i) => {
-          const order = document.createElement('div');
-          order.innerText = JSON.stringify(i, null, 4);
+          const order = document.createElement('button');
           order.classList.add('order');
-          order.style.display = 'flex';
-          order.style.marginBottom = '100px';
           orderList.appendChild(order);
+          order.id = i._id;
+          order.innerText = `訂單編號：${i._id}\n桌號：${i.customer_ID}\n點餐時間：${i.order_Time}`;
+          
+          getOrderItems(i);
+                 
         })
       });
   }

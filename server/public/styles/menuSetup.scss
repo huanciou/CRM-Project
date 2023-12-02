@@ -1,0 +1,139 @@
+// 基本顏色和字體
+$font-stack: 'Comic Sans MS', cursive, sans-serif;
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f8f8;
+$text-color: #333;
+
+// 基本體驗效果
+$transition: all 0.3s ease;
+
+// 主體樣式
+body {
+  font-family: $font-stack;
+  color: $text-color;
+  background-color: $background-color;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+input[type='text'],
+input[type='number'],
+select,
+input[type='file'] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+// 菜單類別樣式
+.menuCategories {
+  padding: 20px;
+
+  .categoryBox {
+    display: inline-block;
+    background-color: $background-color;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-align: left;
+
+    .menuCategory {
+      background-color: $secondary-color;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    button {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+// 菜單樣式
+.menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  .menuCategory {
+    background-color: $secondary-color;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .menuName {
+    font-size: 1.2em;
+    color: $primary-color;
+    margin-bottom: 5px;
+  }
+
+  .menuPrice {
+    font-weight: bold;
+    color: $secondary-color;
+  }
+
+  .menuStory {
+    font-style: italic;
+    margin: 10px 0;
+  }
+
+  .menuImg {
+    max-width: 20%;
+    height: auto;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  button {
+    padding: 10px 520px;
+    background-color: red;
+  }
+}
+
+// 響應式調整
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .menu {
+    padding: 10px;
+
+    button {
+      padding: 10px 20px;
+      background-color: red;
+    }
+  }
+
+  .menuImg {
+    max-width: 100%;
+  }
+}

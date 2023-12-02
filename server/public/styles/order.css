@@ -1,0 +1,124 @@
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #333;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #0062cc;
+}
+
+.menus .menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  text-align: left;
+}
+.menus .menu .category,
+.menus .menu .name,
+.menus .menu .price,
+.menus .menu .story {
+  margin: 5px 0;
+}
+.menus .menu .img {
+  max-width: 10%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.menus .menu .orderQty {
+  width: 50px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+.menus .menu .orderButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.menus .menu .orderButton:hover {
+  background-color: #545b62;
+}
+.menus .menu .orderAmount {
+  font-size: 1.2em;
+  color: #007bff;
+}
+
+.cart {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  border-left: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right all 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+.cart h2,
+.cart h3 {
+  margin: 10px 0;
+}
+.cart .cartItem {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  border: 4px double rgba(250, 128, 114, 0.516);
+  padding: 0 30px;
+  border-radius: 10px;
+}
+.cart .cartItem .img {
+  max-width: 40%;
+  height: auto;
+  margin-left: -20px;
+}
+.cart .cartItem p {
+  font-size: 15px;
+  margin-left: 10px;
+  padding: 0px 0px;
+}
+.cart button {
+  margin: 35px 10px;
+}
+
+#toggleCartBtn {
+  position: fixed;
+  right: 0;
+  top: 6%;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+#toggleCartBtn:hover {
+  background-color: #0062cc;
+}/*# sourceMappingURL=order.css.map */

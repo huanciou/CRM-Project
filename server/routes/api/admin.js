@@ -19,7 +19,11 @@ import {
   fetchOrder,
   deleteOrder,
 } from '../../controllers/api/admin/order.js';
+
+import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
+
+import { postAdminSignUp } from '../../controllers/api/admin/adminSignUp.js';
 
 const router = Router();
 
@@ -46,5 +50,9 @@ router.route('/fetchOrder').get(fetchOrder);
 router.route('/createOrder').post(createOrder);
 
 router.route('/deleteOrder').post(deleteOrder);
+
+router.route('/postCheckout').post(postCheckout);
+
+router.route('/adminSignUp').post(postAdminSignUp);
 
 export default router;

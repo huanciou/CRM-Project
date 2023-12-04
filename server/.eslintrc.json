@@ -19,6 +19,7 @@
             "jsx": "always"
         }],
         "camelcase": "off",
-        "no-shadow":"off"
+        "no-shadow":"off",
+        "operator-linebreak":"off"
     }
 }

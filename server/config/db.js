@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
-const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_CLUSTER } = process.env;
+const {
+  MONGODB_USERNAME,
+  MONGODB_PASSWORD,
+  MONGODB_CLUSTER,
+  MONGODB_DATABASES,
+} = process.env;
 
 mongoose
   .connect(
@@ -8,7 +13,7 @@ mongoose
     {},
   )
   .then(() => {
-    console.log('Connect to MongoDB');
+    console.log(`Connect to ${MONGODB_DATABASES}`);
   })
   .catch((err) => {
     console.log('Connection Failed: ', err);

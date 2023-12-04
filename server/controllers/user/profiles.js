@@ -23,7 +23,6 @@ export async function loginAuth(req, res) {
       { upsert: true, new: true },
     );
     if (userProfile) {
-      console.log(userProfile);
       const payload = {
         id: userProfile.sub,
         name: userProfile.name,

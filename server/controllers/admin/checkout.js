@@ -1,4 +1,5 @@
 import order from '../../models/orderSchema.js';
+import checkout from '../../models/checkoutSchema.js';
 
 export function getCheckout(req, res) {
   res.render('admin/checkout');
@@ -9,14 +10,30 @@ export async function getCheckoutByID(req, res) {
   try {
     const data = await order.findById(id);
 
-    const orderList = data.order_Items;
-    const total = orderList.reduce((acc, index) => {
-      return (acc += index.amount);
-    }, 0);
-    console.log(total);
+    const amount = data.order_Items.reduce(
+      (acc, index) => (acc += index.amount),
+      0,
+    );
 
-    return res.send(`total = ${total}`);
+    const checkoutList = {
+      order_ID: id,
+      order_Items: data.order_Items,
+      amount,
+    };
+
+    try {
+      const checkoutID = await checkout.findOneAndUpdate(
+        { _id: id },
+        { $setOnInsert: checkoutList },
+        { upsert: true, new: true },
+      );
+      console.log(checkoutID);
+    } catch (err) {
+      console.error(err.message);
+    }
+
+    return res.render('admin/checkoutByID', { id, amount, data });
   } catch (err) {
-    return res.status(404).send('id not exist');
+    return res.status(404).send(err);
   }
 }

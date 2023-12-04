@@ -21,21 +21,8 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  history: [
-    {
-      id: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  related: [
-    {
-      name: {
-        type: String,
-      },
-    },
-  ],
+  history: [],
+  related: [],
   est_Time: {
     type: Date,
   },
@@ -43,6 +30,9 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('findOneAndUpdate', function (next) {
   const update = this.getUpdate();
+  if (!update.$setOnInsert) {
+    update.$setOnInsert = {};
+  }
   if (!update.$setOnInsert.est_Time) {
     update.$setOnInsert.est_Time = new Date();
   }

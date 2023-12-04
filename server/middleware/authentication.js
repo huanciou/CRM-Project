@@ -2,7 +2,10 @@ import verifyJWT from '../utils/verifyJWT.js';
 
 async function authentication(req, res, next) {
   const headers = req.get('Authorization');
-  const token = headers?.replace('Bearer ', '') || req.cookies.jwtToken;
+  const token =
+    headers?.replace('Bearer ', '') ||
+    req.cookies.jwtToken ||
+    req.cookies.adminToken;
 
   if (!token) {
     return res.status(401).send('401 Unauthenticated');

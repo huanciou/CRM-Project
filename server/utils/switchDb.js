@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_CLUSTER } = process.env;
 
 export default async function switchDatabases(databaseSign) {
-  mongoose
+  return mongoose
     .disconnect()
     .then(() => {
       console.log('Disconnected from the current database.');

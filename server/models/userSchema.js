@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  credits: {
+    type: Number,
+    default: 1000,
+  },
   picture: {
     type: String,
     default: 'Null',

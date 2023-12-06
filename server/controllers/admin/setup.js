@@ -8,8 +8,8 @@ export function getLogin(req, res) {
 }
 
 export async function postLogin(req, res) {
+  await switchDatabases('test');
   const { account, password } = req.body;
-  console.log(account, password);
   try {
     const user = await admin.findOne({ account });
 
@@ -26,7 +26,11 @@ export async function postLogin(req, res) {
         const jwtToken = await signJWT(payload);
         switchDatabases(user.name);
 
-        res.cookie('adminToken', jwtToken);
+        res.cookie('adminToken', jwtToken, {
+          maxAge: 3600000,
+          httpOnly: true,
+          path: '/',
+        });
         return res.render('admin/homepage');
       }
       return res.status(403).send('Wrong Info');
@@ -39,10 +43,8 @@ export async function postLogin(req, res) {
 }
 
 export function getSetup(req, res) {
-  res.send('hi');
+  res.render('admin/setup');
 }
-
-export function postSetup() {}
 
 export function getAuth() {}
 

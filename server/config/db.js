@@ -13,7 +13,7 @@ mongoose
     {},
   )
   .then(() => {
-    console.log(`Connect to ${MONGODB_DATABASES}`);
+    console.log('Connect to TestDB');
   })
   .catch((err) => {
     console.log('Connection Failed: ', err);

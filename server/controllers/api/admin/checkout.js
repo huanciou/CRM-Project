@@ -2,15 +2,18 @@ import axios from 'axios';
 import order from '../../../models/orderSchema.js';
 import checkout from '../../../models/checkoutSchema.js';
 import user from '../../../models/userSchema.js';
+import verifyJWT from '../../../utils/verifyJWT.js';
 
 const { LINE_PAY_CHANNEL_ID, LINE_PAY_CHANNEL_SERCRET } = process.env;
 
 export async function postCheckout(req, res) {
-  const { adminToken } = req.cookies.adminToken;
-
+  const adminToken = req.cookies.adminToken;
   if (!adminToken) {
     return res.status(401).send('Please Log-In again');
   }
+  const payload = await verifyJWT(adminToken);
+
+  const { type } = req.body;
   if (type === 'linepay') {
     const { orderId, userId, oneTimeKey, amount } = req.body;
 
@@ -65,8 +68,8 @@ export async function postCheckout(req, res) {
           const userProfileUpdated = await user.findOneAndUpdate(
             { sub: userId },
             {
-              $push: { history: obj },
-              $addToSet: { related: obj },
+              $push: { history: orderId },
+              $addToSet: { related: payload.name },
             },
             { new: true },
           );

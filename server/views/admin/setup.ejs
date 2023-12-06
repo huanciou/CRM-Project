@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/api/1.0/admin/setup" method="POST">
+    <label for="">商家名稱</label>
+    <input type="text" name="name">
+
+    <label for="">商家位置</label>
+    <input type="text" name="location">
+
+    <label for="">聯絡電話</label>
+    <input type="text" name="phone">
+
+    <label for="">每消費多少點兌換點數 1 點</label>
+    <input type="number" name="credits">
+
+    <label for="">上傳會員卡圖片</label>
+    <input type="file" name="campaign">
+
+    <button>Submit</button>
+  </form>
+  
+</body>
+</html>

@@ -1,9 +1,10 @@
+import setup from '../../../models/setupSchema.js';
+import user from '../../../models/userSchema.js';
+
 export function fetchProfile(req, res) {
   const profile = req.user;
   res.json(profile);
 }
-
-export function fetchInfo() {}
 
 export function fetchCard(req, res) {
   const arr = [
@@ -12,4 +13,30 @@ export function fetchCard(req, res) {
   ];
 
   res.json(arr);
+}
+
+export async function fetchCredits(req, res) {
+  const sub = req.user.id;
+  try {
+    const userData = await user.findOne({
+      sub,
+    });
+    res.json(userData.credits);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function fetchHistory(req, res) {
+  const sub = req.user.id;
+  try {
+    const userData = await user.findOne({ sub }, { history: { $slice: -3 } });
+    res.json(userData.history);
+  } catch (err) {
+    console.error(err);
+  }
+}
+export async function fetchStoreInfo(req, res) {
+  const setupData = await setup.findOne().sort({ update_time: -1 });
+  res.json(setupData);
 }

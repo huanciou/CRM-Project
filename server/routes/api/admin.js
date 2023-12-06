@@ -1,9 +1,5 @@
 import { Router } from 'express';
-import {
-  postLogin,
-  postSetup,
-  postAuth,
-} from '../../controllers/admin/setup.js';
+import { postLogin, postAuth } from '../../controllers/admin/setup.js';
 
 import {
   createMenuCategory,
@@ -24,6 +20,7 @@ import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
 
 import { postAdminSignUp } from '../../controllers/api/admin/adminSignUp.js';
+import postSetup from '../../controllers/api/admin/setUp.js';
 
 const router = Router();
 

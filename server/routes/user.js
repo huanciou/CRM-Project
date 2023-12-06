@@ -14,12 +14,8 @@ import authentication from '../middleware/authentication.js';
 const router = Router();
 
 router.route('/loginAuth').post(loginAuth);
-router.route('/signIn').get(getSignIn);
+router.route('/signIn/:db').get(getSignIn);
 router.route('/signInCallback').get(getCallback);
-
-// router.route('/profile').get(getProfile);
-// router.route('/card').get(getCard);
-// router.route('/info').get(getInfo);
 
 router.route('/credit').get(getCredit);
 router.route('/coupon').get(getCoupon);

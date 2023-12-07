@@ -1,14 +1,12 @@
 import axios from 'axios';
 import path from 'path';
-import user from '../../models/userSchema.js';
 import signJWT from '../../utils/signJWT.js';
-import switchDatabases from '../../utils/switchDb.js';
+import getModels from '../../models/modelHelper.js';
 
 const { LOCATION_ORIGIN } = process.env;
 
 export function getSignIn(req, res) {
-  const { db } = req.params;
-
+  const { dbToken } = req.params;
   let lineLoginUrl = 'https://access.line.me/oauth2/v2.1/authorize?';
   lineLoginUrl += 'response_type=code&';
   lineLoginUrl += 'client_id=2001826171&';
@@ -18,7 +16,7 @@ export function getSignIn(req, res) {
   lineLoginUrl += 'ui_locales=zh-TW&';
   lineLoginUrl += 'bot_prompt=normal';
 
-  res.cookie('dbToken', db, { maxAge: 3600000, httpOnly: true, path: '/' });
+  res.cookie('dbToken', dbToken, { maxAge: 3600000, path: '/' });
   res.redirect(lineLoginUrl);
 }
 
@@ -29,13 +27,9 @@ export function getCallback(req, res) {
 export async function loginAuth(req, res) {
   const { access_token, id_token } = req.body;
   const verify = 'https://api.line.me/oauth2/v2.1/verify';
+  const { dbToken } = req;
+  const { user } = await getModels(dbToken);
 
-  const { dbToken } = req.cookies; // db change here
-  try {
-    await switchDatabases(dbToken);
-  } catch (err) {
-    return res.status(500).send('Internal Server Error');
-  }
   async function checkUserProfile(profile) {
     const { sub } = profile;
     const userProfile = await user.findOneAndUpdate(
@@ -89,28 +83,4 @@ export async function loginAuth(req, res) {
 export function getReactRoute(req, res) {
   const build = path.resolve('public', 'build');
   res.sendFile(path.join(build, 'index.html'));
-}
-
-export function getCredit(req, res) {
-  res.send('1');
-}
-
-export function getCoupon(req, res) {
-  res.send('2');
-}
-
-export function getVip(req, res) {
-  res.send('4');
-}
-
-export function getInfo(req, res) {
-  res.send('3');
-}
-
-export function getCard(req, res) {
-  res.send('5');
-}
-
-export function getProfile(req, res) {
-  res.send('hi');
 }

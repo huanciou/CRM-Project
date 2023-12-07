@@ -1,7 +1,9 @@
-import setup from '../../../models/setupSchema.js';
+import getModels from '../../../models/modelHelper.js';
 
 export default async function postSetup(req, res) {
   const { name, location, phone, credits, campaign } = req.body;
+  const { dbToken } = req;
+  const { setup } = await getModels(dbToken);
 
   const updateData = {};
 

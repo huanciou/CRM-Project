@@ -39,6 +39,4 @@ checkoutSchema.pre('findOneAndUpdate', function (next) {
   next();
 });
 
-const checkout = mongoose.model('Checkout', checkoutSchema);
-
-export default checkout;
+export default checkoutSchema;

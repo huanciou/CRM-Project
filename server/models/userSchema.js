@@ -43,6 +43,4 @@ userSchema.pre('findOneAndUpdate', function (next) {
   next();
 });
 
-const user = mongoose.model('User', userSchema);
-
-export default user;
+export default userSchema;

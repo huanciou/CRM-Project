@@ -8,14 +8,21 @@ import {
 } from '../../controllers/api/user/profile.js';
 
 import authorization from '../../middleware/authorization.js';
+import { dbCheckerInHeaders } from '../../middleware/dbChecker.js';
 
 const router = Router();
 
-router.route('/profile').get(authorization, fetchProfile);
-router.route('/profile/card').get(fetchCard);
+router.route('/profile').get(authorization, dbCheckerInHeaders, fetchProfile);
+router.route('/profile/card').get(authorization, dbCheckerInHeaders, fetchCard);
 
-router.route('/fetchCredits').get(authorization, fetchCredits); // user model
-router.route('/fetchHistory').get(authorization, fetchHistory); // user model
-router.route('/fetchStoreInfo').get(authorization, fetchStoreInfo); // setup model
+router
+  .route('/fetchCredits')
+  .get(authorization, dbCheckerInHeaders, fetchCredits); // user model
+router
+  .route('/fetchHistory')
+  .get(authorization, dbCheckerInHeaders, fetchHistory); // user model
+router
+  .route('/fetchStoreInfo')
+  .get(authorization, dbCheckerInHeaders, fetchStoreInfo); // setup model
 
 export default router;

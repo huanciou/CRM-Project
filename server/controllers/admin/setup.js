@@ -1,16 +1,15 @@
-import admin from '../../models/adminSchema.js';
+import getModels from '../../models/modelHelper.js';
 import { compare } from '../../utils/encrypt.js';
 import signJWT from '../../utils/signJWT.js';
-import switchDatabases from '../../utils/switchDb.js';
 
 export function getLogin(req, res) {
   res.render('admin/login');
 }
 
 export async function postLogin(req, res) {
-  await switchDatabases('test');
   const { account, password } = req.body;
   try {
+    const { admin } = await getModels();
     const user = await admin.findOne({ account });
 
     if (user) {
@@ -24,11 +23,15 @@ export async function postLogin(req, res) {
           campaign: user.campaign,
         };
         const jwtToken = await signJWT(payload);
-        switchDatabases(user.name);
 
         res.cookie('adminToken', jwtToken, {
           maxAge: 3600000,
           httpOnly: true,
+          path: '/',
+        });
+
+        res.cookie('dbToken', user.name, {
+          maxAge: 3600000,
           path: '/',
         });
         return res.render('admin/homepage');

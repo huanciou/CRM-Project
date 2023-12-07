@@ -1,13 +1,14 @@
 import axios from 'axios';
-import order from '../../../models/orderSchema.js';
-import checkout from '../../../models/checkoutSchema.js';
-import user from '../../../models/userSchema.js';
+import getModels from '../../../models/modelHelper.js';
 import verifyJWT from '../../../utils/verifyJWT.js';
 
 const { LINE_PAY_CHANNEL_ID, LINE_PAY_CHANNEL_SERCRET } = process.env;
 
 export async function postCheckout(req, res) {
-  const adminToken = req.cookies.adminToken;
+  const { adminToken } = req.cookies;
+  const { dbToken } = req;
+  const { order, checkout, user } = await getModels(dbToken);
+
   if (!adminToken) {
     return res.status(401).send('Please Log-In again');
   }

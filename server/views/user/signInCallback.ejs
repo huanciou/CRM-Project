@@ -13,7 +13,8 @@
   const lineLogin = `https://api.line.me/oauth2/v2.1/token`;
   const backend = `${window.location.origin}/user/loginAuth`;
   const endpoint = `${window.location.origin}/user/profile/info`;
-
+  const endpoint2 = `${window.location.origin}/user/profile/credits`;
+  
   const params = new URLSearchParams(query);
   const code_verifier = params.get('state');
   const code = params.get('code');
@@ -27,6 +28,10 @@
     code_verifier,  
   }).toString();
 
+  function getCookie(name) {
+    return document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1];
+}
+
   function postToServer(data){
     fetch(backend, {
       method: 'POST',
@@ -37,11 +42,16 @@
     })
       .then(res => res.json())
       .then(data => {
+        const dbToken = getCookie('dbToken');
         const date = new Date();
         date.setTime(date.getTime() + (3600 * 1000));
         const expires = "expires=" + date.toUTCString();
         document.cookie = `jwtToken=${data}; ${expires}; path=/`;
-        window.location.href = endpoint;
+        if(!(dbToken === 'test')){
+          window.location.href = endpoint2;
+        } else {
+          window.location.href = endpoint;
+        }  
       })
   }
 
@@ -58,9 +68,7 @@
       postToServer(data);
     })
   }
-
   getToken(body);
-
   
 </script>  
 </body>

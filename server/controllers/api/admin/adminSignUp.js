@@ -1,5 +1,5 @@
 import { encrypt } from '../../../utils/encrypt.js';
-import admin from '../../../models/adminSchema.js';
+import getModels from '../../../models/modelHelper.js';
 
 export function getAdminSignUp(req, res) {
   res.render('admin/signUP');
@@ -7,6 +7,8 @@ export function getAdminSignUp(req, res) {
 
 export async function postAdminSignUp(req, res) {
   const { account, password, name } = req.body;
+  const { dbToken } = req;
+  const { admin } = await getModels(dbToken);
   const hashPassword = await encrypt(password, 10);
 
   const user = {

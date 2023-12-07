@@ -1,5 +1,4 @@
-import setup from '../../../models/setupSchema.js';
-import user from '../../../models/userSchema.js';
+import getModels from '../../../models/modelHelper.js';
 
 export function fetchProfile(req, res) {
   const profile = req.user;
@@ -17,6 +16,9 @@ export function fetchCard(req, res) {
 
 export async function fetchCredits(req, res) {
   const sub = req.user.id;
+  const { dbToken } = req;
+  const { user } = await getModels(dbToken);
+
   try {
     const userData = await user.findOne({
       sub,
@@ -29,6 +31,9 @@ export async function fetchCredits(req, res) {
 
 export async function fetchHistory(req, res) {
   const sub = req.user.id;
+  const { dbToken } = req;
+  const { user } = await getModels(dbToken);
+
   try {
     const userData = await user.findOne({ sub }, { history: { $slice: -3 } });
     res.json(userData.history);
@@ -37,6 +42,8 @@ export async function fetchHistory(req, res) {
   }
 }
 export async function fetchStoreInfo(req, res) {
+  const { dbToken } = req;
+  const { setup } = await getModels(dbToken);
   const setupData = await setup.findOne().sort({ update_time: -1 });
   res.json(setupData);
 }

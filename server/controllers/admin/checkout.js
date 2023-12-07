@@ -1,12 +1,14 @@
-import order from '../../models/orderSchema.js';
-import checkout from '../../models/checkoutSchema.js';
+import getModels from '../../models/modelHelper.js';
 
 export function getCheckout(req, res) {
   res.render('admin/checkout');
 }
 
 export async function getCheckoutByID(req, res) {
+  const { dbToken } = req;
+  const { order, checkout } = await getModels(dbToken);
   const { id } = req.params;
+
   try {
     const data = await order.findById(id);
 

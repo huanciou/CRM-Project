@@ -29,6 +29,5 @@ setupSchema.pre('save', function (next) {
   }
   next();
 });
-const setup = mongoose.model('Setup', setupSchema);
 
-export default setup;
+export default setupSchema;

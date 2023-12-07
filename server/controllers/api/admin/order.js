@@ -1,6 +1,9 @@
-import order from '../../../models/orderSchema.js';
+import getModels from '../../../models/modelHelper.js';
 
 export async function createOrder(req, res) {
+  const { dbToken } = req;
+  const { order } = await getModels(dbToken);
+
   const orderItems = req.body;
   const orderList = {
     customer_ID: '0',
@@ -13,14 +16,19 @@ export async function createOrder(req, res) {
 }
 
 export async function fetchOrder(req, res) {
+  const { dbToken } = req;
+  const { order } = await getModels(dbToken);
   const orderList = await order.find();
   res.json(orderList);
 }
 
 export async function deleteOrder(req, res) {
+  const { dbToken } = req;
+  const { order } = await getModels(dbToken);
+
   try {
     const { id } = req.body;
-    const result = await order.updateOne({ _id: id }, { isDeleted: true });
+    await order.updateOne({ _id: id }, { isDeleted: true });
 
     res.json({ message: 'Order deleted successfully' });
   } catch (err) {

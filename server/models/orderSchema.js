@@ -59,6 +59,4 @@ orderSchema.pre('find', function (next) {
   next();
 });
 
-const order = mongoose.model('Order', orderSchema);
-
-export default order;
+export default orderSchema;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const menuSetupSchema = new mongoose.Schema({
+export const menuSetupSchema = new mongoose.Schema({
   category: {
     type: String,
     required: false,
@@ -8,7 +8,7 @@ const menuSetupSchema = new mongoose.Schema({
   },
 });
 
-const menuSchema = new mongoose.Schema({
+export const menuSchema = new mongoose.Schema({
   category: {
     type: String,
     required: false,
@@ -36,6 +36,3 @@ const menuSchema = new mongoose.Schema({
     },
   ],
 });
-
-export const menu = mongoose.model('Manu', menuSchema);
-export const menuSetup = mongoose.model('ManuSetup', menuSetupSchema);

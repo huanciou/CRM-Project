@@ -3,7 +3,7 @@ body {
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
 }
 
@@ -20,6 +20,9 @@ button:hover {
   background-color: #0062cc;
 }
 
+.menus {
+  padding: 10px;
+}
 .menus .menu {
   background-color: white;
   border: 1px solid #ddd;
@@ -35,15 +38,17 @@ button:hover {
   margin: 5px 0;
 }
 .menus .menu .img {
-  max-width: 10%;
+  max-width: 20%;
   height: auto;
   border-radius: 5px;
-  margin-bottom: 10px;
+  padding: 50px auto;
+  margin: 30px auto;
+  margin-bottom: 50px;
 }
 .menus .menu .orderQty {
   width: 50px;
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 3px;
   border: 1px solid #ddd;
 }
@@ -53,6 +58,7 @@ button:hover {
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
+  margin: 10px auto;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -66,7 +72,7 @@ button:hover {
 
 .cart {
   position: fixed;
-  right: -300px;
+  right: -320px;
   top: 0;
   width: 300px;
   height: 100%;
@@ -109,16 +115,79 @@ button:hover {
 
 #toggleCartBtn {
   position: fixed;
-  right: 0;
-  top: 6%;
+  right: 2%;
+  top: 14%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 900;
   transform: translateY(-50%);
-  background-color: #007bff;
-  color: white;
+  background-color: transparent;
+  color: black;
   border: none;
-  padding: 10px 20px;
   cursor: pointer;
   z-index: 1001;
+  border-radius: 50px;
+  text-align: center;
 }
 #toggleCartBtn:hover {
-  background-color: #0062cc;
+  color: #007bff;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
 }/*# sourceMappingURL=order.css.map */

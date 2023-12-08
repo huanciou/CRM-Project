@@ -14,7 +14,7 @@ body {
   color: $text-color;
   background-color: $background-color;
   margin: 0;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
 }
 
@@ -35,6 +35,7 @@ button {
 
 // 菜單樣式
 .menus {
+  padding: 10px;
   .menu {
     background-color: white;
     border: 1px solid #ddd;
@@ -51,16 +52,18 @@ button {
     }
 
     .img {
-      max-width: 10%; // 圖片大小調整
+      max-width: 20%; // 圖片大小調整
       height: auto;
       border-radius: 5px;
-      margin-bottom: 10px;
+      padding: 50px auto;
+      margin: 30px auto;
+      margin-bottom: 50px;
     }
 
     .orderQty {
       width: 50px;
       padding: 5px;
-      margin: 10px;
+      margin: 10px auto;
       border-radius: 3px;
       border: 1px solid #ddd;
     }
@@ -71,6 +74,7 @@ button {
       border: none;
       padding: 5px 10px;
       border-radius: 5px;
+      margin: 10px auto;
       cursor: pointer;
       transition: $transition;
 
@@ -89,7 +93,7 @@ button {
 // 購物車樣式
 .cart {
   position: fixed;
-  right: -300px; // 初始狀態為隱藏
+  right: -320px; // 初始狀態為隱藏
   top: 0;
   width: 300px;
   height: 100%;
@@ -138,17 +142,24 @@ button {
 // 購物車切換按鈕樣式
 #toggleCartBtn {
   position: fixed;
-  right: 0;
-  top: 6%;
+  right: 2%;
+  top: 14%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 900;
   transform: translateY(-50%);
-  background-color: $primary-color;
-  color: white;
+  background-color: transparent;
+  color: black;
   border: none;
-  padding: 10px 20px;
   cursor: pointer;
   z-index: 1001;
+  border-radius: 50px;
+  text-align: center;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    color: $primary-color;
   }
 }
+
+@import './navbar';

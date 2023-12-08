@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="/styles/checkout.css">
 </head>
 <body>
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
 
   <div class="checkout"></div>
   <div class="orderList">
@@ -18,6 +20,21 @@
   const orderList = document.querySelector('.orderList');
   const deleteOrderUrl = `/api/1.0/admin/deleteOrder`
   
+
+  function toggleListBoxVisibility(orderId) {
+  const listContainer = document.querySelector(`.listContainer[data-order-id="${orderId}"]`);
+  
+  if (listContainer.style.maxHeight && listContainer.style.maxHeight !== '0px') {
+    listContainer.style.maxHeight = '0px'; // 设置高度为0，隐藏内容
+    listContainer.style.padding = '0'; // 设置内边距为0
+    listContainer.style.border = '0'; // 设置边框为0
+  } else {
+    listContainer.style.maxHeight = '1000px'; // 设置一个足够大的高度值，以显示所有内容
+    listContainer.style.padding = '20px'; // 设置内边距
+    listContainer.style.border = '1px solid #ddd'; // 设置边框
+  }
+}
+
   function deleteOrder(id){
     fetch(deleteOrderUrl, {
         method: 'POST',
@@ -36,18 +53,24 @@
   function getOrderItems(items){
     const item = items.order_Items;
     const orderList = document.querySelector('.orderList');
-    const cancelButton = document.createElement('button');
     const checkoutButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+    const listContainer = document.createElement('div');
 
-    cancelButton.id = items._id;
-    checkoutButton.id = items._id;
+    // cancelButton.id = items._id;
+    // checkoutButton.id = items._id;
+    cancelButton.setAttribute('data-order-id', items._id); 
+    checkoutButton.setAttribute('data-order-id', items._id); 
 
-    cancelButton.classList.add('cancelButton');
+    listContainer.classList.add('listContainer');
+    listContainer.setAttribute('data-order-id', items._id); // 添加 data 属性
+    // listContainer.style.display = 'none';
     checkoutButton.classList.add('checkoutButton');
-
-    cancelButton.innerText = 'Cancel';
+    cancelButton.classList.add('cancelButton');
+    
     checkoutButton.innerText = 'Checkout';
-
+    cancelButton.innerText = 'Cancel';
+    
     item.forEach((value, index) => {
       const listBox = document.createElement('div');
       const id = document.createElement('p');
@@ -55,8 +78,11 @@
       const qty = document.createElement('p');
       const amount = document.createElement('p');
 
+
       listBox.classList.add(`listBox${index}`);
-      orderList.appendChild(listBox);
+      listBox.classList.add(`listBox`);
+      listBox.setAttribute('data-order-id', items._id); // 添加 data 属性
+      listContainer.appendChild(listBox);
 
       id.innerText = `商品編號：${value.item_ID}`;
       price.innerText = `單價：${value.price}`;
@@ -68,20 +94,21 @@
       listBox.appendChild(qty);
       listBox.appendChild(amount);
 
-      listBox.appendChild(cancelButton);
       listBox.appendChild(checkoutButton);
+      listBox.appendChild(cancelButton);
+      orderList.appendChild(listContainer);
     })
 
 
 
     checkoutButton.addEventListener('click', (e) => {
-        const id = e.target.id;
+        const id = e.target.getAttribute('data-order-id');
         const baseUrl = window.location.origin + window.location.pathname;
         window.location.href = `${baseUrl}/${id}`;
     })
 
     cancelButton.addEventListener('click', (e) => {
-        const id = e.target.id;
+        const id = e.target.getAttribute('data-order-id');
         deleteOrder(id);
     })
 
@@ -105,6 +132,13 @@
   }
 
   fetchOrder();
+
+  document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('order')) {
+    const orderId = e.target.id;
+    toggleListBoxVisibility(orderId);
+  }
+});
 
 </script>  
 </body>

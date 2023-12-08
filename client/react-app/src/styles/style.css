@@ -236,4 +236,28 @@ body {
     height: 280px;
     width: 540px;
   }
+}
+.history-contents {
+  background: rgba(233, 229, 229, 0.2);
+  height: 300px;
+  width: 96%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-indent: 40px;
+  font-size: 24px;
+  letter-spacing: 2px;
+  border-bottom: 10px groove #d3d3d3;
+  border-radius: 10px;
+}
+.history-contents .history {
+  padding: 10px;
+}
+
+.credits {
+  font-size: 26px;
+  letter-spacing: 20px;
 }/*# sourceMappingURL=style.css.map */

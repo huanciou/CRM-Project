@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="/styles/order.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
     <div class="menus">
     </div>
     
-    <button id="toggleCartBtn">購物車</button>
+    <button id="toggleCartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
     <div class="cart">
     </div>
 
@@ -216,7 +218,7 @@
 
   document.getElementById('toggleCartBtn').addEventListener('click', function(){
       const cart = document.querySelector('.cart');
-      cart.style.right = cart.style.right === '0px' ? '-300px' : '0px';
+      cart.style.right = cart.style.right === '0px' ? '-320px' : '0px';
   });
 
   fetchMenuByCategories();

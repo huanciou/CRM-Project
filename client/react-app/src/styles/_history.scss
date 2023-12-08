@@ -1,0 +1,20 @@
+.history-contents {
+  background: rgba(233, 229, 229, 0.2);
+  height: 300px;
+  width: 96%;
+  // border: 14px groove #d3d3d3;
+  padding: 10px; // 添加内边距
+  box-sizing: border-box; // 确保内边距不会影响到元素的总体尺寸
+  display: flex; // 使用flex布局使子元素居中
+  flex-direction: column;
+  justify-content: center; // 水平居中
+  align-items: center; // 垂直居中
+  text-indent: 40px;
+  font-size: 24px;
+  letter-spacing: 2px;
+  border-bottom: 10px groove #d3d3d3; // 隔線
+  border-radius: 10px;
+  .history {
+    padding: 10px;
+  }
+}

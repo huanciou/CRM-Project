@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="/styles/menuSetup.css">
 </head>
 <body>
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
+
   <h1>新增種類</h1>
   <form action="/api/1.0/admin/createMenuCategory" method="POST">
     <input type="text" placeholder="category" name="category">

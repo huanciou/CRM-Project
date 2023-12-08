@@ -1,0 +1,23 @@
+<nav class="navbar" id="navbar">
+  <div class="navbar-top">
+    <div class="navbar-brand">
+      海底撈
+    </div>
+    <div class="navbar-links">
+      <a href="/admin/menuSetup">菜單設置</a>
+      <a href="/admin/order">點餐</a>
+      <a href="/admin/checkout">結帳隊列</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('navbar');
+  if (window.pageYOffset > 100) {
+    navbar.classList.add('scroll-small');
+  } else {
+    navbar.classList.remove('scroll-small');
+  }
+});
+</script>

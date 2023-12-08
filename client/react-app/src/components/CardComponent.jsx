@@ -11,9 +11,13 @@ const CardComponent = () => {
     email: '',
   });
 
+  const [name, setName] = useState('');
+
   useEffect(() => {
     const fetchProfile = async () => {
       const jwtToken = Cookies.get('jwtToken');
+      const dbToken = Cookies.get('dbToken');
+      setName(dbToken);
 
       if (jwtToken) {
         try {
@@ -23,6 +27,7 @@ const CardComponent = () => {
               method: 'GET',
               headers: {
                 Authorization: `Bearer ${jwtToken}`,
+                dbToken,
               },
             },
           );
@@ -59,7 +64,6 @@ const CardComponent = () => {
           throw new Error('Network response was not ok');
         }
         const cardImages = await response.json();
-        console.log(cardImages);
         setCards(cardImages);
       } catch (error) {
         console.error('Fetch error:', error);
@@ -81,7 +85,7 @@ const CardComponent = () => {
 
   return (
     <div className="profile-component">
-      <div className="business-name">iSEE-CRM</div>
+      <div className="business-name">{name}</div>
       <SwitchComponent />
       <div className="profile-picture">
         {profile.picture && <img src={profile.picture} alt="Profile" />}

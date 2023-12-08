@@ -14,7 +14,7 @@ body {
   color: $text-color;
   background-color: $background-color;
   margin: 0;
-  padding: 20px;
+  padding: 0 0px;
   text-align: center;
 }
 
@@ -109,7 +109,7 @@ input[type='file'] {
     height: auto;
     border-radius: 5px;
     display: block;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 
   button {
@@ -137,3 +137,5 @@ input[type='file'] {
     max-width: 100%;
   }
 }
+
+@import './navbar';

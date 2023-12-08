@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +10,7 @@ body {
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
-  padding: 20px;
+  padding: 0 0px;
   text-align: center;
 }
 
@@ -21,6 +22,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 20px;
 }
 button:hover {
   background-color: #0062cc;
@@ -117,12 +119,70 @@ input[type=file] {
     max-width: 100%;
   }
 }
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
+}
+
 body {
   font-family: "Comic Sans MS", cursive, sans-serif;
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
 }
 
@@ -139,6 +199,9 @@ button:hover {
   background-color: #0062cc;
 }
 
+.menus {
+  padding: 10px;
+}
 .menus .menu {
   background-color: white;
   border: 1px solid #ddd;
@@ -185,7 +248,7 @@ button:hover {
 
 .cart {
   position: fixed;
-  right: -300px;
+  right: -320px;
   top: 0;
   width: 300px;
   height: 100%;
@@ -228,33 +291,190 @@ button:hover {
 
 #toggleCartBtn {
   position: fixed;
-  right: 0;
-  top: 6%;
+  right: 0%;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
   transform: translateY(-50%);
-  background-color: #007bff;
-  color: white;
+  background-color: white;
+  color: black;
   border: none;
-  padding: 10px 20px;
   cursor: pointer;
   z-index: 1001;
+  border-radius: 50px;
+  text-align: center;
 }
 #toggleCartBtn:hover {
   background-color: #0062cc;
 }
 
-.orderList {
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
+}
+
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #333;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0px;
+  text-align: center;
+}
+body .orderList {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.orderList .order {
+body .orderList .order {
   background-color: rgb(64, 62, 62) a(255, 0, 0, 0.175);
   margin: 20px;
   height: 160px;
   width: 90%;
   border: 10px solid lightgray;
   border-radius: 10px;
+  cursor: pointer;
+}
+body .listContainer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.7s ease-out;
+  background-color: #f9f9f9;
+  margin: 0px 0;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+body .listContainer button {
+  background-color: #4267b2; /* Facebook的蓝色 */
+  color: white; /* 文字颜色为白色 */
+  padding: 10px 20px; /* 上下10px、左右20px的内边距 */
+  border: none; /* 无边框 */
+  border-radius: 5px; /* 轻微的圆角 */
+  font-size: 16px; /* 字体大小 */
+  cursor: pointer; /* 鼠标悬停时的手形光标 */
+  margin: 10px; /* 外边距 */
+  transition: background-color 0.3s; /* 鼠标悬停时背景色的过渡效果 */
+}
+body .listContainer button:hover {
+  background-color: #365899; /* 鼠标悬停时的背景色变深 */
+}
+body .listContainer .listBox {
+  padding: 10px 30px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
 }
 
 body {
@@ -335,4 +555,62 @@ div.json-data {
   border-radius: 5px;
   font-size: 0.9em;
   word-break: break-all;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
 }/*# sourceMappingURL=style.css.map */

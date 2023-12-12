@@ -34,7 +34,7 @@ export async function postLogin(req, res) {
           maxAge: 3600000,
           path: '/',
         });
-        return res.render('admin/homepage');
+        return res.redirect('/admin/homepage');
       }
       return res.status(403).send('Wrong Info');
     }
@@ -52,3 +52,7 @@ export function getSetup(req, res) {
 export function getAuth() {}
 
 export function postAuth() {}
+
+export function getHomepage(req, res) {
+  res.render('admin/homepage');
+}

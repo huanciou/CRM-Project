@@ -22,7 +22,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 20px;
 }
 button:hover {
   background-color: #0062cc;
@@ -39,10 +38,14 @@ input[type=file] {
   border-radius: 5px;
 }
 
-.menuCategories {
+.menuCategories,
+.menuTags {
   padding: 20px;
 }
-.menuCategories .categoryBox {
+.menuCategories .categoryBox,
+.menuCategories .tagsBox,
+.menuTags .categoryBox,
+.menuTags .tagsBox {
   display: inline-block;
   background-color: #f8f8f8;
   padding: 10px;
@@ -51,7 +54,14 @@ input[type=file] {
   border: 1px solid #ddd;
   text-align: left;
 }
-.menuCategories .categoryBox .menuCategory {
+.menuCategories .categoryBox .menuCategory,
+.menuCategories .categoryBox .meunTag,
+.menuCategories .tagsBox .menuCategory,
+.menuCategories .tagsBox .meunTag,
+.menuTags .categoryBox .menuCategory,
+.menuTags .categoryBox .meunTag,
+.menuTags .tagsBox .menuCategory,
+.menuTags .tagsBox .meunTag {
   background-color: #6c757d;
   color: white;
   padding: 5px;
@@ -59,7 +69,10 @@ input[type=file] {
   display: inline-block;
   margin-right: 10px;
 }
-.menuCategories .categoryBox button {
+.menuCategories .categoryBox button,
+.menuCategories .tagsBox button,
+.menuTags .categoryBox button,
+.menuTags .tagsBox button {
   display: inline-block;
   vertical-align: middle;
 }
@@ -97,7 +110,7 @@ input[type=file] {
   height: auto;
   border-radius: 5px;
   display: block;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .menu button {
   padding: 10px 520px;
@@ -217,15 +230,17 @@ button:hover {
   margin: 5px 0;
 }
 .menus .menu .img {
-  max-width: 10%;
+  max-width: 20%;
   height: auto;
   border-radius: 5px;
-  margin-bottom: 10px;
+  padding: 50px auto;
+  margin: 30px auto;
+  margin-bottom: 50px;
 }
 .menus .menu .orderQty {
   width: 50px;
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 3px;
   border: 1px solid #ddd;
 }
@@ -235,6 +250,7 @@ button:hover {
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
+  margin: 10px auto;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -291,13 +307,14 @@ button:hover {
 
 #toggleCartBtn {
   position: fixed;
-  right: 0%;
-  top: 40%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  right: 2%;
+  top: 14%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 900;
   transform: translateY(-50%);
-  background-color: white;
+  background-color: transparent;
   color: black;
   border: none;
   cursor: pointer;
@@ -306,7 +323,7 @@ button:hover {
   text-align: center;
 }
 #toggleCartBtn:hover {
-  background-color: #0062cc;
+  color: #007bff;
 }
 
 .navbar {
@@ -382,7 +399,7 @@ body .orderList {
   align-items: center;
 }
 body .orderList .order {
-  background-color: rgb(64, 62, 62) a(255, 0, 0, 0.175);
+  background-color: rgb(41, 128, 214) a(255, 0, 0, 0.175);
   margin: 20px;
   height: 160px;
   width: 90%;

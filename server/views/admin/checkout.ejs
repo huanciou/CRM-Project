@@ -57,14 +57,12 @@
     const cancelButton = document.createElement('button');
     const listContainer = document.createElement('div');
 
-    // cancelButton.id = items._id;
-    // checkoutButton.id = items._id;
     cancelButton.setAttribute('data-order-id', items._id); 
     checkoutButton.setAttribute('data-order-id', items._id); 
 
     listContainer.classList.add('listContainer');
     listContainer.setAttribute('data-order-id', items._id); // 添加 data 属性
-    // listContainer.style.display = 'none';
+
     checkoutButton.classList.add('checkoutButton');
     cancelButton.classList.add('cancelButton');
     
@@ -74,6 +72,7 @@
     item.forEach((value, index) => {
       const listBox = document.createElement('div');
       const id = document.createElement('p');
+      const name = document.createElement('p');
       const price = document.createElement('p');
       const qty = document.createElement('p');
       const amount = document.createElement('p');
@@ -85,11 +84,13 @@
       listContainer.appendChild(listBox);
 
       id.innerText = `商品編號：${value.item_ID}`;
+      name.innerText = `品名：${value.name}`
       price.innerText = `單價：${value.price}`;
       qty.innerText = `數量：${value.qty}`;
       amount.innerText = `總價：${value.price * value.qty}`;
 
       listBox.appendChild(id);
+      listBox.appendChild(name);
       listBox.appendChild(price);
       listBox.appendChild(qty);
       listBox.appendChild(amount);
@@ -119,7 +120,7 @@
       .then(res => res.json())
       .then(data => {
         data.forEach((i) => {
-          const order = document.createElement('button');
+          const order = document.createElement('div');
           order.classList.add('order');
           orderList.appendChild(order);
           order.id = i._id;

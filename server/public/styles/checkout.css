@@ -14,12 +14,15 @@ body .orderList {
   align-items: center;
 }
 body .orderList .order {
-  background-color: rgb(41, 128, 214) a(255, 0, 0, 0.175);
+  display: flex;
+  background-color: rgba(255, 224, 178, 0.3);
   margin: 20px;
   height: 160px;
   width: 90%;
-  border: 10px solid lightgray;
+  border: 10px double #ffdab9;
   border-radius: 10px;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 body .listContainer {

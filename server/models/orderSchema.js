@@ -11,6 +11,13 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      name: {
+        type: String,
+        required: true,
+      },
+      tags: {
+        type: String,
+      },
       qty: {
         type: Number,
         default: 1,
@@ -26,7 +33,6 @@ const orderSchema = new mongoose.Schema({
   ],
   requests: {
     type: String,
-    default: 'Null',
   },
   order_Time: {
     type: Date,

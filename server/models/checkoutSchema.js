@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const checkoutSchema = new mongoose.Schema({
   customer_ID: {
-    type: Number,
+    type: String,
   },
   order_ID: {
     type: String,

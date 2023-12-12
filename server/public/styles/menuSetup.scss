@@ -44,10 +44,12 @@ input[type='file'] {
 }
 
 // 菜單類別樣式
-.menuCategories {
+.menuCategories,
+.menuTags {
   padding: 20px;
 
-  .categoryBox {
+  .categoryBox,
+  .tagsBox {
     display: inline-block;
     background-color: $background-color;
     padding: 10px;
@@ -56,7 +58,8 @@ input[type='file'] {
     border: 1px solid #ddd;
     text-align: left;
 
-    .menuCategory {
+    .menuCategory,
+    .menuTag {
       background-color: $secondary-color;
       color: white;
       padding: 5px;

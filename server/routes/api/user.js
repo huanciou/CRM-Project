@@ -9,11 +9,14 @@ import {
 
 import authorization from '../../middleware/authorization.js';
 import { dbCheckerInHeaders } from '../../middleware/dbChecker.js';
+import { getMenu } from '../../controllers/admin/menu.js';
 
 const router = Router();
 
 router.route('/profile').get(authorization, dbCheckerInHeaders, fetchProfile);
 router.route('/profile/card').get(authorization, dbCheckerInHeaders, fetchCard);
+
+router.route('/menu/:db').get(getMenu);
 
 router
   .route('/fetchCredits')

@@ -10,6 +10,12 @@
   <%- include('../components/nav') %>
   <%- include('../components/header') %>
 
+  <h1>新增標籤</h1>
+  <form action="/api/1.0/admin/createMenuTags" method="POST">
+    <input type="text" placeholder="tag" name="tag">
+    <button>submit</button>
+  </form>
+
   <h1>新增種類</h1>
   <form action="/api/1.0/admin/createMenuCategory" method="POST">
     <input type="text" placeholder="category" name="category">
@@ -19,8 +25,13 @@
   <h1>新增餐點</h1>
   <form action="/api/1.0/admin/createMenuContents" method="POST" enctype="multipart/form-data">
     <select name="category">
-      <% for(let i = 0; i < categories.length; i++){ %>
-      <option value="<%= categories[i] %>"><%= categories[i] %></option>
+      <% for(let i = 0; i < cateArr.length; i++){ %>
+      <option value="<%= cateArr[i] %>"><%= cateArr[i] %></option>
+      <% } %>
+    </select>
+    <select name="tags">
+      <% for(let i = 0; i < tagsArr.length; i++){ %>
+      <option value="<%= tagsArr[i] %>"><%= tagsArr[i] %></option>
       <% } %>
     </select>
     <input type="text" placeholder="name" name="name">
@@ -31,22 +42,49 @@
     <button>submit</button>
   </form>
 
-  <h1>種類標籤</h1>
+  <h1>標籤一覽</h1>
+  <div class="menuTags"></div>
+
+  <h1>種類一覽</h1>
   <div class="menuCategories"></div>
+
   <h1>菜單一覽</h1>
   <div class="menus">
   </div>
 
   <script>
     const menuCategories = document.querySelector('.menuCategories');
+    const menuTags = document.querySelector('.menuTags');
     const menus = document.querySelector('.menus');
     const fetchMenuCategoryUrl = `/api/1.0/admin/fetchMenuCategories`;
-    const getMenuUrl = `/admin/menu`;
+    const fetchMenuTagsUrl = `/api/1.0/admin/fetchMenuTags`;
+    const getMenuUrl = `/api/1.0/admin/menu`;
     const createMenuContentUrl = `/api/1.0/admin/createMenuContents`;
-    const deleteMenuCategoryUrl = `/api/1.0/admin/deleteMeunCategory`;
-    const deleteMenuContentUrl = `/api/1.0/admin/deleteMeunContent`;
+    const deleteMenuTagUrl = `/api/1.0/admin/deletemenuTag`;
+    const deleteMenuCategoryUrl = `/api/1.0/admin/deletemenuCategory`;
+    const deleteMenuContentUrl = `/api/1.0/admin/deletemenuContent`;
     const cdn = `https://d3nexs9enmvorf.cloudfront.net`;
     
+    function deleteMenuTag(i){
+      const tag = i.tags;
+      fetch(deleteMenuTagUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: i._id }),
+      })  
+        .then((res) => res.json())
+        .then((data) => {
+          if(data){
+            alert(`tag: ${tag} deletion`);
+            location.reload();
+          } else{
+            alert(`Deletion Failed`);
+          }       
+        })
+    }
+
     function deleteMenuCategory(i){
       const category = i.category;
       fetch(deleteMenuCategoryUrl, {
@@ -84,6 +122,33 @@
           } else{
             alert(`Deletion Failed`);
           }
+        })
+    }
+
+    function fetchMenuTags(){
+      fetch(fetchMenuTagsUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach(i => {
+            const menuTag = document.createElement('span');
+            const tagsBox = document.createElement('div');
+            tagsBox.classList.add('tagsBox');
+            menuTag.classList.add('menuTag');
+            menuTag.innerText = i.tags;
+            tagsBox.appendChild(menuTag);
+
+            const deleteMenuTagButton = document.createElement('button');
+            deleteMenuTagButton.innerText = 'Delete';
+            deleteMenuTagButton.id = i._id;
+            tagsBox.appendChild(deleteMenuTagButton);
+
+            menuTags.appendChild(tagsBox);
+
+            deleteMenuTagButton.addEventListener('click', () => {
+              deleteMenuTag(i);
+            })
+            
+          });
         })
     }
 
@@ -160,6 +225,7 @@
 
     fetchMenuCategory();
     fetchMenu();
+    fetchMenuTags();
 
   </script>
 </body>

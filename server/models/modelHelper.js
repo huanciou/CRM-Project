@@ -2,7 +2,7 @@ import connectDB from '../config/db.js';
 
 import adminSchema from './adminSchema.js';
 import checkoutSchema from './checkoutSchema.js';
-import { menuSchema, menuSetupSchema } from './menuSchema.js';
+import { menuSchema, menuSetupSchema, tagsSetupSchema } from './menuSchema.js';
 import orderSchema from './orderSchema.js';
 import { profileSchema, signSchema } from './profileSchema.js';
 import setupSchema from './setupSchema.js';
@@ -29,6 +29,8 @@ async function getModels(dbToken = defaultDB) {
 
   const user = connection.model('User', userSchema);
 
+  const tags = connection.model('Tag', tagsSetupSchema);
+
   return {
     admin,
     checkout,
@@ -39,6 +41,7 @@ async function getModels(dbToken = defaultDB) {
     sign,
     setup,
     user,
+    tags,
   };
 }
 

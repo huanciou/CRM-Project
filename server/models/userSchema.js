@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
   },
   picture: {
     type: String,
-    default: 'Null',
   },
   email: {
     type: String,

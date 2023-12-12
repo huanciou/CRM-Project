@@ -39,6 +39,9 @@ export async function postCheckout(req, res) {
     try {
       const transaction = await axios.post(linepayURL, body, { headers });
 
+      console.log(
+        `transaction.data.returnCode: ${transaction.data.returnCode}`,
+      );
       if (transaction.data.returnCode === '0000') {
         // order 改狀態
         try {
@@ -56,7 +59,12 @@ export async function postCheckout(req, res) {
         try {
           const checkoutUpdated = await checkout.findOneAndUpdate(
             { order_ID: orderId },
-            { $set: { checkout_Status: 'Paid' } },
+            {
+              $set: {
+                checkout_Status: 'Paid',
+                customer_ID: userId,
+              },
+            },
             { new: true },
           );
           if (!checkoutUpdated) throw new Error('Checkout Not Found');
@@ -81,15 +89,17 @@ export async function postCheckout(req, res) {
           console.error(err.message);
         }
       } else {
-        console.log(`trasnsaction faild: ${transaction.data.returnMessage}`);
+        return res
+          .status(400)
+          .send(`transaction failed: ${transaction.data.returnMessage}`);
       }
     } catch (err) {
-      res.status(400).send('transaction failed');
+      return res.status(400).send('transaction failed');
     }
 
-    res.send('1234');
+    res.status(200).send('transaction successful');
   } else {
-    res.send('123');
+    res.status(400).send('transaction failed');
   }
 }
 

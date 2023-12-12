@@ -25,7 +25,6 @@
   const cdn = `https://d3nexs9enmvorf.cloudfront.net`;
   
   function checkout(list){
-
     localStorage.removeItem('cart');
 
     fetch(checkoutUrl, {
@@ -39,6 +38,7 @@
       .then(data => {
         JSON.stringify(data);
         alert(`訂單 ${data} 已建立`);
+        location.reload();
       })
   }
 
@@ -57,31 +57,30 @@
     cart.appendChild(cartHeading);
     cart.appendChild(priceTotal);
 
-    console.log(list);
     list.forEach((value) => {
       const cartItem = document.createElement('div');
       cartItem.classList.add('cartItem');
       cart.appendChild(cartItem);
       const img = document.createElement('img');
-      // const name = document.createElement('p');
+      const name = document.createElement('p');
       const qty = document.createElement('p');
       const price = document.createElement('p');
       const amount = document.createElement('p');
 
       img.classList.add('img');
-      // name.classList.add('name');
+      name.classList.add('name');
       qty.classList.add('qty');
       price.classList.add('price');
       amount.classList.add('amount');
 
       img.src = value.img;
-      // name.innerText = `${value.item_ID}`;
+      name.innerText = `${value.name}`;
       qty.innerText = `數量 ${value.qty}`;
       price.innerText = `單價 ${value.price}`;
       amount.innerText = `總額 ${value.amount}`;
 
       cartItem.appendChild(img);
-      // cartItem.appendChild(name);
+      cartItem.appendChild(name);
       cartItem.appendChild(qty);
       cartItem.appendChild(price);
       cartItem.appendChild(amount);
@@ -133,14 +132,18 @@
             story.classList.add('story');
             const img = document.createElement('img')
             img.classList.add('img');
+            const tags = document.createElement('p')
+            tags.classList.add('tags');
 
             category.innerText = menu.category;
             name.innerText = menu.name;
             price.innerText = menu.price;
             story.innerText = menu.story;
+            tags.innerText = menu.tags;
             img.src = `${cdn}/${menu.main_image}`;
 
             menuContent.appendChild(category)
+            menuContent.appendChild(tags)
             menuContent.appendChild(name)
             menuContent.appendChild(price)
             menuContent.appendChild(story)
@@ -176,12 +179,16 @@
                 if(i.target.parentElement.querySelector('.orderQty').value){
                 const id = i.target.id;
                 const qty = i.target.parentElement.querySelector('.orderQty').value;
+                const name = i.target.parentElement.querySelector('.name').innerText;
+                const tags = i.target.parentElement.querySelector('.tags').innerText;
                 const price = (Number(i.target.parentElement.querySelector('.orderAmount').innerText)/qty);
                 const amount = Number(i.target.parentElement.querySelector('.orderAmount').innerText);
                 const img = i.target.parentElement.querySelector('.img').src;
-
+                
                 const list = {
                   item_ID: id,
+                  tags,
+                  name,
                   qty,
                   price,
                   amount,
@@ -194,7 +201,7 @@
                 for (let i in storage){
                   if(storage[i].item_ID === list.item_ID){
                     storage[i].qty = +storage[i].qty + +list.qty;
-                    storage[i].amount = +storage[i].qty * +storage[i].price;
+                    storage[i].amount = +storage[i].qty * + storage[i].price;
                     itemExists = true;
                     break;
                   }

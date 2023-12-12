@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/styles/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
+
+  <!-- <canvas id='totalAmountCanvas'></canvas>
+  <canvas id='checkoutTagsCanvas'></canvas>
+  <canvas id='checkoutIDsCanvas'></canvas> -->
+
+  <div id="chartCarousel" class="carousel">
+    <canvas id='totalAmountCanvas'></canvas>
+    <canvas id='checkoutTagsCanvas' style="display:none;"></canvas>
+    <canvas id='checkoutIDsCanvas' style="display:none;"></canvas>
+  </div>
+  
+  <button id="prevButton"></button>
+  <button id="nextButton"></button>
+
+<form id="dashboard-form">
+  <label for="start-date">起始日期：</label>
+  <input type="date" id="start-date" name="startDate" required>
+
+  <label for="end-date">終止日期：</label>
+  <input type="date" id="end-date" name="endDate" required>
+
+  <button id= "dashboard-form-button" type="submit">提交</button>
+</form>
+
+<script>
+  const dashboardUrl = '/api/1.0/admin/fetchDashboard';
+  const form = document.querySelector("form");
+  const startDate = document.querySelector("#start-date");
+  const endDate = document.querySelector("#end-date");
+  const dashboardForm = document.querySelector('#dashboard-form');
+  const dashboardFormButton = document.querySelector('#dashboard-form-button');
+
+  let currentChartIndex = 0;
+  let totalAmountChart;
+  let checkoutTagsChart;
+  let checkoutIDsChart;
+
+  const charts = ['totalAmountCanvas', 'checkoutTagsCanvas', 'checkoutIDsCanvas'];
+
+  function showChart(index) {
+    charts.forEach((chartId, idx) => {
+      const chartElement = document.getElementById(chartId);
+      chartElement.style.display = idx === index ? 'block' : 'none';
+    });
+
+    if (index === 0) {
+      reloadChartWithAnimation(totalAmountChart);
+    } else if (index === 1) {
+      reloadChartWithAnimation(checkoutTagsChart);
+    } else if (index === 2) {
+      reloadChartWithAnimation(checkoutIDsChart);
+    }
+  }
+
+document.getElementById('prevButton').addEventListener('click', () => {
+  currentChartIndex = (currentChartIndex - 1 + charts.length) % charts.length;
+  showChart(currentChartIndex);
+});
+
+document.getElementById('nextButton').addEventListener('click', () => {
+  currentChartIndex = (currentChartIndex + 1) % charts.length;
+  showChart(currentChartIndex);
+});
+
+// 初始化显示第一个图表
+showChart(currentChartIndex);
+
+function checkoutAmountByDayFunction(resData) {
+  // 选择 Canvas 元素
+  const totalAmountCanvas = document.querySelector('#totalAmountCanvas').getContext('2d');
+
+  if (totalAmountChart) {
+    totalAmountChart.destroy();
+  }
+
+  const checkoutAmountByDay = resData.checkoutAmountByDay;
+  const dates = [];
+  const amounts = [];
+
+  // 提取数据
+  for (let i = 0; i < checkoutAmountByDay.length; i++) {
+    dates.push(checkoutAmountByDay[i].date);
+    amounts.push(checkoutAmountByDay[i].amount);
+  }
+
+  // 创建图表
+  totalAmountChart = new Chart(totalAmountCanvas, {
+    type: 'bar', // 条形图
+    data: {
+      labels: dates,
+      datasets: [{
+        label: 'Daily Total Amount',
+        data: amounts,
+        backgroundColor: 'orange', // 柱子的颜色
+        borderColor: 'orange', // 边框颜色
+        borderWidth: 1,
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Amount'
+          },
+          ticks:{
+            maxTicksLimit: 10,
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Date'
+          }
+        }
+      },
+      animation: {
+          duration: 2500,
+          easing: 'easeOutBounce',    
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Daily Total Amount'
+        }
+      },
+      responsive: true,
+      maintainAspectRatio: true,
+    }
+  });
+}
+
+function checkoutTagsFunction(resData) {
+  const checkoutTagsCanvas = document.querySelector('#checkoutTagsCanvas').getContext('2d');
+
+  if (checkoutTagsChart) {
+    checkoutTagsChart.destroy();
+  }
+
+  const checkoutTags = resData.checkoutTags;
+  const values = [];
+  const labels = [];
+
+  // 提取数据
+  checkoutTags.forEach(tag => {
+    values.push(tag.count);
+    labels.push(tag._id);
+  });
+
+  // 创建折线图
+  checkoutTagsChart = new Chart(checkoutTagsCanvas, {
+    type: 'line', // 折线图
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Checkout Tags',
+        data: values,
+        fill: false, 
+        borderColor: 'rgb(75, 192, 192)', // 线条颜色
+        tension: 100 // 线条弯曲程度
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      animation: {
+        easing: 'easeInOutElastic',
+        duration: 5000,
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Checkout Tags'
+        },
+        legend: {
+          display: true 
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks:{
+            stepSize: 1, 
+          },
+        }
+      }
+    }
+  });
+}
+
+function checkoutIDsFunction(resData) {
+  const checkoutIDsCanvas = document.querySelector('#checkoutIDsCanvas').getContext('2d');
+
+  if (checkoutIDsChart) {
+    checkoutIDsChart.destroy();
+  }
+
+  const checkoutIDs = resData.checkoutIDs;
+  const values = [];
+  const labels = [];
+
+  // 提取数据
+  checkoutIDs.forEach(i => {
+    values.push(i.count);
+    labels.push(i._id);
+  });
+
+  // 创建图表
+  checkoutIDsChart = new Chart(checkoutIDsCanvas, {
+  type: 'doughnut',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: '用户排行',
+      data: values,
+      backgroundColor: [
+        'rgba(210, 105, 30, 0.6)',  // 巧克力色
+        'rgba(160, 82, 45, 0.6)',   // 更深的巧克力色
+        'rgba(139, 69, 19, 0.6)',   // 栗色
+        // ...其他巧克力色调...
+      ],
+      hoverOffset: 4
+    }]
+  },
+  options: {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: {
+    title: {
+      display: true,
+      text: '用户排行'
+    },
+    legend: {
+      display: true
+    }
+  },
+  elements: {
+    arc: {
+      borderWidth: 0,
+      borderColor: '#000',
+      // 添加阴影效果
+      backgroundColor: (context) => {
+        const ctx = context.chart.ctx;
+        const index = context.dataIndex;
+        const value = context.dataset.data[index];
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(210, 105, 30, 0.6)'); // 巧克力色
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)'); // 深色
+
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        return gradient;
+      }
+    }
+  },
+  animation: {
+    animateRotate: true,
+    animateScale: true,
+    duration: 3000,
+  }
+}
+
+  });
+
+}
+
+function refreshing(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const firstDay = new Date(year, month, 2);
+  const lastDay = new Date(year, month + 1, 0);
+
+  const start = firstDay.toISOString().split('T')[0];
+  const end = lastDay.toISOString().split('T')[0];
+
+  window.addEventListener('load', () => {
+      startDate.value = start;
+      endDate.value = end;
+      console.log(start);
+      console.log(end);
+
+      dashboardFormButton.click();
+  })
+}
+
+dashboardForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+  if (endDate.value < startDate.value) {
+    event.preventDefault();
+    alert("終止日期不得小於起始日期！");
+    startDate.value = "";
+    endDate.value = "";
+  }
+
+  const date = {
+    startDate: startDate.value,
+    endDate: endDate.value,
+  }
+  fetch(dashboardUrl, {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(date),
+  })
+    .then(res => res.json())
+    .then(resData => {
+      checkoutAmountByDayFunction(resData);
+      checkoutTagsFunction(resData);
+      checkoutIDsFunction(resData);
+    })
+});
+
+function reloadChartWithAnimation(reloadChart) {
+  console.log(reloadChart);
+  if (reloadChart) {
+    reloadChart.options.animation.duration = 2000; 
+    reloadChart.update();
+  }
+}
+
+refreshing();
+
+</script>
+</body>
+</html>

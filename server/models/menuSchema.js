@@ -8,6 +8,12 @@ export const menuSetupSchema = new mongoose.Schema({
   },
 });
 
+export const tagsSetupSchema = new mongoose.Schema({
+  tags: {
+    type: String,
+  },
+});
+
 export const menuSchema = new mongoose.Schema({
   category: {
     type: String,
@@ -20,6 +26,10 @@ export const menuSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  tags: {
+    type: String,
+    default: 'Null',
   },
   story: {
     type: String,

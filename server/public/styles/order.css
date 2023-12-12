@@ -80,9 +80,10 @@ button:hover {
   border-left: 1px solid #ddd;
   padding: 15px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: right all 0.3s ease;
+  transition: right 0.5s ease;
   overflow-y: auto;
   z-index: 1000;
+  padding: 20px;
 }
 .cart h2,
 .cart h3 {
@@ -123,7 +124,7 @@ button:hover {
   font-weight: 900;
   transform: translateY(-50%);
   background-color: transparent;
-  color: black;
+  color: #007bff;
   border: none;
   cursor: pointer;
   z-index: 1001;
@@ -131,7 +132,7 @@ button:hover {
   text-align: center;
 }
 #toggleCartBtn:hover {
-  color: #007bff;
+  color: #004a99;
 }
 
 .navbar {

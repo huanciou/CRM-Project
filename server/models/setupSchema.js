@@ -16,7 +16,6 @@ const setupSchema = new mongoose.Schema({
   },
   campaign: {
     type: String,
-    default: 'Null',
   },
   update_time: {
     type: Date,

@@ -31,10 +31,14 @@ input[type=file] {
   border-radius: 5px;
 }
 
-.menuCategories {
+.menuCategories,
+.menuTags {
   padding: 20px;
 }
-.menuCategories .categoryBox {
+.menuCategories .categoryBox,
+.menuCategories .tagsBox,
+.menuTags .categoryBox,
+.menuTags .tagsBox {
   display: inline-block;
   background-color: #f8f8f8;
   padding: 10px;
@@ -43,7 +47,14 @@ input[type=file] {
   border: 1px solid #ddd;
   text-align: left;
 }
-.menuCategories .categoryBox .menuCategory {
+.menuCategories .categoryBox .menuCategory,
+.menuCategories .categoryBox .menuTag,
+.menuCategories .tagsBox .menuCategory,
+.menuCategories .tagsBox .menuTag,
+.menuTags .categoryBox .menuCategory,
+.menuTags .categoryBox .menuTag,
+.menuTags .tagsBox .menuCategory,
+.menuTags .tagsBox .menuTag {
   background-color: #6c757d;
   color: white;
   padding: 5px;
@@ -51,7 +62,10 @@ input[type=file] {
   display: inline-block;
   margin-right: 10px;
 }
-.menuCategories .categoryBox button {
+.menuCategories .categoryBox button,
+.menuCategories .tagsBox button,
+.menuTags .categoryBox button,
+.menuTags .tagsBox button {
   display: inline-block;
   vertical-align: middle;
 }

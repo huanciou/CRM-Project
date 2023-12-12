@@ -29,7 +29,6 @@ export async function getCheckoutByID(req, res) {
         { $setOnInsert: checkoutList },
         { upsert: true, new: true },
       );
-      console.log(checkoutID);
     } catch (err) {
       console.error(err.message);
     }

@@ -8,11 +8,12 @@ export function fetchProfile(req, res) {
 export async function fetchCard(req, res) {
   const { dbToken } = req;
   const { admin } = await getModels(dbToken);
-  // const { related } = req.user;
   const { LOCATION_ORIGIN } = process.env;
 
   // const img = await admin.find({ name: { $in: related } });
   const img = await admin.find();
+  console.log(dbToken);
+  console.log(img);
   const cards = img.map((i) => ({
     img: i.campaign,
     url: `${LOCATION_ORIGIN}/user/signIn/${i.name}`,

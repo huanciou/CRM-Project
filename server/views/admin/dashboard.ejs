@@ -16,6 +16,16 @@
   <canvas id='checkoutTagsCanvas'></canvas>
   <canvas id='checkoutIDsCanvas'></canvas> -->
 
+  <form id="dashboard-form">
+    <label for="start-date">起始日期：</label>
+    <input type="date" id="start-date" name="startDate" required>
+  
+    <label for="end-date">終止日期：</label>
+    <input type="date" id="end-date" name="endDate" required>
+  
+    <button id= "dashboard-form-button" type="submit">提交</button>
+  </form>
+
   <div id="chartCarousel" class="carousel">
     <canvas id='totalAmountCanvas'></canvas>
     <canvas id='checkoutTagsCanvas' style="display:none;"></canvas>
@@ -24,16 +34,6 @@
   
   <button id="prevButton"></button>
   <button id="nextButton"></button>
-
-<form id="dashboard-form">
-  <label for="start-date">起始日期：</label>
-  <input type="date" id="start-date" name="startDate" required>
-
-  <label for="end-date">終止日期：</label>
-  <input type="date" id="end-date" name="endDate" required>
-
-  <button id= "dashboard-form-button" type="submit">提交</button>
-</form>
 
 <script>
   const dashboardUrl = '/api/1.0/admin/fetchDashboard';

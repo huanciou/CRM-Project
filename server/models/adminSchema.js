@@ -25,6 +25,9 @@ const adminSchema = new mongoose.Schema({
     type: String,
     default: 'https://d3nexs9enmvorf.cloudfront.net/output.webp',
   },
+  heading: {
+    type: String,
+    default: 'null',
+  },
 });
-
 export default adminSchema;

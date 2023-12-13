@@ -92,7 +92,7 @@ form button:hover {
 #prevButton,
 #nextButton {
   position: absolute;
-  top: 140%;
+  top: 170%;
   transform: translateY(-50%);
   background-color: transparent;
   color: white;
@@ -120,6 +120,7 @@ form button:hover {
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;

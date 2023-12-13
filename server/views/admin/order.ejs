@@ -128,8 +128,8 @@
             name.classList.add('name');
             const price = document.createElement('p')
             price.classList.add('price');
-            const story = document.createElement('p')
-            story.classList.add('story');
+            // const story = document.createElement('p')
+            // story.classList.add('story');
             const img = document.createElement('img')
             img.classList.add('img');
             const tags = document.createElement('p')
@@ -137,8 +137,8 @@
 
             category.innerText = menu.category;
             name.innerText = menu.name;
-            price.innerText = menu.price;
-            story.innerText = menu.story;
+            price.innerText = `$ ${menu.price}`;
+            // story.innerText = menu.story;
             tags.innerText = menu.tags;
             img.src = `${cdn}/${menu.main_image}`;
 
@@ -146,7 +146,7 @@
             menuContent.appendChild(tags)
             menuContent.appendChild(name)
             menuContent.appendChild(price)
-            menuContent.appendChild(story)
+            // menuContent.appendChild(story)
             menuContent.appendChild(img)
             menus.appendChild(menuContent);
             

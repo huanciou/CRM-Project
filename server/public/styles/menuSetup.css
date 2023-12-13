@@ -1,5 +1,5 @@
+@charset "UTF-8";
 body {
-  font-family: "Comic Sans MS", cursive, sans-serif;
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
@@ -86,27 +86,31 @@ input[type=file] {
   margin-bottom: 10px;
 }
 .menu .menuName {
-  font-size: 1.2em;
+  font-size: 2em;
   color: #007bff;
   margin-bottom: 5px;
 }
 .menu .menuPrice {
+  font-size: 2em;
   font-weight: bold;
   color: #6c757d;
 }
 .menu .menuStory {
+  font-size: 2em;
   font-style: italic;
   margin: 10px 0;
 }
 .menu .menuImg {
-  max-width: 20%;
+  display: flex;
+  max-width: 40%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 20px;
   display: block;
-  margin: 20px auto;
+  padding: 40px;
+  margin: auto;
 }
 .menu button {
-  padding: 10px 520px;
+  padding: 30px 200px;
   background-color: red;
 }
 
@@ -125,11 +129,19 @@ input[type=file] {
     max-width: 100%;
   }
 }
+.tagsBox,
+.categoryBox {
+  padding: 10px; /* 內邊距 */
+  border-radius: 30px;
+  background: linear-gradient(to right, #afd6e7, #a1c8e7);
+}
+
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;

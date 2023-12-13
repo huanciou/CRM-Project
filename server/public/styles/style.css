@@ -6,7 +6,6 @@
 }
 
 body {
-  font-family: "Comic Sans MS", cursive, sans-serif;
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
@@ -55,13 +54,13 @@ input[type=file] {
   text-align: left;
 }
 .menuCategories .categoryBox .menuCategory,
-.menuCategories .categoryBox .meunTag,
+.menuCategories .categoryBox .menuTag,
 .menuCategories .tagsBox .menuCategory,
-.menuCategories .tagsBox .meunTag,
+.menuCategories .tagsBox .menuTag,
 .menuTags .categoryBox .menuCategory,
-.menuTags .categoryBox .meunTag,
+.menuTags .categoryBox .menuTag,
 .menuTags .tagsBox .menuCategory,
-.menuTags .tagsBox .meunTag {
+.menuTags .tagsBox .menuTag {
   background-color: #6c757d;
   color: white;
   padding: 5px;
@@ -93,27 +92,31 @@ input[type=file] {
   margin-bottom: 10px;
 }
 .menu .menuName {
-  font-size: 1.2em;
+  font-size: 2em;
   color: #007bff;
   margin-bottom: 5px;
 }
 .menu .menuPrice {
+  font-size: 2em;
   font-weight: bold;
   color: #6c757d;
 }
 .menu .menuStory {
+  font-size: 2em;
   font-style: italic;
   margin: 10px 0;
 }
 .menu .menuImg {
-  max-width: 20%;
+  display: flex;
+  max-width: 40%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 20px;
   display: block;
-  margin: 20px auto;
+  padding: 40px;
+  margin: auto;
 }
 .menu button {
-  padding: 10px 520px;
+  padding: 30px 200px;
   background-color: red;
 }
 
@@ -132,11 +135,19 @@ input[type=file] {
     max-width: 100%;
   }
 }
+.tagsBox,
+.categoryBox {
+  padding: 10px; /* 內邊距 */
+  border-radius: 30px;
+  background: linear-gradient(to right, #afd6e7, #a1c8e7);
+}
+
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;
@@ -191,7 +202,6 @@ input[type=file] {
 }
 
 body {
-  font-family: "Comic Sans MS", cursive, sans-serif;
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
@@ -272,9 +282,10 @@ button:hover {
   border-left: 1px solid #ddd;
   padding: 15px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: right all 0.3s ease;
+  transition: right 0.5s ease;
   overflow-y: auto;
   z-index: 1000;
+  padding: 20px;
 }
 .cart h2,
 .cart h3 {
@@ -315,7 +326,7 @@ button:hover {
   font-weight: 900;
   transform: translateY(-50%);
   background-color: transparent;
-  color: black;
+  color: #007bff;
   border: none;
   cursor: pointer;
   z-index: 1001;
@@ -323,7 +334,7 @@ button:hover {
   text-align: center;
 }
 #toggleCartBtn:hover {
-  color: #007bff;
+  color: #004a99;
 }
 
 .navbar {
@@ -331,6 +342,7 @@ button:hover {
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;
@@ -385,7 +397,6 @@ button:hover {
 }
 
 body {
-  font-family: "Comic Sans MS", cursive, sans-serif;
   color: #333;
   background-color: #f8f8f8;
   margin: 0;
@@ -399,12 +410,15 @@ body .orderList {
   align-items: center;
 }
 body .orderList .order {
-  background-color: rgb(41, 128, 214) a(255, 0, 0, 0.175);
+  display: flex;
+  background-color: rgba(255, 224, 178, 0.3);
   margin: 20px;
   height: 160px;
   width: 90%;
-  border: 10px solid lightgray;
+  border: 10px double #ffdab9;
   border-radius: 10px;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 body .listContainer {
@@ -441,6 +455,7 @@ body .listContainer .listBox {
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;
@@ -579,6 +594,7 @@ div.json-data {
   top: 0;
   width: 100%;
   transition: height 0.3s ease;
+  z-index: 999;
 }
 .navbar-top {
   display: flex;

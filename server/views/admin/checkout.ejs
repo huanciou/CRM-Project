@@ -29,7 +29,7 @@
     listContainer.style.padding = '0'; // 设置内边距为0
     listContainer.style.border = '0'; // 设置边框为0
   } else {
-    listContainer.style.maxHeight = '1000px'; // 设置一个足够大的高度值，以显示所有内容
+    listContainer.style.maxHeight = '3000px'; // 设置一个足够大的高度值，以显示所有内容
     listContainer.style.padding = '20px'; // 设置内边距
     listContainer.style.border = '1px solid #ddd'; // 设置边框
   }
@@ -124,7 +124,7 @@
           order.classList.add('order');
           orderList.appendChild(order);
           order.id = i._id;
-          order.innerText = `訂單編號：${i._id}\n桌號：${i.customer_ID}\n點餐時間：${i.order_Time}`;
+          order.innerText = `訂單編號：${i._id}\n點餐時間：${i.order_Time}`;
           
           getOrderItems(i);
                  

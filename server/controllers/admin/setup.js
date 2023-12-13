@@ -9,12 +9,10 @@ export function getLogin(req, res) {
 export async function postLogin(req, res) {
   const { account, password } = req.body;
   try {
-    const { admin } = await getModels();
+    const { admin } = await getModels('test');
     const user = await admin.findOne({ account });
-
     if (user) {
       const isPasswordMatch = await compare(password, user.password);
-
       if (isPasswordMatch) {
         const payload = {
           id: user._id,

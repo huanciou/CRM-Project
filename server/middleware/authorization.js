@@ -4,7 +4,6 @@ async function authorization(req, res, next) {
   try {
     const headers = req.get('Authorization');
     const token = headers?.replace('Bearer ', '');
-
     const payload = await verifyJWT(token);
     req.user = payload;
     next();

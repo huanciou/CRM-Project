@@ -4,6 +4,7 @@ const adminSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   account: {
     type: String,
@@ -22,6 +23,7 @@ const adminSchema = new mongoose.Schema({
   },
   campaign: {
     type: String,
+    default: 'https://d3nexs9enmvorf.cloudfront.net/output.webp',
   },
 });
 

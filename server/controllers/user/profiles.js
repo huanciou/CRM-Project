@@ -84,3 +84,15 @@ export function getReactRoute(req, res) {
   const build = path.resolve('public', 'build');
   res.sendFile(path.join(build, 'index.html'));
 }
+
+export function getReactRouteViaTest(req, res) {
+  if (req.cookies.dbToken !== 'test') {
+    res.cookie('dbToken', 'test', {
+      maxAge: 3600000,
+      path: '/',
+    });
+  }
+
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
+}

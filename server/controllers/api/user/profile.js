@@ -5,13 +5,20 @@ export function fetchProfile(req, res) {
   res.json(profile);
 }
 
-export function fetchCard(req, res) {
-  const arr = [
-    'https://d3nexs9enmvorf.cloudfront.net/0c4a1e9f-9757-454b-b9a0-41990aa8d845.webp',
-    'https://d3nexs9enmvorf.cloudfront.net/2327d52d-68f0-4a71-bb8d-5e24c888bfa5.webp',
-  ];
+export async function fetchCard(req, res) {
+  const { dbToken } = req;
+  const { admin } = await getModels(dbToken);
+  // const { related } = req.user;
+  const { LOCATION_ORIGIN } = process.env;
 
-  res.json(arr);
+  // const img = await admin.find({ name: { $in: related } });
+  const img = await admin.find();
+  const cards = img.map((i) => ({
+    img: i.campaign,
+    url: `${LOCATION_ORIGIN}/user/signIn/${i.name}`,
+  }));
+
+  res.json(cards);
 }
 
 export async function fetchCredits(req, res) {
@@ -30,16 +37,20 @@ export async function fetchCredits(req, res) {
 }
 
 export async function fetchHistory(req, res) {
-  const sub = req.user.id;
   const { dbToken } = req;
+  const { history } = req.body; // 拿到一個 array
   const { user } = await getModels(dbToken);
+  const userData = {
+    checkout_Time,
+  };
 
   try {
-    const userData = await user.findOne({ sub }, { history: { $slice: -3 } });
-    res.json(userData.history);
+    const resData = await user.findOne({ sub }, { history: { $slice: -3 } });
   } catch (err) {
     console.error(err);
   }
+
+  res.json();
 }
 export async function fetchStoreInfo(req, res) {
   const { dbToken } = req;

@@ -6,6 +6,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="/styles/dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.3"></script>
 </head>
 <body>
   <%- include('../components/nav') %>
@@ -74,11 +75,11 @@ document.getElementById('nextButton').addEventListener('click', () => {
   showChart(currentChartIndex);
 });
 
-// 初始化显示第一个图表
+
 showChart(currentChartIndex);
 
 function checkoutAmountByDayFunction(resData) {
-  // 选择 Canvas 元素
+
   const totalAmountCanvas = document.querySelector('#totalAmountCanvas').getContext('2d');
 
   if (totalAmountChart) {
@@ -89,22 +90,20 @@ function checkoutAmountByDayFunction(resData) {
   const dates = [];
   const amounts = [];
 
-  // 提取数据
   for (let i = 0; i < checkoutAmountByDay.length; i++) {
     dates.push(checkoutAmountByDay[i].date);
     amounts.push(checkoutAmountByDay[i].amount);
   }
 
-  // 创建图表
   totalAmountChart = new Chart(totalAmountCanvas, {
-    type: 'bar', // 条形图
+    type: 'bar', 
     data: {
       labels: dates,
       datasets: [{
-        label: 'Daily Total Amount',
+        label: '每日營業額',
         data: amounts,
-        backgroundColor: 'orange', // 柱子的颜色
-        borderColor: 'orange', // 边框颜色
+        backgroundColor: 'orange', 
+        borderColor: 'orange',
         borderWidth: 1,
       }]
     },
@@ -129,13 +128,27 @@ function checkoutAmountByDayFunction(resData) {
       },
       animation: {
           duration: 2500,
-          easing: 'easeOutBounce',    
+          easing: 'easeOutBounce',
       },
       plugins: {
         title: {
           display: true,
-          text: 'Daily Total Amount'
+          text: '當日營業額',
+          font: {
+            size: 40,
+          }
+        },
+        datalabels: {
+        color: '#444', 
+        align: 'end',  
+        anchor: 'end',
+        formatter: function(value, context) {
+          return value; 
         }
+        },
+        legend: {
+          display: false,
+        },
       },
       responsive: true,
       maintainAspectRatio: true,
@@ -154,23 +167,23 @@ function checkoutTagsFunction(resData) {
   const values = [];
   const labels = [];
 
-  // 提取数据
+ 
   checkoutTags.forEach(tag => {
     values.push(tag.count);
     labels.push(tag._id);
   });
 
-  // 创建折线图
+
   checkoutTagsChart = new Chart(checkoutTagsCanvas, {
-    type: 'line', // 折线图
+    type: 'line', 
     data: {
       labels: labels,
       datasets: [{
         label: 'Checkout Tags',
         data: values,
         fill: false, 
-        borderColor: 'rgb(75, 192, 192)', // 线条颜色
-        tension: 100 // 线条弯曲程度
+        borderColor: 'rgb(75, 192, 192)', 
+        tension: 100,
       }]
     },
     options: {
@@ -178,15 +191,25 @@ function checkoutTagsFunction(resData) {
       maintainAspectRatio: true,
       animation: {
         easing: 'easeInOutElastic',
+        duration: 1500,
+        tension: {
         duration: 5000,
+        easing: 'linear',
+        from: 1,
+        to: 0,
+        loop: true
+      },
       },
       plugins: {
         title: {
           display: true,
-          text: 'Checkout Tags'
+          text: '熱門標籤',
+          font: {
+            size: 40,
+          }
         },
         legend: {
-          display: true 
+          display: false,
         }
       },
       scales: {
@@ -224,7 +247,7 @@ function checkoutIDsFunction(resData) {
   data: {
     labels: labels,
     datasets: [{
-      label: '用户排行',
+      label: '用戶排行',
       data: values,
       backgroundColor: [
         'rgba(210, 105, 30, 0.6)',  // 巧克力色
@@ -241,10 +264,13 @@ function checkoutIDsFunction(resData) {
   plugins: {
     title: {
       display: true,
-      text: '用户排行'
+      text: '用戶排行榜',
+      font: {
+            size: 40,
+      }
     },
     legend: {
-      display: true
+      display: true,
     }
   },
   elements: {
@@ -330,9 +356,15 @@ dashboardForm.addEventListener("submit", function(event) {
 function reloadChartWithAnimation(reloadChart) {
   console.log(reloadChart);
   if (reloadChart) {
-    reloadChart.options.animation.duration = 2000; 
+    
+    const emptyArr = [];
+    const originalArr = reloadChart.data.datasets[0].data;
+    reloadChart.data.datasets[0].data = emptyArr;
+    console.log(reloadChart.data.datasets[0].data);
     reloadChart.update();
-  }
+    reloadChart.data.datasets[0].data = originalArr;
+    reloadChart.update();
+  };
 }
 
 refreshing();

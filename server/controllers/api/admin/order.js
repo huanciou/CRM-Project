@@ -164,6 +164,5 @@ export async function fetchDashboard(req, res) {
   } catch (err) {
     return res.status(500).send('checkoutTags error');
   }
-  console.log(resData);
   res.json(resData);
 }

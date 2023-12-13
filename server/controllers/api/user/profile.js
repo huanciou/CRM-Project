@@ -38,19 +38,42 @@ export async function fetchCredits(req, res) {
 
 export async function fetchHistory(req, res) {
   const { dbToken } = req;
-  const { history } = req.body; // 拿到一個 array
-  const { user } = await getModels(dbToken);
-  const userData = {
-    checkout_Time,
-  };
+  const { history } = req.user; // 拿到一個 array
+  const { checkout, menu } = await getModels(dbToken);
+  const { CDN_LOCATION_ORIGIN } = process.env;
 
-  try {
-    const resData = await user.findOne({ sub }, { history: { $slice: -3 } });
-  } catch (err) {
-    console.error(err);
-  }
+  const checkoutData = await checkout
+    .find({
+      _id: { $in: history },
+    })
+    .select(
+      'checkout_Time amount order_Items.item_ID order_Items.qty order_Items.price order_Items.amount',
+    );
 
-  res.json();
+  const resData = await Promise.all(
+    checkoutData.map(async (checkoutDoc) => {
+      const resDataItems = await Promise.all(
+        checkoutDoc.order_Items.map(async (item) => {
+          const menuItem = await menu
+            .findOne({ _id: item.item_ID })
+            .select('name main_image');
+
+          return {
+            ...item,
+            name: menuItem.name,
+            main_image: `${CDN_LOCATION_ORIGIN}/${menuItem.main_image}`,
+          };
+        }),
+      );
+
+      return {
+        ...checkoutDoc._doc,
+        order_Items: resDataItems,
+      };
+    }),
+  );
+
+  res.json(resData);
 }
 export async function fetchStoreInfo(req, res) {
   const { dbToken } = req;

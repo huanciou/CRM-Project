@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -7,17 +6,20 @@
 }
 
 body {
+  min-height: 100vh;
   background-image: url("https://d3nexs9enmvorf.cloudfront.net/output.webp");
-  background-size: cover; /* 或 'contain' */
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-attachment: fixed;
 }
 
 .profile-component {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 380px;
+  width: 400px;
+  min-height: 100vh;
   margin: 0 auto;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
   background-color: rgba(15, 24, 30, 0.7);
@@ -95,7 +97,7 @@ body {
   height: 300px;
   padding: 10px;
   box-sizing: border-box;
-  display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   border-bottom: 10px groove #d3d3d3;
@@ -240,6 +242,7 @@ body {
 .history-contents {
   background: rgba(233, 229, 229, 0.2);
   height: 300px;
+  height: 600px;
   width: 96%;
   padding: 10px;
   box-sizing: border-box;
@@ -252,6 +255,7 @@ body {
   letter-spacing: 2px;
   border-bottom: 10px groove #d3d3d3;
   border-radius: 10px;
+  flex-grow: 1;
 }
 .history-contents .history {
   padding: 10px;

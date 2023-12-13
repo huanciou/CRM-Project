@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SwitchComponent from './SwitchComponent';
+import CarouselComponent from './CarouselComponent';
 import Cookies from 'js-cookie';
+import '../styles/style.css';
 
 const CardComponent = () => {
   const [profile, setProfile] = useState({
+    id: '',
     name: '',
     picture: '',
     history: '',
@@ -12,13 +15,13 @@ const CardComponent = () => {
   });
 
   const [name, setName] = useState('');
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    const jwtToken = Cookies.get('jwtToken');
+    const dbToken = Cookies.get('dbToken');
+    setName(dbToken);
     const fetchProfile = async () => {
-      const jwtToken = Cookies.get('jwtToken');
-      const dbToken = Cookies.get('dbToken');
-      setName(dbToken);
-
       if (jwtToken) {
         try {
           const response = await fetch(
@@ -34,6 +37,7 @@ const CardComponent = () => {
           const data = await response.json();
           if (response.ok) {
             setProfile({
+              id: data.id,
               name: data.name,
               picture: data.picture,
               history: data.history,
@@ -51,20 +55,28 @@ const CardComponent = () => {
     fetchProfile();
   }, []);
 
-  const [cards, setCards] = useState([]);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-
+  // ${window.location.origin}
   useEffect(() => {
+    const jwtToken = Cookies.get('jwtToken');
+    const dbToken = Cookies.get('dbToken');
+    setName(dbToken);
     const fetchMemberCards = async () => {
       try {
         const response = await fetch(
           `${window.location.origin}/api/1.0/user/profile/card`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+              dbToken,
+            },
+          },
         );
+        const cardsInfo = await response.json();
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const cardImages = await response.json();
-        setCards(cardImages);
+        setCards(cardsInfo);
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -72,16 +84,6 @@ const CardComponent = () => {
 
     fetchMemberCards();
   }, []);
-
-  const handlePrev = () => {
-    setActiveCardIndex(
-      (prevIndex) => (prevIndex - 1 + cards.length) % cards.length,
-    );
-  };
-
-  const handleNext = () => {
-    setActiveCardIndex((prevIndex) => (prevIndex + 1) % cards.length);
-  };
 
   return (
     <div className="profile-component">
@@ -91,7 +93,7 @@ const CardComponent = () => {
         {profile.picture && <img src={profile.picture} alt="Profile" />}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || 'Huan'}</div>
+        <div className="profile-name">{profile.name || ''}</div>
         <div className="profile-status">
           {profile.email || '你沒有提供信箱'}
         </div>
@@ -106,26 +108,7 @@ const CardComponent = () => {
         </Link>
       </div>
       <div className="profile-contents">
-        <div className="card-component">
-          {cards.length > 0 ? (
-            <div className="card-container">
-              <button className="arrow left-arrow" onClick={handlePrev}>
-                &lt;
-              </button>
-              <div
-                className="card"
-                style={{ backgroundImage: `url(${cards[activeCardIndex]})` }} // 修改这里
-              >
-                {/* 卡片内容 */}
-              </div>
-              <button className="arrow right-arrow" onClick={handleNext}>
-                &gt;
-              </button>
-            </div>
-          ) : (
-            <div className="card-container empty">你還沒有會員卡哦！</div>
-          )}
-        </div>
+        <CarouselComponent cards={cards} />
       </div>
     </div>
   );

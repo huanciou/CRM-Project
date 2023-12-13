@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import EmptyComponent from './EmptyComponent';
+import '../styles/style.css';
 
 const CreditsComponent = () => {
   const [profile, setProfile] = useState({
@@ -23,6 +25,7 @@ const CreditsComponent = () => {
       const dbToken = Cookies.get('dbToken');
       setName(dbToken);
 
+      // ${window.location.origin}
       if (jwtToken) {
         try {
           const response = await fetch(
@@ -94,11 +97,13 @@ const CreditsComponent = () => {
       <div className="business-name">{name}</div>
       <SwitchComponent />
       <div className="profile-picture">
-        {profile.picture && <img src={profile.picture} alt="Profile" />}
+        {(profile.picture && <img src={profile.picture} alt="Profile" />) || (
+          <EmptyComponent />
+        )}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || 'Null'}</div>
-        <div className="profile-status">{profile.email || 'Null'}</div>
+        <div className="profile-name">{profile.name || ''}</div>
+        <div className="profile-status">{profile.email || ''}</div>
       </div>
       <div className="profile-actions">
         <Link to="/user/profile/credits">

@@ -20,12 +20,12 @@ router.route('/menu/:db').get(getMenu);
 
 router
   .route('/fetchCredits')
-  .get(authorization, dbCheckerInHeaders, fetchCredits); // user model
+  .get(authorization, dbCheckerInHeaders, fetchCredits);
 router
   .route('/fetchHistory')
-  .get(authorization, dbCheckerInHeaders, fetchHistory); // user model
+  .get(authorization, dbCheckerInHeaders, fetchHistory);
 router
   .route('/fetchStoreInfo')
-  .get(authorization, dbCheckerInHeaders, fetchStoreInfo); // setup model
+  .get(authorization, dbCheckerInHeaders, fetchStoreInfo);
 
 export default router;

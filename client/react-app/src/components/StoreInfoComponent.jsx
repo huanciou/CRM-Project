@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import '../styles/style.css';
 
 const StoreInfoComponent = () => {
   const [profile, setProfile] = useState({

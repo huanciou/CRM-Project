@@ -5,12 +5,13 @@ import CardComponent from './components/CardComponent';
 import CreditsComponent from './components/CreditsComponent';
 import HistoryComponent from './components/HistoryComponent';
 import StoreInfoComponent from './components/StoreInfoComponent';
-import './styles/style.css';
+import MenuComponent from './components/MenuComponent';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/menu/:db" element={<MenuComponent />} />
         <Route path="/user/profile/info" element={<ProfileComponent />} />
         <Route path="/user/profile/card" element={<CardComponent />} />
         <Route path="/user/profile/credits" element={<CreditsComponent />} />

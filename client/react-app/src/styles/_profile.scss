@@ -1,14 +1,9 @@
-body {
-  background-image: url('https://d3nexs9enmvorf.cloudfront.net/output.webp');
-  background-size: cover; /* 或 'contain' */
-  background-repeat: no-repeat;
-  background-position: center center;
-}
 .profile-component {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 380px; // 固定寬度
+  width: 400px; // 固定寬度
+  min-height: 100vh;
   margin: 0 auto; // 置中
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
   background-color: rgba(15, 24, 30, 0.7);
@@ -102,7 +97,8 @@ body {
     // border: 14px groove #d3d3d3;
     padding: 10px; // 添加内边距
     box-sizing: border-box; // 确保内边距不会影响到元素的总体尺寸
-    display: flex; // 使用flex布局使子元素居中
+    // display: flex; // 使用flex布局使子元素居中
+    flex: 1;
     justify-content: center; // 水平居中
     align-items: center; // 垂直居中
     border-bottom: 10px groove #d3d3d3; // 隔線

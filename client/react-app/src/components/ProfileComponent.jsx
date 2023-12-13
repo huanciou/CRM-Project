@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import DescriptionComponent from './DescriptionComponent';
+import QRCodeComponent from './QRCodeComponent';
+import '../styles/style.css';
 
 const ProfileComponent = () => {
   const [profile, setProfile] = useState({
+    id: '',
     name: '',
     picture: '',
     email: '',
@@ -18,6 +22,7 @@ const ProfileComponent = () => {
       const dbToken = Cookies.get('dbToken');
       setName(dbToken);
 
+      // ${window.location.origin}
       if (jwtToken) {
         try {
           const response = await fetch(
@@ -33,6 +38,7 @@ const ProfileComponent = () => {
           const data = await response.json();
           if (response.ok) {
             setProfile({
+              id: data.id,
               name: data.name,
               picture: data.picture,
               email: data.email,
@@ -51,17 +57,18 @@ const ProfileComponent = () => {
 
   return (
     <div className="profile-component">
-      <div className="business-name">{name}</div>
+      <div className="business-name">{name || '456'}</div>
       <SwitchComponent />
       <div className="profile-picture">
         {profile.picture && <img src={profile.picture} alt="Profile" />}
       </div>
       <div className="profile-info">
-        <div className="profile-name">{profile.name || 'Huan'}</div>
+        <div className="profile-name">{profile.name || '123'}</div>
         <div className="profile-status">
           {profile.email || '你沒有提供信箱'}
         </div>
       </div>
+      <QRCodeComponent id={profile.id} />
       <div className="profile-actions">
         <Link to="/user/profile/info">
           <button className="info-button">Info</button>
@@ -71,7 +78,9 @@ const ProfileComponent = () => {
           <button className="card-button">Card</button>
         </Link>
       </div>
-      <div className="profile-contents"></div>
+      <div className="profile-contents">
+        <DescriptionComponent />
+      </div>
     </div>
   );
 };

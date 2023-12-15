@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
-import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import DescriptionComponent from './DescriptionComponent';
-import QRCodeComponent from './QRCodeComponent';
+import TabsComponents from './TabsComponents';
+import ModalComponent from './ModalComponent';
 import '../styles/style.css';
 
 const ProfileComponent = () => {
@@ -68,19 +67,23 @@ const ProfileComponent = () => {
           {profile.email || '你沒有提供信箱'}
         </div>
       </div>
-      <QRCodeComponent id={profile.id} />
-      <div className="profile-actions">
-        <Link to="/user/profile/info">
-          <button className="info-button">Info</button>
-        </Link>
-
-        <Link to="/user/profile/card">
-          <button className="card-button">Card</button>
-        </Link>
+      <TabsComponents
+        items={[
+          {
+            key: '1',
+            label: 'Info',
+          },
+          {
+            key: '2',
+            label: 'Cards',
+          },
+        ]}
+        presentKey={'1'}
+      />
+      <div className="modal">
+        <ModalComponent id={profile.id} />
       </div>
-      <div className="profile-contents">
-        <DescriptionComponent />
-      </div>
+      {/* <div className="profile-contents"></div> */}
     </div>
   );
 };

@@ -5,13 +5,15 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background-image: url("https://d3nexs9enmvorf.cloudfront.net/output.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
+#cart-button {
+  cursor: pointer;
+  font-size: 32px;
+  transition: color 1s ease;
+  color: #1f56c5;
+}
+#cart-button:hover {
+  font-size: 36px;
+  color: rgba(21, 73, 176, 0.6);
 }
 
 .profile-component {
@@ -102,6 +104,10 @@ body {
   align-items: center;
   border-bottom: 10px groove #d3d3d3;
   border-radius: 10px;
+}
+
+.modal {
+  margin-top: 80px;
 }
 
 @media (min-width: 768px) {
@@ -264,4 +270,8 @@ body {
 .credits {
   font-size: 26px;
   letter-spacing: 20px;
+}
+
+.autoModal {
+  margin-top: 80px;
 }/*# sourceMappingURL=style.css.map */

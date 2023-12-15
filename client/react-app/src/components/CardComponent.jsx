@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import SwitchComponent from './SwitchComponent';
 import CarouselComponent from './CarouselComponent';
+import TabsComponents from './TabsComponents';
 import Cookies from 'js-cookie';
 import '../styles/style.css';
 
@@ -98,7 +98,7 @@ const CardComponent = () => {
           {profile.email || '你沒有提供信箱'}
         </div>
       </div>
-      <div className="profile-actions">
+      {/* <div className="profile-actions">
         <Link to="/user/profile/info">
           <button className="info-button">Info</button>
         </Link>
@@ -106,7 +106,20 @@ const CardComponent = () => {
         <Link to="/user/profile/card">
           <button className="card-button">Card</button>
         </Link>
-      </div>
+      </div> */}
+      <TabsComponents
+        items={[
+          {
+            key: '1',
+            label: 'Info',
+          },
+          {
+            key: '2',
+            label: 'Cards',
+          },
+        ]}
+        presentKey={'2'}
+      />
       <div className="profile-contents">
         <CarouselComponent cards={cards} />
       </div>

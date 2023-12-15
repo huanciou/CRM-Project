@@ -3,24 +3,16 @@ import { Carousel } from 'antd';
 import EmptyComponent from './EmptyComponent';
 
 const contentStyle = {
-  height: '300px',
+  height: '250px',
   color: '#fff',
   lineHeight: '60px',
   textAlign: 'center',
   background: '#364d79',
   borderRadius: '10px',
-  marginTop: '34px',
+  marginTop: '7px',
 };
 
 const CarouselComponent = ({ cards }) => {
-  // const [items, setItems] = useState([]);
-
-  // useEffect(() => {
-  //   fetchItems().then((data) => {
-  //     setItems(data);
-  //   });
-  // }, []);
-
   if (!cards || cards.length === 0) {
     return <EmptyComponent imageStyle={{ marginTop: '60px' }} />;
   }
@@ -47,16 +39,5 @@ const CarouselComponent = ({ cards }) => {
     </Carousel>
   );
 };
-
-// const fetchItems = () => {
-//   return fetch('${window.location.origin}/api/1.0/user/profile/card')
-//     .then((response) => response.json())
-//     .then((data) => {
-//       return data;
-//     })
-//     .catch((error) => {
-//       console.error('Fetching items failed:', error);
-//     });
-// };
 
 export default CarouselComponent;

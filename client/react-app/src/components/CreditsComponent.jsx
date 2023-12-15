@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
-import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import EmptyComponent from './EmptyComponent';
+import TabsComponents from './TabsComponents';
+import AutoModalComponent from './AutoModalComponent';
 import '../styles/style.css';
 
 const CreditsComponent = () => {
@@ -105,21 +106,21 @@ const CreditsComponent = () => {
         <div className="profile-name">{profile.name || ''}</div>
         <div className="profile-status">{profile.email || ''}</div>
       </div>
-      <div className="profile-actions">
-        <Link to="/user/profile/credits">
-          <button className="info-button">Credits</button>
-        </Link>
-
-        <Link to="/user/profile/history">
-          <button className="card-button">History</button>
-        </Link>
-
-        {/* <Link to="/user/profile/StoreInfo">
-          <button className="info-button">Info</button>
-        </Link> */}
-      </div>
-      <div className="profile-contents">
-        <div className="credits">累積點數：{credits.credits}</div>
+      <TabsComponents
+        items={[
+          {
+            key: '3',
+            label: 'Credits',
+          },
+          {
+            key: '4',
+            label: 'History',
+          },
+        ]}
+        presentKey={'3'}
+      />
+      <div className="autoModal">
+        <AutoModalComponent credits={credits.credits} name={profile.name} />
       </div>
     </div>
   );

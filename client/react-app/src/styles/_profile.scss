@@ -106,6 +106,10 @@
   }
 }
 
+.modal {
+  margin-top: 80px;
+}
+
 // 媒體查詢，對較大屏幕進行樣式調整
 @media (min-width: 768px) {
   .profile-component {

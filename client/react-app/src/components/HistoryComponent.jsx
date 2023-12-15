@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SwitchComponent from './SwitchComponent';
-import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import CollapseComponents from './CollapseComponents';
+import TabsComponents from './TabsComponents';
 import '../styles/style.css';
 
 const HistoryComponent = () => {
@@ -46,14 +46,8 @@ const HistoryComponent = () => {
     <div className="profile-component">
       {/* <div className="business-name">{name}</div> */}
       <SwitchComponent />
-      {/* <div className="profile-picture">
-        {profile.picture && <img src={profile.picture} alt="Profile" />}
-      </div> */}
-      {/* <div className="profile-info">
-        <div className="profile-name">{profile.name || 'Null'}</div>
-        <div className="profile-status">{profile.email || 'Null'}</div>
-      </div> */}
-      <div className="profile-actions">
+
+      {/* <div className="profile-actions">
         <Link to="/user/profile/credits">
           <button className="info-button">Credits</button>
         </Link>
@@ -61,14 +55,22 @@ const HistoryComponent = () => {
         <Link to="/user/profile/history">
           <button className="card-button">History</button>
         </Link>
+      </div> */}
+      <TabsComponents
+        items={[
+          {
+            key: '3',
+            label: 'Credits',
+          },
+          {
+            key: '4',
+            label: 'History',
+          },
+        ]}
+        presentKey={'4'}
+      />
 
-        {/* <Link to="/user/profile/StoreInfo">
-          <button className="info-button">Info</button>
-        </Link> */}
-      </div>
-      {/* <div className="history-contents"> */}
       <CollapseComponents historyList={historyList} />
-      {/* </div> */}
     </div>
   );
 };

@@ -8,7 +8,26 @@ const OrderPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem._id === item._id,
+    );
+
+    if (existingItemIndex > -1) {
+      const newCartItems = [...cartItems];
+      newCartItems[existingItemIndex] = {
+        ...newCartItems[existingItemIndex],
+        qty: newCartItems[existingItemIndex].qty + item.qty,
+        amount:
+          newCartItems[existingItemIndex].price *
+          (newCartItems[existingItemIndex].qty + item.qty),
+      };
+      setCartItems(newCartItems);
+    } else {
+      setCartItems([
+        ...cartItems,
+        { ...item, qty: item.qty, amount: item.price * item.qty },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -41,7 +60,7 @@ const OrderPage = () => {
             maxWidth: 50,
           }}
         >
-          <DrawerComponent cartItems={cartItems} />
+          <DrawerComponent cartItems={cartItems} setCartItems={setCartItems} />
         </div>
         <OrderTabsComponent data={data} addToCart={addToCart} />
       </LayoutComponent>

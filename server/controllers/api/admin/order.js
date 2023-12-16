@@ -5,15 +5,10 @@ export async function createOrder(req, res) {
   const { order } = await getModels(dbToken);
 
   const orderItems = req.body;
-  console.log(orderItems);
-  const orderList = {
-    customer_ID: '0',
-    order_Items: orderItems,
-    requests: 'Null',
-  };
 
-  const orderResult = await order.create(orderList);
-  res.send(orderResult._id);
+  const orderResult = await order.create(orderItems);
+  console.log(orderResult);
+  res.send(orderResult);
 }
 
 export async function fetchOrder(req, res) {

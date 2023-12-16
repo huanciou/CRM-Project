@@ -1,82 +1,49 @@
-import { CaretRightOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Collapse, theme } from 'antd';
-const text =
-  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi facilis fuga pariatur ex velit odio delectus fugiat natus placeat, deleniti maiores accusamus! Tenetur omnis sint explicabo qui quae porro ducimus magnam asperiores architecto est ea quidem sit, quia reprehenderit dolor esse et voluptatem. Porro soluta fuga cupiditate nisi, error iste.';
-const getItems = (panelStyle, handleFetchData) => [
-  {
-    key: '1',
-    label: '訂單編號：657a6336fdedb29ee0b1cf0a',
-    children: (
-      <div>
-        <p>{text}</p>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button
-            style={{
-              backgroundColor: '#4267B2',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              padding: '10px 15px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              outline: 'none',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-              transition: 'background-color 0.1s',
-              margin: '10px',
-            }}
-            onClick={() => handleFetchData('data1')}
-          >
-            Checkout
-          </button>
-          <button
-            style={{
-              backgroundColor: '#4267B2',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              padding: '10px 15px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              outline: 'none',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-              transition: 'background-color 0.1s',
-              margin: '10px',
-            }}
-            onClick={() => handleFetchData('data2')}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    ),
-    style: panelStyle,
-  },
-  {
-    key: '2',
-    label: 'This is panel header 2',
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-  {
-    key: '3',
-    label: 'This is panel header 3',
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-];
+import { CaretRightOutlined } from '@ant-design/icons';
+import CheckoutListComponent from './CheckoutListComponent';
+
 const CheckoutCollapseComponent = () => {
   const { token } = theme.useToken();
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/1.0/admin/fetchOrder')
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(data);
+      })
+      .catch((error) => console.error('Error fetching orders:', error));
+  }, []);
+
+  const getItems = (orders, panelStyle) => {
+    return orders.map((order) => {
+      const orderItemsText = order.order_Items
+        .map(
+          (item) =>
+            `${item.name} - Quantity: ${item.qty}, Price: ${item.price}, Total: ${item.amount}`,
+        )
+        .join('\n');
+
+      return {
+        key: order._id,
+        label: `訂單編號：${order._id}`,
+        children: (
+          // <div>
+          //   <p>{orderItemsText}</p>
+          // </div>
+          <CheckoutListComponent />
+        ),
+        style: panelStyle,
+      };
+    });
+  };
+
   const panelStyle = {
     marginBottom: 24,
     background: '#f0f2f5',
     borderRadius: token.borderRadiusLG,
     border: 'none',
-  };
-
-  const handleFetchData = (dataKey) => {
-    console.log(`Fetching data for ${dataKey}`);
-    // 在这里添加获取数据的逻辑
   };
 
   return (
@@ -87,11 +54,10 @@ const CheckoutCollapseComponent = () => {
       expandIcon={({ isActive }) => (
         <CaretRightOutlined rotate={isActive ? 90 : 0} />
       )}
-      style={{
-        background: token.colorBgContainer,
-      }}
-      items={getItems(panelStyle, handleFetchData)}
+      style={{ background: token.colorBgContainer }}
+      items={getItems(orders, panelStyle)}
     />
   );
 };
+
 export default CheckoutCollapseComponent;

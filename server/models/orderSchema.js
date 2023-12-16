@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
-  customer_ID: {
+  table_ID: {
     type: String,
     required: true,
   },
@@ -28,6 +28,9 @@ const orderSchema = new mongoose.Schema({
       },
       amount: {
         type: Number,
+      },
+      main_image: {
+        type: String,
       },
     },
   ],

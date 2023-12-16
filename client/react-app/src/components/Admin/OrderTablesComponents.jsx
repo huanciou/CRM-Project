@@ -1,27 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, InputNumber } from 'antd';
+import AlertComponent from './AlertComponent';
 
 const OrderTablesComponents = ({ data, addToCart }) => {
-  const [updatedData, setUpdatedData] = useState(
-    data.map((item) => ({
-      ...item,
-      qty: 1, // 默认数量为1
-      amount: item.price, // 默认总额等于单价
-    })),
-  );
+  const [updatedData, setUpdatedData] = useState([]);
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    type: '',
+    message: '',
+  });
+
+  useEffect(() => {
+    setUpdatedData(
+      data.map((item) => ({
+        ...item,
+        qty: 1,
+        amount: item.price,
+      })),
+    );
+  }, [data]);
 
   const onQuantityChange = (index, value) => {
     const newData = [...updatedData];
     newData[index] = {
       ...newData[index],
-      qty: value, // 更新数量
-      amount: newData[index].price * value, // 更新总额
+      qty: value,
+      amount: newData[index].price * value,
     };
-    setUpdatedData(newData); // 更新 state
+    setUpdatedData(newData);
   };
 
   const handleAddToCart = (index) => {
-    addToCart(updatedData[index]); // 添加具有更新数量和总额的商品到购物车
+    addToCart(updatedData[index]);
+    setAlertInfo({
+      show: true,
+      type: 'success',
+    });
+  };
+
+  const handleCloseAlert = () => {
+    setAlertInfo((prev) => ({ ...prev, show: false }));
   };
 
   const columns = [
@@ -99,7 +117,9 @@ const OrderTablesComponents = ({ data, addToCart }) => {
           onMouseOut={(e) =>
             (e.currentTarget.style.backgroundColor = '#4267B2')
           }
-          onClick={() => handleAddToCart(index)}
+          onClick={() => {
+            handleAddToCart(index);
+          }}
         >
           加入
         </button>
@@ -108,26 +128,47 @@ const OrderTablesComponents = ({ data, addToCart }) => {
   ];
 
   return (
-    <Table
-      style={{ minWidth: 1100 }}
-      columns={columns}
-      pagination={{ pageSize: 5 }}
-      expandable={{
-        expandedRowRender: (record) => (
-          <p
-            style={{
-              margin: 0,
-              padding: 10,
-              textAlign: 'center',
-            }}
-          >
-            {record.story}
-          </p>
-        ),
-        rowExpandable: (record) => record.name !== 'Not Expandable',
-      }}
-      dataSource={updatedData}
-    />
+    <>
+      {alertInfo.show && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '6%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 1000,
+            width: 600,
+          }}
+        >
+          <AlertComponent
+            type={alertInfo.type}
+            message={alertInfo.message}
+            onClose={handleCloseAlert}
+            autoCloseAfter={1000}
+          />
+        </div>
+      )}
+      <Table
+        style={{ minWidth: 1100 }}
+        columns={columns}
+        pagination={{ pageSize: 5 }}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p
+              style={{
+                margin: 0,
+                padding: 10,
+                textAlign: 'center',
+              }}
+            >
+              {record.story}
+            </p>
+          ),
+          rowExpandable: (record) => record.name !== 'Not Expandable',
+        }}
+        dataSource={updatedData}
+      />
+    </>
   );
 };
 export default OrderTablesComponents;

@@ -66,8 +66,18 @@ const LayoutComponent = (props) => {
           style={{
             padding: 0,
             background: colorBgContainer,
+            height: 100,
           }}
         >
+          {/* <img
+            src="https://d3nexs9enmvorf.cloudfront.net/haidilao.webp"
+            alt=""
+            style={{
+              width: '100vw',
+              height: '300px',
+              zIndex: 0,
+            }}
+          /> */}
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -83,7 +93,7 @@ const LayoutComponent = (props) => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 560,
+            minHeight: 800,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

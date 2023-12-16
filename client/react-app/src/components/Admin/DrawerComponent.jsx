@@ -4,7 +4,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Drawer } from 'antd';
 import CartListComponent from './CartListComponent';
 
-const DrawerComponent = ({ cartItems }) => {
+const DrawerComponent = ({ cartItems, setCartItems }) => {
   console.log(`DrawerComponent: ${cartItems}`);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -27,7 +27,7 @@ const DrawerComponent = ({ cartItems }) => {
         onClose={onClose}
         open={open}
       >
-        <CartListComponent cartItems={cartItems} />
+        <CartListComponent cartItems={cartItems} setCartItems={setCartItems} />
       </Drawer>
     </>
   );

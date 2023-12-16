@@ -6,6 +6,8 @@
 }
 
 #cart-button {
+  position: fixed;
+  z-index: 999;
   cursor: pointer;
   font-size: 32px;
   transition: color 1s ease;
@@ -14,6 +16,10 @@
 #cart-button:hover {
   font-size: 36px;
   color: rgba(21, 73, 176, 0.6);
+}
+
+.custom-CheckoutCollapseComponent .ant-collapse-header {
+  background-color: rgba(217, 217, 217, 0.5137254902);
 }
 
 .profile-component {

@@ -5,7 +5,7 @@ export async function createMenuCategory(req, res) {
   const { dbToken } = req;
   const { menuSetup } = await getModels(dbToken);
   const { category } = req.body;
-
+  console.log('hi');
   await menuSetup.create({ category });
   res.redirect('/admin/menuSetup');
 }

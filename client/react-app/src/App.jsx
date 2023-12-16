@@ -9,7 +9,7 @@ import LoginPage from './components/Admin/LoginPage';
 import FormPage from './components/Admin/FormPage';
 import OrderPage from './components/Admin/OrderPage';
 import CheckoutPage from './components/Admin/CheckoutPage';
-import DashboardPage from './components/Admin/Dashboard';
+import DashboardPage from './components/Admin/DashboardPage';
 
 const App = () => {
   return (

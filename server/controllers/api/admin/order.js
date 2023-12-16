@@ -5,6 +5,7 @@ export async function createOrder(req, res) {
   const { order } = await getModels(dbToken);
 
   const orderItems = req.body;
+  console.log(orderItems);
   const orderList = {
     customer_ID: '0',
     order_Items: orderItems,

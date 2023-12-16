@@ -7,11 +7,24 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+
+const getKeyFromPath = (path) => {
+  const mapping = {
+    '/admin/menuSetup': '1',
+    '/admin/order': '2',
+    '/admin/checkout': '3',
+    '/admin/dashboard': '4',
+  };
+  return mapping[path] || '1';
+};
 
 const { Header, Sider, Content, Footer } = Layout;
 const LayoutComponent = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+  const currentKey = getKeyFromPath(location.pathname);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -22,27 +35,28 @@ const LayoutComponent = (props) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          // defaultSelectedKeys={['1']}
+          selectedKeys={[currentKey]}
           items={[
             {
               key: '1',
               icon: <EditOutlined />,
-              label: '菜單設置',
+              label: <NavLink to="/admin/menuSetup">菜單設置</NavLink>,
             },
             {
               key: '2',
               icon: <PlusOutlined />,
-              label: '點餐',
+              label: <NavLink to="/admin/order">點餐</NavLink>,
             },
             {
               key: '3',
               icon: <EditOutlined />,
-              label: '結帳隊列',
+              label: <NavLink to="/admin/checkout">結帳隊列</NavLink>,
             },
             {
               key: '4',
               icon: <UserOutlined />,
-              label: '儀表板',
+              label: <NavLink to="/admin/dashboard">儀表板</NavLink>,
             },
           ]}
         />

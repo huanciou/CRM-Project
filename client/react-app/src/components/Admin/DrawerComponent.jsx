@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Drawer } from 'antd';
+import CartListComponent from './CartListComponent';
 
-const DrawerComponent = () => {
+const DrawerComponent = ({ cartItems }) => {
+  console.log(`DrawerComponent: ${cartItems}`);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -18,15 +20,14 @@ const DrawerComponent = () => {
         icon={faShoppingCart}
         onClick={showDrawer}
       />
-      {/* <i
-        className="far fa-shopping-cart"
-        onClick={showDrawer}
-        style={{ cursor: 'pointer' }}
-      ></i> */}
-      <Drawer title="購物車" placement="right" onClose={onClose} open={open}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Drawer
+        width={'50vw'}
+        title="購物車"
+        placement="right"
+        onClose={onClose}
+        open={open}
+      >
+        <CartListComponent cartItems={cartItems} />
       </Drawer>
     </>
   );

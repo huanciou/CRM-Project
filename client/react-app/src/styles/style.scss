@@ -7,6 +7,8 @@
 }
 
 #cart-button {
+  position: fixed;
+  z-index: 999;
   cursor: pointer;
   font-size: 32px;
   transition: color 1s ease;
@@ -16,6 +18,10 @@
     font-size: 36px;
     color: rgba(21, 73, 176, 0.6);
   }
+}
+
+.custom-CheckoutCollapseComponent .ant-collapse-header {
+  background-color: #d9d9d983;
 }
 
 // body {

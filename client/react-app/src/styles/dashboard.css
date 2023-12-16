@@ -1,0 +1,75 @@
+@charset "UTF-8";
+form label {
+  color: #495057;
+  display: block;
+  margin-bottom: 5px;
+}
+form input[type=date] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+form input[type=date]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+form button:hover {
+  background-color: #0062cc;
+}
+
+.totalAmount {
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+  text-align: center;
+}
+
+#chartCarousel {
+  position: relative;
+  left: -20px;
+}
+#chartCarousel #totalAmountCanvas {
+  position: relative;
+  max-width: 80vw;
+  height: 500px;
+}
+#chartCarousel #checkoutTagsCanvas {
+  position: relative;
+  max-width: 80vw;
+  height: 500px;
+}
+#chartCarousel #checkoutIDsCanvas {
+  position: relative;
+  max-width: 80vw;
+  height: 300px;
+  left: 280px;
+}
+
+.carousel {
+  position: relative;
+  width: 1200px; /* 根据需要调整 */
+  margin: auto;
+  overflow: hidden; /* 隐藏超出容器的部分 */
+}
+.carousel .chart-container {
+  width: 1200px;
+  transition: transform 0.5s ease; /* 添加过渡效果 */
+}
+
+.carousel canvas {
+  width: 100%;
+  height: auto; /* 或固定高度 */
+}/*# sourceMappingURL=dashboard.css.map */

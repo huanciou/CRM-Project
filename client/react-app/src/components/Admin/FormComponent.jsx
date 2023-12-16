@@ -9,6 +9,7 @@ import {
   Space,
   Upload,
   Divider,
+  message,
 } from 'antd';
 import DividerComponent from './DividerComponent';
 
@@ -29,8 +30,64 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
-const onFinish = (values) => {
-  console.log('Received values of form: ', values);
+
+const beforeUpload = (file) => {
+  // const isImage = file.type.startsWith('image/');
+  // if (!isImage) {
+  //   message.error('您只能上傳圖片文件！');
+  // }
+  // return isImage || Upload.LIST_IGNORE;
+  return false;
+};
+
+const onFinishTag = async (values) => {
+  console.log('Tag Values: ', values);
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/1.0/admin/createMenuTags',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      },
+    );
+    if (response.ok) {
+      console.log('Tag submitted successfully');
+    } else {
+      console.error('Failed to submit tag');
+    }
+  } catch (error) {
+    console.error('Error submitting tag:', error);
+  }
+};
+
+const onFinishCategory = async (values) => {
+  console.log('Category Values:', values);
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/1.0/admin/createMenuTags',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      },
+    );
+    if (response.ok) {
+      console.log('Tag submitted successfully');
+    } else {
+      console.error('Failed to submit tag');
+    }
+  } catch (error) {
+    console.error('Error submitting tag:', error);
+  }
+};
+
+const onFinishMenuItem = async (values) => {
+  console.log('Menu Item Values:', values);
 };
 
 const FormComponent = () => (
@@ -41,9 +98,9 @@ const FormComponent = () => (
       </h2>
     </DividerComponent>
     <Form
-      name="validate_other"
+      name="createMenuTags"
       {...formItemLayout}
-      onFinish={onFinish}
+      onFinish={onFinishTag}
       initialValues={{
         'input-number': 3,
         'checkbox-group': ['A', 'B'],
@@ -54,10 +111,8 @@ const FormComponent = () => (
         maxWidth: 1000,
       }}
     >
-      <Form.Item label="Input">
-        <Form.Item name="">
-          <Input placeholder="⋯⋯" />
-        </Form.Item>
+      <Form.Item label="Tag" name="tag">
+        <Input placeholder="⋯⋯" />
       </Form.Item>
 
       <Form.Item
@@ -82,9 +137,11 @@ const FormComponent = () => (
     </DividerComponent>
 
     <Form
-      name="validate_other"
+      name="createMenuCategory"
       {...formItemLayout}
-      onFinish={onFinish}
+      onFinish={onFinishCategory}
+      action="http://localhost:3000/api/1.0/admin/createMenuCategory"
+      method="POST"
       initialValues={{
         'input-number': 3,
         'checkbox-group': ['A', 'B'],
@@ -95,15 +152,13 @@ const FormComponent = () => (
         maxWidth: 1000,
       }}
     >
-      <Form.Item label="Input">
-        <Form.Item name="">
-          <Input placeholder="⋯⋯" />
-        </Form.Item>
+      <Form.Item label="Category" name="category">
+        <Input placeholder="⋯⋯" />
       </Form.Item>
 
       <Form.Item
         wrapperCol={{
-          span: 120,
+          span: 12,
           offset: 6,
         }}
       >
@@ -123,9 +178,9 @@ const FormComponent = () => (
     </DividerComponent>
 
     <Form
-      name="validate_other"
+      name="createMenuContents"
       {...formItemLayout}
-      onFinish={onFinish}
+      onFinish={onFinishMenuItem}
       initialValues={{
         'input-number': 3,
         'checkbox-group': ['A', 'B'],
@@ -137,7 +192,7 @@ const FormComponent = () => (
       }}
     >
       <Form.Item
-        name="select"
+        name="tags"
         label="標籤選擇"
         hasFeedback
         rules={[
@@ -154,7 +209,7 @@ const FormComponent = () => (
       </Form.Item>
 
       <Form.Item
-        name="select"
+        name="category"
         label="種類選擇"
         hasFeedback
         rules={[
@@ -172,7 +227,6 @@ const FormComponent = () => (
 
       <Form.Item
         label="名稱"
-        name="a"
         hasFeedback
         rules={[
           {
@@ -181,14 +235,13 @@ const FormComponent = () => (
           },
         ]}
       >
-        <Form.Item name="a">
+        <Form.Item name="name">
           <Input placeholder="⋯⋯" />
         </Form.Item>
       </Form.Item>
 
       <Form.Item
         label="商品描述"
-        name=""
         hasFeedback
         rules={[
           {
@@ -197,7 +250,7 @@ const FormComponent = () => (
           },
         ]}
       >
-        <Form.Item name="">
+        <Form.Item name="story">
           <Input placeholder="⋯⋯" />
         </Form.Item>
       </Form.Item>
@@ -212,8 +265,8 @@ const FormComponent = () => (
           },
         ]}
       >
-        <Form.Item name="input-number" noStyle>
-          <InputNumber min={1} max={1000000} defaultValue={0} />
+        <Form.Item name="price" noStyle>
+          <InputNumber min={1} max={1000000} initialvalues={0} />
         </Form.Item>
         <span
           className="ant-form-text"
@@ -225,9 +278,8 @@ const FormComponent = () => (
 
       <Form.Item label="圖片上傳">
         <Form.Item
-          name="dragger"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
+          // valuePropName="fileList"
+          // getValueFromEvent={normFile}
           noStyle
           rules={[
             {
@@ -236,7 +288,11 @@ const FormComponent = () => (
             },
           ]}
         >
-          <Upload.Dragger name="files" action="/upload.do" listType="picture">
+          <Upload.Dragger
+            name="main_image"
+            listType="picture"
+            beforeUpload={beforeUpload}
+          >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>

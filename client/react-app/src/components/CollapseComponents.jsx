@@ -22,7 +22,6 @@ import '../styles/style.css';
 // ];
 
 const CollapseComponents = ({ historyList }) => {
-  console.log(historyList);
   const { token } = theme.useToken();
   const items = historyList.map((item, index) => ({
     key: String(index),

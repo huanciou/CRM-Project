@@ -19,6 +19,10 @@ router.route('/signInCallback').get(getCallback);
 router.route('/profile/info').get(authentication, getReactRouteViaTest);
 router.route('/profile/card').get(authentication, getReactRouteViaTest);
 
-router.route('*').get(authentication, getReactRoute);
+router.route('/profile/credits').get(authentication, getReactRoute);
+router.route('/profile/history').get(authentication, getReactRoute);
+router.route('/profile/comments').get(authentication, getReactRoute);
+
+// router.route('*').get(getReactRoute);
 
 export default router;

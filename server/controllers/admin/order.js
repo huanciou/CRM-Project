@@ -1,7 +1,13 @@
+import path from 'path';
+
 export function getOrder(req, res) {
-  res.render('admin/order');
+  const { dbToken } = req;
+
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }
 
 export function getDashboard(req, res) {
-  res.render('admin/dashboard');
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }

@@ -59,6 +59,10 @@ export async function fetchHistory(req, res) {
             .findOne({ _id: item.item_ID })
             .select('name main_image');
 
+          if (!menuItem) {
+            return null;
+          }
+
           return {
             ...item,
             name: menuItem.name,
@@ -67,15 +71,17 @@ export async function fetchHistory(req, res) {
         }),
       );
 
+      // 使用 filter 方法过滤掉 null 的项
       return {
         ...checkoutDoc._doc,
-        order_Items: resDataItems,
+        order_Items: resDataItems.filter((item) => item !== null),
       };
     }),
   );
 
   res.json(resData);
 }
+
 export async function fetchStoreInfo(req, res) {
   const { dbToken } = req;
   const { setup } = await getModels(dbToken);

@@ -1,9 +1,18 @@
+import path from 'path';
 import getModels from '../../models/modelHelper.js';
 import { compare } from '../../utils/encrypt.js';
 import signJWT from '../../utils/signJWT.js';
 
 export function getLogin(req, res) {
-  res.render('admin/login');
+  if (req.cookies.adminToken) {
+    return res.redirect('/admin/menuSetup');
+  }
+  res.cookie('dbToken', 'test', {
+    maxAge: 3600000,
+    path: '/',
+  });
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }
 
 export async function postLogin(req, res) {
@@ -53,5 +62,6 @@ export function getAuth() {}
 export function postAuth() {}
 
 export function getHomepage(req, res) {
-  res.render('admin/homepage');
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }

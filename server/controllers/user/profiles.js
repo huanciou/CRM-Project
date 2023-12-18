@@ -6,6 +6,7 @@ import getModels from '../../models/modelHelper.js';
 const { LOCATION_ORIGIN } = process.env;
 
 export function getSignIn(req, res) {
+  console.log('test');
   const { dbToken } = req.params;
   let lineLoginUrl = 'https://access.line.me/oauth2/v2.1/authorize?';
   lineLoginUrl += 'response_type=code&';

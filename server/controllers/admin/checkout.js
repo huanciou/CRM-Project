@@ -1,7 +1,9 @@
+import path from 'path';
 import getModels from '../../models/modelHelper.js';
 
 export function getCheckout(req, res) {
-  res.render('admin/checkout');
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }
 
 export async function getCheckoutByID(req, res) {

@@ -34,9 +34,9 @@ app.use('/api/1.0/user', apiUserRouter);
 app.use('/user', profileRouter);
 app.use('/admin', adminRouter);
 
-app.get('/', (req, res) => {
-  res.send('homepage');
-});
+// app.get('/', (req, res) => {
+//   res.send('homepage');
+// });
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server is running on port: ${SERVER_PORT}`);

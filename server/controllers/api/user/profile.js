@@ -82,3 +82,54 @@ export async function fetchStoreInfo(req, res) {
   const setupData = await setup.findOne().sort({ update_time: -1 });
   res.json(setupData);
 }
+
+export async function fetchComments(req, res) {
+  try {
+    const { dbToken } = req;
+    const { setup } = await getModels(dbToken);
+    const setupData = await setup.findOne().sort({ update_time: -1 });
+    const { name, location } = setupData;
+
+    if (!name && !location) {
+      throw new Error('Name and Location are both empty');
+    }
+
+    const { GOOGLE_PLACE_API_KEY } = process.env;
+
+    const placeInput = `${location} ${name}`;
+    const placeAPIUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(
+      placeInput,
+    )}&inputtype=textquery&fields=place_id&key=${GOOGLE_PLACE_API_KEY}`;
+
+    const placeAPIResponse = await fetch(placeAPIUrl);
+    const placeAPIData = await placeAPIResponse.json();
+
+    if (placeAPIData.status !== 'OK') {
+      throw new Error(`Error fetching place ID: ${placeAPIData.status}`);
+    }
+
+    const placeID = placeAPIData.candidates[0].place_id;
+    const commentsAPIUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeID}&language=zh-TW&key=${GOOGLE_PLACE_API_KEY}`;
+
+    const commentsAPIResponse = await fetch(commentsAPIUrl);
+    const commentsAPIData = await commentsAPIResponse.json();
+
+    if (commentsAPIData.status !== 'OK') {
+      throw new Error(`Error fetching comments: ${commentsAPIData.status}`);
+    }
+
+    const { reviews } = commentsAPIData.result;
+    const resData = reviews.map((review) => ({
+      author_name: review.author_name,
+      profile_photo_url: review.profile_photo_url,
+      rating: review.rating,
+      relative_time_description: review.relative_time_description,
+      text: review.text,
+    }));
+
+    res.json(resData);
+  } catch (error) {
+    console.error('An error occurred:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}

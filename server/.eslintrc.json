@@ -20,6 +20,7 @@
         }],
         "camelcase": "off",
         "no-shadow":"off",
-        "operator-linebreak":"off"
+        "operator-linebreak":"off",
+        "no-use-before-define":"off"
     }
 }

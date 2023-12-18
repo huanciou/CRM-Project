@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   credits: {
     type: Number,
-    default: 1000,
+    default: 0,
   },
   picture: {
     type: String,
@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   history: [],
-  related: [],
   est_Time: {
     type: Date,
   },

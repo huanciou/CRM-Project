@@ -13,6 +13,7 @@ export async function postLogin(req, res) {
     const user = await admin.findOne({ account });
     if (user) {
       const isPasswordMatch = await compare(password, user.password);
+      console.log(`match?: ${isPasswordMatch}`);
       if (isPasswordMatch) {
         const payload = {
           id: user._id,
@@ -24,7 +25,7 @@ export async function postLogin(req, res) {
 
         res.cookie('adminToken', jwtToken, {
           maxAge: 3600000,
-          httpOnly: true,
+          httpOnly: false, // 這裡要改
           path: '/',
         });
 
@@ -32,7 +33,7 @@ export async function postLogin(req, res) {
           maxAge: 3600000,
           path: '/',
         });
-        return res.redirect('/admin/homepage');
+        return res.status(302).redirect('http://localhost:8080/admin/homepage');
       }
       return res.status(403).send('Wrong Info');
     }

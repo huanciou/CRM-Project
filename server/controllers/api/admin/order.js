@@ -135,30 +135,43 @@ export async function fetchDashboard(req, res) {
             $gte: start,
             $lte: end,
           },
-        },
-      },
-      {
-        $match: {
           customer_ID: { $ne: null },
         },
       },
       {
         $group: {
           _id: '$customer_ID',
-          count: {
-            $sum: 1,
-          },
+          count: { $sum: 1 },
         },
       },
       {
-        $sort: {
-          count: -1, // 降冪
+        $sort: { count: -1 }, // 降冪
+      },
+      {
+        $lookup: {
+          from: 'users', // 'users' 是 user 集合在 MongoDB 中的名稱
+          localField: '_id',
+          foreignField: 'sub',
+          as: 'userDetails',
+        },
+      },
+      {
+        $unwind: '$userDetails',
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$userDetails.name',
+          count: 1,
         },
       },
     ]);
+
+    console.log(checkoutIDs);
     resData.checkoutIDs = checkoutIDs;
   } catch (err) {
     return res.status(500).send('checkoutTags error');
   }
+
   res.json(resData);
 }

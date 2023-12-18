@@ -25,7 +25,7 @@ import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
 
 import { postAdminSignUp } from '../../controllers/api/admin/adminSignUp.js';
-import postSetup from '../../controllers/api/admin/setUp.js';
+import { fetchSetup, postSetup } from '../../controllers/api/admin/setUp.js';
 import { dbChecker } from '../../middleware/dbChecker.js';
 
 const router = Router();
@@ -33,6 +33,7 @@ const router = Router();
 router.route('/login').post(postLogin);
 
 router.route('/setup').post(dbChecker, postSetup);
+router.route('/fetchSetup').get(dbChecker, fetchSetup);
 
 router.route('/auth').post(postAuth);
 

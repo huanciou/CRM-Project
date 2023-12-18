@@ -5,6 +5,7 @@ import {
   fetchCredits,
   fetchHistory,
   fetchStoreInfo,
+  fetchComments,
 } from '../../controllers/api/user/profile.js';
 
 import authorization from '../../middleware/authorization.js';
@@ -27,5 +28,9 @@ router
 router
   .route('/fetchStoreInfo')
   .get(authorization, dbCheckerInHeaders, fetchStoreInfo);
+
+router
+  .route('/fetchComments')
+  .get(authorization, dbCheckerInHeaders, fetchComments);
 
 export default router;

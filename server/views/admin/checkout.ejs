@@ -25,13 +25,13 @@
   const listContainer = document.querySelector(`.listContainer[data-order-id="${orderId}"]`);
   
   if (listContainer.style.maxHeight && listContainer.style.maxHeight !== '0px') {
-    listContainer.style.maxHeight = '0px'; // 设置高度为0，隐藏内容
-    listContainer.style.padding = '0'; // 设置内边距为0
-    listContainer.style.border = '0'; // 设置边框为0
+    listContainer.style.maxHeight = '0px'; 
+    listContainer.style.padding = '0'; 
+    listContainer.style.border = '0'; 
   } else {
-    listContainer.style.maxHeight = '3000px'; // 设置一个足够大的高度值，以显示所有内容
-    listContainer.style.padding = '20px'; // 设置内边距
-    listContainer.style.border = '1px solid #ddd'; // 设置边框
+    listContainer.style.maxHeight = '3000px'; 
+    listContainer.style.padding = '20px'; 
+    listContainer.style.border = '1px solid #ddd'; 
   }
 }
 

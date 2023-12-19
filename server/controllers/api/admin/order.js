@@ -1,13 +1,22 @@
 import getModels from '../../../models/modelHelper.js';
+import { getIo } from '../../../utils/socket.js';
 
 export async function createOrder(req, res) {
   const { dbToken } = req;
   const { order } = await getModels(dbToken);
 
   const orderItems = req.body;
+  const io = getIo();
 
   const orderResult = await order.create(orderItems);
-  console.log(orderResult);
+  if (orderResult._id) {
+    console.log('here');
+    // io.emit('orderCreated', 'orderCreated');
+    setInterval(() => {
+      console.log('Emitting test orderCreated event');
+      io.emit('msg', 'Test message');
+    }, 5000);
+  }
   res.send(orderResult);
 }
 

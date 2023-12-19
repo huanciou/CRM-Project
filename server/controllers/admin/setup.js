@@ -42,7 +42,7 @@ export async function postLogin(req, res) {
           maxAge: 3600000,
           path: '/',
         });
-        return res.status(302).redirect('http://localhost:8080/admin/homepage');
+        return res.status(200).send('ok');
       }
       return res.status(403).send('Wrong Info');
     }

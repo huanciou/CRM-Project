@@ -1,9 +1,10 @@
 import express from 'express';
+import http from 'http';
 import './config/dotenv.js';
-// import './config/db.js';
 import cors from 'cors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import { initSocket } from './utils/socket.js';
 import profileRouter from './routes/user.js';
 import adminRouter from './routes/admin.js';
 import apiAdminRouter from './routes/api/admin.js';
@@ -17,7 +18,9 @@ import './models/setupSchema.js';
 import './middleware/multer.js';
 
 const app = express();
+const server = http.createServer(app);
 const { SERVER_PORT } = process.env;
+initSocket(server);
 
 app.set('view engine', 'ejs');
 
@@ -34,10 +37,11 @@ app.use('/api/1.0/user', apiUserRouter);
 app.use('/user', profileRouter);
 app.use('/admin', adminRouter);
 
-// app.get('/', (req, res) => {
-//   res.send('homepage');
-// });
+app.get('/', (req, res) => {
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
+});
 
-app.listen(SERVER_PORT, () => {
+server.listen(SERVER_PORT, () => {
   console.log(`Server is running on port: ${SERVER_PORT}`);
 });

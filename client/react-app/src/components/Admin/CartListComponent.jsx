@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
-import { List, Button, Input } from 'antd';
+import { List, Button, Input, message } from 'antd';
 
 const CartListComponent = ({ cartItems, setCartItems }) => {
-  const checkoutUrl = 'http://localhost:3000/api/1.0/admin/createOrder';
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const checkoutUrl = `${apiUrl}/api/1.0/admin/createOrder`;
   const [tableID, setTableID] = useState('');
   const totalAmount = cartItems.reduce((acc, item) => acc + item.amount, 0);
 
   const transformCartData = (cartItems) => {
+    console.log(cartItems);
     return cartItems.map((item) => ({
       item_ID: item._id,
       name: item.name,
       tags: item.tags,
+      category: item.category,
       qty: item.qty,
       price: item.price,
       amount: item.amount,
+      main_image: item.main_image,
     }));
   };
 
   const handleCheckout = () => {
     if (!tableID) {
-      alert('請填寫桌號');
+      message.error('請填寫桌號');
       return;
     }
 
-    if (!totalAmount) {
-      alert('購物車是空的');
+    if (isCartEmpty) {
+      message.error('購物車是空的');
       return;
     }
 
@@ -42,16 +46,22 @@ const CartListComponent = ({ cartItems, setCartItems }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert(`桌號：${data.table_ID}  點餐成功！`);
+        message.success(`桌號：${data.table_ID}  點餐成功！`);
         handleReset();
       })
       .catch((error) => console.error('Error:', error));
   };
 
   const handleReset = () => {
+    if (isCartEmpty) {
+      message.error('購物車已經是空的囉');
+      return;
+    }
     setCartItems([]);
     setTableID('');
   };
+
+  const isCartEmpty = cartItems.length === 0;
 
   return (
     <div>
@@ -78,14 +88,16 @@ const CartListComponent = ({ cartItems, setCartItems }) => {
         }}
         dataSource={cartItems}
         footer={
-          <div style={{ marginTop: 32 }}>
-            <Button type="primary" onClick={handleCheckout}>
-              結帳
-            </Button>
-            <Button style={{ marginLeft: 16 }} onClick={handleReset}>
-              重置購物車
-            </Button>
-          </div>
+          !isCartEmpty && ( // 如果购物车不为空，则显示 footer
+            <div style={{ marginTop: 32 }}>
+              <Button type="primary" onClick={handleCheckout}>
+                點餐
+              </Button>
+              <Button style={{ marginLeft: 16 }} onClick={handleReset}>
+                重置購物車
+              </Button>
+            </div>
+          )
         }
         renderItem={(item) => (
           <List.Item

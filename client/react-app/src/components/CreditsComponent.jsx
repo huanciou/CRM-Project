@@ -7,6 +7,10 @@ import AutoModalComponent from './AutoModalComponent';
 import '../styles/style.css';
 
 const CreditsComponent = () => {
+  useEffect(() => {
+    document.title = 'Credits';
+  }, []);
+
   const [profile, setProfile] = useState({
     name: '',
     picture: '',
@@ -26,7 +30,6 @@ const CreditsComponent = () => {
       const dbToken = Cookies.get('dbToken');
       setName(dbToken);
 
-      // ${window.location.origin}
       if (jwtToken) {
         try {
           const response = await fetch(
@@ -94,33 +97,39 @@ const CreditsComponent = () => {
   }, []);
 
   return (
-    <div className="profile-component">
-      <div className="business-name">{name}</div>
-      <SwitchComponent />
-      <div className="profile-picture">
-        {(profile.picture && <img src={profile.picture} alt="Profile" />) || (
-          <EmptyComponent />
-        )}
-      </div>
-      <div className="profile-info">
-        <div className="profile-name">{profile.name || ''}</div>
-        <div className="profile-status">{profile.email || ''}</div>
-      </div>
-      <TabsComponents
-        items={[
-          {
-            key: '3',
-            label: 'Credits',
-          },
-          {
-            key: '4',
-            label: 'History',
-          },
-        ]}
-        presentKey={'3'}
-      />
-      <div className="autoModal">
-        <AutoModalComponent credits={credits.credits} name={profile.name} />
+    <div style={{ backgroundColor: 'rgba(21, 21, 21,0.9)' }}>
+      <div className="profile-component">
+        <div className="business-name">{name}</div>
+        <SwitchComponent />
+        <div className="profile-picture">
+          {(profile.picture && <img src={profile.picture} alt="Profile" />) || (
+            <EmptyComponent />
+          )}
+        </div>
+        <div className="profile-info">
+          <div className="profile-name">{profile.name || ''}</div>
+          <div className="profile-status">{profile.email || ''}</div>
+        </div>
+        <TabsComponents
+          items={[
+            {
+              key: '3',
+              label: 'Credits',
+            },
+            {
+              key: '4',
+              label: 'History',
+            },
+            {
+              key: '5',
+              label: 'Comments',
+            },
+          ]}
+          presentKey={'3'}
+        />
+        <div className="autoModal">
+          <AutoModalComponent credits={credits.credits} name={profile.name} />
+        </div>
       </div>
     </div>
   );

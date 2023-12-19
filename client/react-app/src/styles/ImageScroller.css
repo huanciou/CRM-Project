@@ -1,0 +1,214 @@
+.slide-container {
+  display:flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.custom-class {
+  display: inline-block;
+}
+.custom-div {
+  display: flex;
+  flex-direction: column;
+}
+.parallax-outer {
+  position: relative;
+  will-change: transform;
+}
+
+.parallax-inner {
+  position: relative;
+  will-change: transform;
+}
+
+.chumma h1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.chumma {
+  color: white;
+  font-size: 4vw;
+  font-weight: normal;
+}
+
+.parallax-outer {
+  position: relative;
+  will-change: transform;
+}
+
+.parallax-inner {
+  position: relative;
+  will-change: transform;
+}
+
+
+.parallax-outer::after,
+.parallax-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid lightgreen;
+}
+
+.parallax-outer::after {
+  border: 2px solid orangered;
+  z-index: -1;
+}
+
+.slides {
+  display: grid;
+  position: relative;
+}
+
+.slides > .slide {
+  grid-area: 1 / -1;
+}
+
+.slides > button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: white;
+  position: relative;
+  font-size: 5rem;
+  width: 5rem;
+  height: 5rem;
+  transition: opacity 0.3s;
+  opacity: 0.7;
+  z-index: 5;
+}
+
+.slides > button:hover {
+  opacity: 1;
+}
+
+.slides > button:focus {
+  outline: none;
+}
+
+.slides > button:first-child {
+  left: -500%;
+}
+
+.slides > button:last-child {
+  right: -50%;
+}
+
+.slide {
+  position: absolute; 
+  left: 0px; 
+  top: 200px; 
+  transform: translate(-50%, -50%); 
+}
+
+.slideContent {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s ease-in-out;
+  opacity: 0.3;
+
+  display: grid;
+  align-content: center;
+
+  transform-style: preserve-3d;
+  transform: perspective(1000px) translateX(calc(100% * var(--offset))) rotateY(calc(-45deg * var(--dir)));
+}
+
+.slideSubtitle,
+.slideTitle {
+  color: white;
+  position: relative;
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: 0.2ch;
+  text-transform: uppercase;
+  margin: 0;
+  top: 40px;
+  left: 20px;
+  text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; /* 黑色文字陰影 */
+}
+
+.slideDescription {
+  color: lightgray;
+  position: relative;
+  margin: 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.2ch;
+  top: 50px;
+  left: 20px;
+  text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
+.slideContentInner {
+  transform-style: preserve-3d;
+  transform: translateX(1rem);
+  transition: opacity 0.3s linear;
+  text-shadow: 0 0.1rem 1rem #000;
+  opacity: 0;
+}
+
+.slide[data-active] .slideContentInner {
+  opacity: 1;
+}
+
+.slide[data-active] .slideContent {
+  --x: calc(var(--px) - 0.5);
+  --y: calc(var(--py) - 0.5);
+  opacity: 1;
+
+  transform: perspective(1000px);
+}
+
+.slide[data-active] .slideContent:hover {
+  transition: none;
+  transform: perspective(1000px) rotateY(calc(var(--x) * 45deg))
+    rotateX(calc(var(--y) * -45deg));
+}
+
+.slide[data-active] {
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.dot {
+  cursor: pointer;
+  position: relative;
+  top: 640px;
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #cdcbcb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.button-active {
+  background-color: #4f4e4e;
+}

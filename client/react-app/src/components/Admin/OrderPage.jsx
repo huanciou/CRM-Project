@@ -6,36 +6,40 @@ import OrderTabsComponent from './OrderTabsComponent';
 const OrderPage = () => {
   const [data, setData] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-  const addToCart = (item) => {
+  useEffect(() => {
+    document.title = 'Order';
+  }, []);
+
+  const addToCart = (itemToAdd) => {
+    // 检查购物车中是否已有该商品
     const existingItemIndex = cartItems.findIndex(
-      (cartItem) => cartItem._id === item._id,
+      (cartItem) => cartItem._id === itemToAdd._id,
     );
 
+    // 如果已有，更新其数量和总价
     if (existingItemIndex > -1) {
-      const newCartItems = [...cartItems];
-      newCartItems[existingItemIndex] = {
-        ...newCartItems[existingItemIndex],
-        qty: newCartItems[existingItemIndex].qty + item.qty,
-        amount:
-          newCartItems[existingItemIndex].price *
-          (newCartItems[existingItemIndex].qty + item.qty),
-      };
+      const newCartItems = cartItems.map((cartItem, index) =>
+        index === existingItemIndex
+          ? {
+              ...cartItem,
+              qty: cartItem.qty + itemToAdd.qty,
+              amount: cartItem.qty * cartItem.price + itemToAdd.amount,
+            }
+          : cartItem,
+      );
       setCartItems(newCartItems);
     } else {
-      setCartItems([
-        ...cartItems,
-        { ...item, qty: item.qty, amount: item.price * item.qty },
-      ]);
+      // 如果没有，添加新商品到购物车
+      setCartItems([...cartItems, itemToAdd]);
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'http://localhost:3000/api/1.0/admin/menu',
-        );
+        const response = await fetch(`${apiUrl}/api/1.0/admin/menu`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

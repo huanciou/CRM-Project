@@ -20,22 +20,44 @@ const OrderTablesComponents = ({ data, addToCart }) => {
     );
   }, [data]);
 
-  const onQuantityChange = (index, value) => {
+  const onQuantityChange = (itemId, value) => {
+    const itemIndex = updatedData.findIndex((item) => item._id === itemId);
+    if (itemIndex === -1) return;
+
     const newData = [...updatedData];
-    newData[index] = {
-      ...newData[index],
+    const newItem = {
+      ...newData[itemIndex],
       qty: value,
-      amount: newData[index].price * value,
+      amount: newData[itemIndex].price * value,
     };
+    newData[itemIndex] = newItem;
     setUpdatedData(newData);
   };
 
-  const handleAddToCart = (index) => {
-    addToCart(updatedData[index]);
+  const handleAddToCart = (itemId) => {
+    const itemIndex = updatedData.findIndex((item) => item._id === itemId);
+    if (itemIndex === -1) return;
+
+    const itemToAdd = updatedData[itemIndex];
+    const updatedItem = {
+      ...itemToAdd,
+      qty: itemToAdd.qty,
+      amount: itemToAdd.qty * itemToAdd.price,
+    };
+
+    console.log(updatedItem);
+
+    addToCart(updatedItem);
+
     setAlertInfo({
       show: true,
       type: 'success',
+      message: '商品已加入購物車',
     });
+    const newData = updatedData.map((item, idx) =>
+      idx === itemIndex ? { ...item, qty: 1, amount: item.price } : item,
+    );
+    setUpdatedData(newData);
   };
 
   const handleCloseAlert = () => {
@@ -84,7 +106,8 @@ const OrderTablesComponents = ({ data, addToCart }) => {
           min={1}
           keyboard={false}
           defaultValue={1}
-          onChange={(value) => onQuantityChange(index, value)}
+          value={record.qty}
+          onChange={(value) => onQuantityChange(record._id, value)}
         />
       ),
     },
@@ -97,7 +120,7 @@ const OrderTablesComponents = ({ data, addToCart }) => {
       title: '購物車',
       dataIndex: '',
       key: 'x',
-      render: (record_, __, index) => (
+      render: (_, record) => (
         <button
           style={{
             backgroundColor: '#4267B2',
@@ -118,7 +141,7 @@ const OrderTablesComponents = ({ data, addToCart }) => {
             (e.currentTarget.style.backgroundColor = '#4267B2')
           }
           onClick={() => {
-            handleAddToCart(index);
+            handleAddToCart(record._id); //
           }}
         >
           加入

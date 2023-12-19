@@ -6,6 +6,10 @@ import Cookies from 'js-cookie';
 import '../styles/style.css';
 
 const CardComponent = () => {
+  useEffect(() => {
+    document.title = 'Card';
+  }, []);
+
   const [profile, setProfile] = useState({
     id: '',
     name: '',
@@ -86,19 +90,20 @@ const CardComponent = () => {
   }, []);
 
   return (
-    <div className="profile-component">
-      <div className="business-name">{name}</div>
-      <SwitchComponent />
-      <div className="profile-picture">
-        {profile.picture && <img src={profile.picture} alt="Profile" />}
-      </div>
-      <div className="profile-info">
-        <div className="profile-name">{profile.name || ''}</div>
-        <div className="profile-status">
-          {profile.email || '你沒有提供信箱'}
+    <div style={{ backgroundColor: 'rgba(21, 21, 21,0.9)' }}>
+      <div className="profile-component">
+        <div className="business-name">{name}</div>
+        <SwitchComponent />
+        <div className="profile-picture">
+          {profile.picture && <img src={profile.picture} alt="Profile" />}
         </div>
-      </div>
-      {/* <div className="profile-actions">
+        <div className="profile-info">
+          <div className="profile-name">{profile.name || ''}</div>
+          <div className="profile-status">
+            {profile.email || '你沒有提供信箱'}
+          </div>
+        </div>
+        {/* <div className="profile-actions">
         <Link to="/user/profile/info">
           <button className="info-button">Info</button>
         </Link>
@@ -107,21 +112,22 @@ const CardComponent = () => {
           <button className="card-button">Card</button>
         </Link>
       </div> */}
-      <TabsComponents
-        items={[
-          {
-            key: '1',
-            label: 'Info',
-          },
-          {
-            key: '2',
-            label: 'Cards',
-          },
-        ]}
-        presentKey={'2'}
-      />
-      <div className="profile-contents">
-        <CarouselComponent cards={cards} />
+        <TabsComponents
+          items={[
+            {
+              key: '1',
+              label: 'Info',
+            },
+            {
+              key: '2',
+              label: 'Cards',
+            },
+          ]}
+          presentKey={'2'}
+        />
+        <div className="profile-contents">
+          <CarouselComponent cards={cards} />
+        </div>
       </div>
     </div>
   );

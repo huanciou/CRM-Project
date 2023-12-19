@@ -6,7 +6,7 @@
   min-height: 100vh;
   margin: 0 auto; // 置中
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
-  background-color: rgba(15, 24, 30, 0.7);
+  background-color: rgba(8, 54, 84, 0.8);
   border-radius: 10px; // 圓角邊框
   overflow: hidden; // 防止子元素溢出圓角邊框
 
@@ -93,7 +93,7 @@
 
   .profile-contents {
     background: rgba(233, 229, 229, 0.2);
-    height: 300px;
+    height: 280px;
     // border: 14px groove #d3d3d3;
     padding: 10px; // 添加内边距
     box-sizing: border-box; // 确保内边距不会影响到元素的总体尺寸

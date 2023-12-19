@@ -10,12 +10,8 @@ export async function createOrder(req, res) {
 
   const orderResult = await order.create(orderItems);
   if (orderResult._id) {
-    console.log('here');
-    // io.emit('orderCreated', 'orderCreated');
-    setInterval(() => {
-      console.log('Emitting test orderCreated event');
-      io.emit('msg', 'Test message');
-    }, 5000);
+    io.emit(dbToken, 'orderCreated');
+    console.log(`socket${dbToken}`);
   }
   res.send(orderResult);
 }

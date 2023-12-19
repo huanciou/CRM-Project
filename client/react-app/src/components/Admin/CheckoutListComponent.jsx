@@ -1,77 +1,139 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Button, message } from 'antd';
+import CheckoutModal from './CheckoutModal';
+
 const columns = [
   {
-    title: 'Name',
+    title: '商品圖片',
+    dataIndex: 'main_image',
+    key: 'main_image',
+    render: (text) => (
+      <img
+        src={`https://d3nexs9enmvorf.cloudfront.net/${text}`}
+        alt="Product"
+        style={{ maxWidth: '120px', maxHeight: '100px' }}
+      />
+    ),
+  },
+  {
+    title: '品名',
     dataIndex: 'name',
     key: 'name',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '種類',
+    dataIndex: 'category',
+    key: 'category',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '價格',
+    dataIndex: 'price',
+    key: 'price',
   },
   {
-    title: 'Action',
-    dataIndex: '',
-    key: 'x',
-    render: () => <a>Delete</a>,
+    title: '數量',
+    dataIndex: 'qty',
+    key: 'qty',
+  },
+  {
+    title: '總額',
+    dataIndex: 'amount',
+    key: 'amount',
   },
 ];
-const data = [
-  {
-    key: 1,
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    description:
-      'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-  },
-  {
-    key: 2,
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    description:
-      'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-  },
-  {
-    key: 3,
-    name: 'Not Expandable',
-    age: 29,
-    address: 'Jiangsu No. 1 Lake Park',
-    description: 'This not expandable',
-  },
-  {
-    key: 4,
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    description:
-      'My name is Joe Black, I am 32 years old, living in Sydney No. 1 Lake Park.',
-  },
-];
-const CheckoutListComponent = () => (
-  <Table
-    columns={columns}
-    expandable={{
-      expandedRowRender: (record) => (
-        <p
-          style={{
-            margin: 0,
-          }}
-        >
-          {record.description}
-        </p>
-      ),
-      rowExpandable: (record) => record.name !== 'Not Expandable',
-    }}
-    dataSource={data}
-  />
-);
+
+const CheckoutListComponent = ({ order, fetchOrders }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [enhancedOrder, setEnhancedOrder] = useState(order);
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const data = enhancedOrder.order_Items.map((item) => ({
+    ...item,
+    key: item._id, // 确保每行数据有唯一的 key
+  }));
+
+  useEffect(() => {
+    const amount = order.order_Items.reduce(
+      (acc, item) => acc + item.amount,
+      0,
+    );
+    setEnhancedOrder({ ...order, amount });
+  }, [order]);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancelOrder = () => {
+    const deleteOrderUrl = `${apiUrl}/api/1.0/admin/deleteOrder`;
+    fetch(deleteOrderUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: order._id }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('請求失敗');
+        }
+        return res.json();
+      })
+      .then(() => {
+        message.success('訂單取消成功');
+        fetchOrders();
+      })
+      .catch((error) => {
+        message.error('訂單取消失敗: ' + error.message);
+      });
+  };
+
+  return (
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        footer={() => (
+          <div
+            style={{
+              margin: '20px 0 5px 0',
+              textAlign: 'right',
+              padding: '10px',
+            }}
+          >
+            <span
+              style={{ marginRight: '40px', fontSize: '20px', color: 'red' }}
+            >
+              總金額: ${enhancedOrder.amount}
+            </span>
+            <Button
+              style={{
+                marginRight: '10px',
+                color: '#4267B2',
+                backgroundColor: 'white',
+                borderColor: '#4267B2',
+              }}
+              onClick={showModal}
+            >
+              結帳
+            </Button>
+            <Button danger onClick={handleCancelOrder}>
+              取消訂單
+            </Button>
+          </div>
+        )}
+      />
+      {isModalVisible && (
+        <CheckoutModal
+          isOpen={isModalVisible}
+          setIsOpen={setIsModalVisible}
+          currentOrder={enhancedOrder}
+          onTransactionComplete={fetchOrders}
+        />
+      )}
+    </>
+  );
+};
+
 export default CheckoutListComponent;

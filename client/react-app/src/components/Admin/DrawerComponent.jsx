@@ -5,7 +5,6 @@ import { Drawer } from 'antd';
 import CartListComponent from './CartListComponent';
 
 const DrawerComponent = ({ cartItems, setCartItems }) => {
-  console.log(`DrawerComponent: ${cartItems}`);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -21,7 +20,7 @@ const DrawerComponent = ({ cartItems, setCartItems }) => {
         onClick={showDrawer}
       />
       <Drawer
-        width={'50vw'}
+        width={'40vw'}
         title="購物車"
         placement="right"
         onClose={onClose}

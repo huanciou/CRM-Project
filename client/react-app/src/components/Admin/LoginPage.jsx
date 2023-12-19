@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoginComponent from './LoginComponent';
 import LayoutComponent from './LayoutComponent';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
+  useEffect(() => {
+    document.title = 'Log-In';
+  }, []);
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const adminToken = Cookies.get('adminToken');
+      if (adminToken) {
+        navigate('/admin/menuSetup');
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
+
   return (
     <div>
       <LayoutComponent>
-        <h1
+        <h
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -14,10 +33,11 @@ const LoginPage = () => {
             fontSize: '40px',
             marginTop: 60,
             marginBottom: 60,
+            zIndex: 50,
           }}
         >
           Administrative Backend System
-        </h1>
+        </h>
         <div
           style={{
             display: 'flex',

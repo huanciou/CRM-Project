@@ -6,6 +6,10 @@ import ModalComponent from './ModalComponent';
 import '../styles/style.css';
 
 const ProfileComponent = () => {
+  useEffect(() => {
+    document.title = 'Profile';
+  }, []);
+
   const [profile, setProfile] = useState({
     id: '',
     name: '',
@@ -55,35 +59,37 @@ const ProfileComponent = () => {
   }, []);
 
   return (
-    <div className="profile-component">
-      <div className="business-name">{name || '456'}</div>
-      <SwitchComponent />
-      <div className="profile-picture">
-        {profile.picture && <img src={profile.picture} alt="Profile" />}
-      </div>
-      <div className="profile-info">
-        <div className="profile-name">{profile.name || '123'}</div>
-        <div className="profile-status">
-          {profile.email || '你沒有提供信箱'}
+    <div style={{ backgroundColor: 'rgba(21, 21, 21,0.9)' }}>
+      <div className="profile-component">
+        <div className="business-name">{name || '456'}</div>
+        <SwitchComponent />
+        <div className="profile-picture">
+          {profile.picture && <img src={profile.picture} alt="Profile" />}
         </div>
+        <div className="profile-info">
+          <div className="profile-name">{profile.name || '123'}</div>
+          <div className="profile-status">
+            {profile.email || '你沒有提供信箱'}
+          </div>
+        </div>
+        <TabsComponents
+          items={[
+            {
+              key: '1',
+              label: 'Info',
+            },
+            {
+              key: '2',
+              label: 'Cards',
+            },
+          ]}
+          presentKey={'1'}
+        />
+        <div className="modal">
+          <ModalComponent id={profile.id} />
+        </div>
+        {/* <div className="profile-contents"></div> */}
       </div>
-      <TabsComponents
-        items={[
-          {
-            key: '1',
-            label: 'Info',
-          },
-          {
-            key: '2',
-            label: 'Cards',
-          },
-        ]}
-        presentKey={'1'}
-      />
-      <div className="modal">
-        <ModalComponent id={profile.id} />
-      </div>
-      {/* <div className="profile-contents"></div> */}
     </div>
   );
 };

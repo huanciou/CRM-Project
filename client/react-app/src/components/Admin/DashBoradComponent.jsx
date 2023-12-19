@@ -8,6 +8,7 @@ const ChartComponent = () => {
   const [endDate, setEndDate] = useState('');
   const [chartsData, setChartsData] = useState(null);
   const [activeTab, setActiveTab] = useState('1');
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const totalAmountChartRef = useRef(null);
   const checkoutTagsChartRef = useRef(null);
@@ -63,7 +64,7 @@ const ChartComponent = () => {
 
     console.log(date);
 
-    fetch('http://localhost:3000/api/1.0/admin/fetchDashboard', {
+    fetch(`${apiUrl}/api/1.0/admin/fetchDashboard`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,19 +122,34 @@ const ChartComponent = () => {
       checkoutIDsChartRef.current.destroy();
     }
 
+    const doughnutColors = [
+      'rgba(210, 105, 30, 0.6)', // 深橙色
+      'rgba(160, 82, 45, 0.6)', // 褐色
+      'rgba(139, 69, 19, 0.6)', // 深褐色
+      'rgba(244, 164, 96, 0.6)', // 沙褐色
+      'rgba(255, 218, 185, 0.6)', // 番木色
+      'rgba(255, 228, 196, 0.6)', // 貝殼色
+      'rgba(245, 222, 179, 0.6)', // 小麥色
+      'rgba(255, 245, 238, 0.6)', // 海貝殼色
+      'rgba(255, 192, 203, 0.6)', // 粉紅色
+      'rgba(255, 182, 193, 0.6)', // 淺粉色
+      'rgba(255, 160, 122, 0.6)', // 鮭魚色
+      'rgba(250, 128, 114, 0.6)', // 珊瑚色
+      'rgba(233, 150, 122, 0.6)', // 暗鮭魚色
+      'rgba(205, 133, 63, 0.6)', // 秘魯色
+      'rgba(210, 180, 140, 0.6)', // 古董白
+      'rgba(188, 143, 143, 0.6)', // 玫瑰棕色
+    ];
+
     checkoutIDsChartRef.current = new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: checkoutIDs.map((i) => i._id),
+        labels: checkoutIDs.map((i) => i.name),
         datasets: [
           {
             label: '用戶排行',
             data: checkoutIDs.map((i) => i.count),
-            backgroundColor: [
-              'rgba(210, 105, 30, 0.6)',
-              'rgba(160, 82, 45, 0.6)',
-              'rgba(139, 69, 19, 0.6)',
-            ],
+            backgroundColor: doughnutColors,
             hoverOffset: 4,
           },
         ],
@@ -142,6 +158,9 @@ const ChartComponent = () => {
         responsive: true,
         maintainAspectRatio: true,
         plugins: {
+          // labels: {
+          //   padding: 20,
+          // },
           title: {
             display: true,
             text: '用戶排行榜',
@@ -151,6 +170,12 @@ const ChartComponent = () => {
           },
           legend: {
             display: true,
+            position: 'left',
+            labels: {
+              font: {
+                size: 18,
+              },
+            },
           },
         },
         elements: {
@@ -179,6 +204,7 @@ const ChartComponent = () => {
           animateScale: true,
           duration: 3000,
         },
+        cutout: '30%',
       },
     });
   };

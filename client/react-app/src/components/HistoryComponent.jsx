@@ -6,27 +6,27 @@ import TabsComponents from './TabsComponents';
 import '../styles/style.css';
 
 const HistoryComponent = () => {
+  useEffect(() => {
+    document.title = 'History';
+  }, []);
+
   const [historyList, setHistoryList] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchProfile = async () => {
       const jwtToken = Cookies.get('jwtToken');
       const dbToken = Cookies.get('dbToken');
 
-      // ${window.location.origin}
-
       if (jwtToken) {
         try {
-          const response = await fetch(
-            `${window.location.origin}/api/1.0/user/fetchHistory`,
-            {
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${jwtToken}`,
-                dbToken,
-              },
+          const response = await fetch(`${apiUrl}/api/1.0/user/fetchHistory`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+              dbToken,
             },
-          );
+          });
           const data = await response.json();
           if (response.ok) {
             setHistoryList(data);
@@ -43,34 +43,29 @@ const HistoryComponent = () => {
   }, []);
 
   return (
-    <div className="profile-component">
-      {/* <div className="business-name">{name}</div> */}
-      <SwitchComponent />
+    <div style={{ backgroundColor: 'rgba(21, 21, 21,0.9)' }}>
+      <div className="profile-component">
+        <SwitchComponent />
+        <TabsComponents
+          items={[
+            {
+              key: '3',
+              label: 'Credits',
+            },
+            {
+              key: '4',
+              label: 'History',
+            },
+            {
+              key: '5',
+              label: 'Comments',
+            },
+          ]}
+          presentKey={'4'}
+        />
 
-      {/* <div className="profile-actions">
-        <Link to="/user/profile/credits">
-          <button className="info-button">Credits</button>
-        </Link>
-
-        <Link to="/user/profile/history">
-          <button className="card-button">History</button>
-        </Link>
-      </div> */}
-      <TabsComponents
-        items={[
-          {
-            key: '3',
-            label: 'Credits',
-          },
-          {
-            key: '4',
-            label: 'History',
-          },
-        ]}
-        presentKey={'4'}
-      />
-
-      <CollapseComponents historyList={historyList} />
+        <CollapseComponents historyList={historyList} />
+      </div>
     </div>
   );
 };

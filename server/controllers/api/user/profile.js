@@ -51,6 +51,8 @@ export async function fetchHistory(req, res) {
       'checkout_Time amount order_Items.item_ID order_Items.qty order_Items.price order_Items.amount',
     );
 
+  console.log(checkoutData);
+
   const resData = await Promise.all(
     checkoutData.map(async (checkoutDoc) => {
       const resDataItems = await Promise.all(
@@ -79,6 +81,7 @@ export async function fetchHistory(req, res) {
     }),
   );
 
+  console.log(resData);
   res.json(resData);
 }
 

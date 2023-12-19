@@ -1,5 +1,6 @@
 export function dbChecker(req, res, next) {
   const { dbToken } = req.cookies;
+  console.log(`dbChecker: ${dbToken}`);
   req.dbToken = dbToken;
   next();
 }

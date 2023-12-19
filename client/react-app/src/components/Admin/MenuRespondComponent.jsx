@@ -4,6 +4,7 @@ import { Table } from 'antd';
 const OrderTablesComponents = () => {
   const [data, setData] = useState([]);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const columns = [
     {
@@ -76,8 +77,7 @@ const OrderTablesComponents = () => {
   ];
 
   const deleteMenuContent = (record) => {
-    const deleteMenuContentUrl =
-      'http://localhost:3000/api/1.0/admin/deletemenuContent';
+    const deleteMenuContentUrl = `${apiUrl}/api/1.0/admin/deletemenuContent`;
     fetch(deleteMenuContentUrl, {
       method: 'POST',
       headers: {
@@ -102,9 +102,7 @@ const OrderTablesComponents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'http://localhost:3000/api/1.0/admin/menu',
-        );
+        const response = await fetch(`${apiUrl}/api/1.0/admin/menu`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

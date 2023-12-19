@@ -25,8 +25,8 @@ export async function getMenuSetup(req, res) {
 
 export async function getMenu(req, res) {
   const { dbToken } = req;
+  console.log(`doToken9: ${dbToken}`);
   const { menu } = await getModels(dbToken);
   const data = await menu.find();
-  console.log(`doToken9: ${dbToken}`);
   res.json(data);
 }

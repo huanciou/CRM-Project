@@ -8,7 +8,7 @@ import { profileSchema, signSchema } from './profileSchema.js';
 import setupSchema from './setupSchema.js';
 import userSchema from './userSchema.js';
 
-const defaultDB = 'Umai';
+const defaultDB = 'test';
 
 async function getModels(dbToken = defaultDB) {
   const connection = await connectDB(dbToken);

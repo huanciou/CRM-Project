@@ -6,8 +6,11 @@ import {
   PlusOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import { Layout, Menu, Button, theme, Modal } from 'antd';
 import { NavLink, useLocation } from 'react-router-dom';
+import ParticleComponent from './ParticleComponent';
+import AdminProfileComponent from './AdminProfileComponent';
+import '../../styles/style.css';
 
 const getKeyFromPath = (path) => {
   const mapping = {
@@ -28,8 +31,19 @@ const LayoutComponent = (props) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   return (
-    <Layout>
+    <Layout style={{ position: 'relative' }}>
+      <ParticleComponent
+        style={{
+          zIndex: -999, // 确保粒子效果位于内容之下
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%', // 覆盖整个 Layout
+        }}
+      />
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
@@ -58,6 +72,16 @@ const LayoutComponent = (props) => {
               icon: <UserOutlined />,
               label: <NavLink to="/admin/dashboard">儀表板</NavLink>,
             },
+            {
+              key: '5',
+              icon: <UserOutlined />,
+              label: <AdminProfileComponent />,
+            },
+            {
+              key: '6',
+              icon: <UserOutlined />,
+              label: <NavLink to="/admin/login">登入</NavLink>,
+            },
           ]}
         />
       </Sider>
@@ -69,15 +93,6 @@ const LayoutComponent = (props) => {
             height: 100,
           }}
         >
-          {/* <img
-            src="https://d3nexs9enmvorf.cloudfront.net/haidilao.webp"
-            alt=""
-            style={{
-              width: '100vw',
-              height: '300px',
-              zIndex: 0,
-            }}
-          /> */}
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -93,7 +108,7 @@ const LayoutComponent = (props) => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 800,
+            minHeight: 900,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

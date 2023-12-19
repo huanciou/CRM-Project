@@ -7,7 +7,7 @@ export async function createMenuCategory(req, res) {
   const { category } = req.body;
   console.log('hi');
   await menuSetup.create({ category });
-  res.redirect('/admin/menuSetup');
+  res.status(200).send('ok');
 }
 
 export async function createMenuTags(req, res) {
@@ -17,7 +17,7 @@ export async function createMenuTags(req, res) {
   console.log(`doToken5: ${dbToken}`);
 
   await tags.create({ tags: tag });
-  res.redirect('/admin/menuSetup');
+  res.status(200).send('ok');
 }
 
 export async function createMenuContents(req, res) {
@@ -25,7 +25,7 @@ export async function createMenuContents(req, res) {
   const { menu } = await getModels(dbToken);
   const data = await imgUpload(req);
   await menu.create(data);
-  res.send('ok');
+  res.status(200).send('ok');
 }
 
 export async function fetchMenuCategories(req, res) {

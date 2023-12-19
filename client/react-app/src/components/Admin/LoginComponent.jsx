@@ -1,28 +1,52 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
+import { useNavigate } from 'react-router-dom'; // 引入 useNavigate
 
 const LoginComponent = () => {
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    fetch(`${apiUrl}/api/1.0/admin/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include', // cookies accepted
+      body: JSON.stringify({
+        account: values.account,
+        password: values.password,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('ok');
+          message.success('Login successful!');
+        } else {
+          throw new Error('Login failed');
+        }
+      })
+      .then((data) => {
+        console.log('ok2');
+        navigate('/admin/menuSetup', { replace: true });
+      })
+      .catch((error) => {
+        console.error('Login failed:', error);
+        message.error('Login failed');
+      });
   };
+
   return (
     <Form
       name="normal_login"
       className="login-form"
-      initialValues={{
-        remember: true,
-      }}
+      initialValues={{ remember: true }}
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Username!',
-          },
-        ]}
+        name="account"
+        rules={[{ required: true, message: 'Please input your Username!' }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -31,12 +55,7 @@ const LoginComponent = () => {
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Password!',
-          },
-        ]}
+        rules={[{ required: true, message: 'Please input your Password!' }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -58,4 +77,5 @@ const LoginComponent = () => {
     </Form>
   );
 };
+
 export default LoginComponent;

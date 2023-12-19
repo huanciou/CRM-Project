@@ -20,7 +20,12 @@ const AlertComponent = ({ type, message, onClose, autoCloseAfter }) => {
       }}
     >
       {type === 'success' && (
-        <Alert message="Success" type="success" showIcon />
+        <Alert
+          message="Success"
+          type="success"
+          description={message}
+          showIcon
+        />
       )}
       {type === 'info' && (
         <Alert

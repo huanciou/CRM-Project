@@ -34,7 +34,7 @@ export async function postLogin(req, res) {
 
         res.cookie('adminToken', jwtToken, {
           maxAge: 3600000,
-          httpOnly: false, // 這裡要改
+          httpOnly: true, // 這裡要改
           path: '/',
         });
 

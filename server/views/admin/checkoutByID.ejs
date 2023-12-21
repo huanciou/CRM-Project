@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <button class="payment-button" onclick="pageChange('page1')">Line Pay</button>
+    <button class="payment-button" onclick="pageChange('page2')">Cash</button>
+
+    <form action="/api/1.0/admin/postCheckout" class="linepay-form" method="POST">
+
+      <div id="line-pay" style="display:block;">
+
+        <input type="text" name="type" value="linepay" hidden>
+        <label for="">會員編號</label>
+        <input type="text" name="userId" required>
+
+        <label for="">line-pay 收款碼</label>
+        <input type="number" name="oneTimeKey" required>
+        
+        <label for="">訂單編號</label>
+        <input type="text" name="orderId" value="<%= id %>" readonly>
+
+        <label for="">總金額</label>
+        <input type="number" name="amount" value="<%= amount %>" readonly>
+        <br/>
+        <!-- <div><%= JSON.stringify(data, null, 4) %></div> -->
+        <button class="checkout-button">結帳</button>
+    </div>
+
+    </form>
+    
+
+
+    <form action="/api/1.0/admin/postCheckout" method="POST" class="cash-form">
+      <div id="cash"  style="display:none;">
+        <input type="text" name="type" value="cash" hidden>
+
+        <label for="">會員編號</label>
+        <input type="text" required>
+        
+        <label for="">訂單編號</label>
+        <input type="text" value="<%= id %>" readonly required>
+  
+        <label for="">總金額</label>
+        <input type="number" class="total-amount" value="<%= amount %>" readonly>
+  
+        <label for="">實收金額</label>
+        <input type="number" class="received-amount">
+  
+        <label for="">找零</label>
+        <input type="number" class="change" readonly>
+        <br/>
+        <!-- <div><%= JSON.stringify(data, null, 4) %></div> -->
+
+        <button class="checkout-button">結帳</button>
+      </div>
+    </form>
+  
+<script>
+
+  const totalAmount = document.querySelector('.total-amount');
+  const receivedAmount = document.querySelector('.received-amount');
+  const change = document.querySelector('.change');
+
+  receivedAmount.addEventListener('input', (e) => {
+    if(e.target.value == ""){
+      change.value = "";
+    } else {
+      change.value = Number(e.target.value) - Number(totalAmount.value);
+    }
+  })
+
+  function pageChange(pageID){
+    document.querySelector('#line-pay').style.display = (pageID === 'page1') ? 'block' : 'none';
+    document.querySelector('.linepay-form').style.display = (pageID === 'page1') ? 'flex' : 'none';
+
+    document.querySelector('#cash').style.display = (pageID === 'page2') ? 'block' : 'none';
+    document.querySelector('.cash-form').style.display = (pageID === 'page2') ? 'flex' : 'none';
+  }
+
+
+</script>  
+</body>
+</html>

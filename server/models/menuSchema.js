@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const menuSetupSchema = new mongoose.Schema({
+export const menuSetupSchema = new mongoose.Schema({
   category: {
     type: String,
     required: false,
@@ -8,7 +8,13 @@ const menuSetupSchema = new mongoose.Schema({
   },
 });
 
-const menuSchema = new mongoose.Schema({
+export const tagsSetupSchema = new mongoose.Schema({
+  tags: {
+    type: String,
+  },
+});
+
+export const menuSchema = new mongoose.Schema({
   category: {
     type: String,
     required: false,
@@ -20,6 +26,10 @@ const menuSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  tags: {
+    type: String,
+    default: 'Null',
   },
   story: {
     type: String,
@@ -36,6 +46,3 @@ const menuSchema = new mongoose.Schema({
     },
   ],
 });
-
-export const menu = mongoose.model('Manu', menuSchema);
-export const menuSetup = mongoose.model('ManuSetup', menuSetupSchema);

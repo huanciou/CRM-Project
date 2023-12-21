@@ -5,6 +5,7 @@ function uploadsFiles(req) {
   const files = [];
   req.body.images = [];
   const mainImageName = uuidv4();
+  console.log(req.files);
   files.push({
     imgBuffer: req.files.main_image[0].buffer,
     imgType: req.files.main_image[0].mimetype,

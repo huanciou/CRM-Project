@@ -1,0 +1,52 @@
+body {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+}
+
+form {
+  background: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+form label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: #4a76a8;
+  font-weight: bold;
+}
+form input[type=text],
+form input[type=password] {
+  width: 100%;
+  padding: 0.7em;
+  margin-bottom: 1em;
+  border: 2px solid #4a76a8;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+form input[type=text]:focus,
+form input[type=password]:focus {
+  border-color: #6890bd;
+  outline: none;
+}
+form button {
+  width: 100%;
+  padding: 0.7em;
+  border: none;
+  border-radius: 5px;
+  background-color: #4a76a8;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+form button:hover {
+  background-color: #6890bd;
+}/*# sourceMappingURL=login.css.map */

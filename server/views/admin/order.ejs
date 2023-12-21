@@ -4,12 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/styles/order.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
     <div class="menus">
     </div>
-  
+    
+    <button id="toggleCartBtn"><i class="fa-solid fa-cart-shopping"></i></button>
     <div class="cart">
     </div>
 
@@ -18,9 +22,9 @@
   const checkoutUrl = `/api/1.0/admin/createOrder`;
   const menus = document.querySelector('.menus');
   const cart = document.querySelector('.cart');
+  const cdn = `https://d3nexs9enmvorf.cloudfront.net`;
   
   function checkout(list){
-
     localStorage.removeItem('cart');
 
     fetch(checkoutUrl, {
@@ -34,11 +38,12 @@
       .then(data => {
         JSON.stringify(data);
         alert(`訂單 ${data} 已建立`);
+        location.reload();
       })
   }
 
   function cartRefreshing(){
-    const cartItem = document.createElement('div');
+    // const cartItem = document.createElement('div');
     const priceTotal = document.createElement('h3');
     const cartHeading = document.createElement('h2');
     const checkoutButton = document.createElement('button');
@@ -48,8 +53,39 @@
     const list = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : "";
 
     cartHeading.innerText = '購物車';
-    cartItem.classList.add('cartItem');
-    cartItem.innerText = JSON.stringify(list, null, 4);
+    // cartItem.classList.add('cartItem');
+    cart.appendChild(cartHeading);
+    cart.appendChild(priceTotal);
+
+    list.forEach((value) => {
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cartItem');
+      cart.appendChild(cartItem);
+      const img = document.createElement('img');
+      const name = document.createElement('p');
+      const qty = document.createElement('p');
+      const price = document.createElement('p');
+      const amount = document.createElement('p');
+
+      img.classList.add('img');
+      name.classList.add('name');
+      qty.classList.add('qty');
+      price.classList.add('price');
+      amount.classList.add('amount');
+
+      img.src = value.img;
+      name.innerText = `${value.name}`;
+      qty.innerText = `數量 ${value.qty}`;
+      price.innerText = `單價 ${value.price}`;
+      amount.innerText = `總額 ${value.amount}`;
+
+      cartItem.appendChild(img);
+      cartItem.appendChild(name);
+      cartItem.appendChild(qty);
+      cartItem.appendChild(price);
+      cartItem.appendChild(amount);
+    })
+    
     checkoutButton.innerText = 'Checkout';
     clearButton.innerText = 'Clear All';
 
@@ -57,9 +93,6 @@
       return acc += i.amount;
     }, 0)}`
 
-    cart.appendChild(cartHeading);
-    cart.appendChild(priceTotal);
-    cart.appendChild(cartItem);
     cart.appendChild(checkoutButton);
     cart.appendChild(clearButton);
 
@@ -88,7 +121,33 @@
           cate.data.forEach((menu) => {
             const menuContent = document.createElement('div');
             menuContent.classList.add('menu');
-            menuContent.innerText = JSON.stringify(menu, null, 2);
+            
+            const category = document.createElement('p');
+            category.classList.add('category');
+            const name = document.createElement('p')
+            name.classList.add('name');
+            const price = document.createElement('p')
+            price.classList.add('price');
+            // const story = document.createElement('p')
+            // story.classList.add('story');
+            const img = document.createElement('img')
+            img.classList.add('img');
+            const tags = document.createElement('p')
+            tags.classList.add('tags');
+
+            category.innerText = menu.category;
+            name.innerText = menu.name;
+            price.innerText = `$ ${menu.price}`;
+            // story.innerText = menu.story;
+            tags.innerText = menu.tags;
+            img.src = `${cdn}/${menu.main_image}`;
+
+            menuContent.appendChild(category)
+            menuContent.appendChild(tags)
+            menuContent.appendChild(name)
+            menuContent.appendChild(price)
+            // menuContent.appendChild(story)
+            menuContent.appendChild(img)
             menus.appendChild(menuContent);
             
             const orderQty = document.createElement('input');
@@ -120,18 +179,35 @@
                 if(i.target.parentElement.querySelector('.orderQty').value){
                 const id = i.target.id;
                 const qty = i.target.parentElement.querySelector('.orderQty').value;
+                const name = i.target.parentElement.querySelector('.name').innerText;
+                const tags = i.target.parentElement.querySelector('.tags').innerText;
                 const price = (Number(i.target.parentElement.querySelector('.orderAmount').innerText)/qty);
                 const amount = Number(i.target.parentElement.querySelector('.orderAmount').innerText);
-
+                const img = i.target.parentElement.querySelector('.img').src;
+                
                 const list = {
                   item_ID: id,
+                  tags,
+                  name,
                   qty,
                   price,
                   amount,
+                  img,
                 }
 
                 let storage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-                storage.push(list);
+
+                let itemExists = false;
+                for (let i in storage){
+                  if(storage[i].item_ID === list.item_ID){
+                    storage[i].qty = +storage[i].qty + +list.qty;
+                    storage[i].amount = +storage[i].qty * + storage[i].price;
+                    itemExists = true;
+                    break;
+                  }
+                }
+                if(!itemExists) storage.push(list);
+     
                 localStorage.setItem('cart', JSON.stringify(storage));
 
                 alert(`已加入購物車`);
@@ -146,6 +222,11 @@
         })
       })
   }
+
+  document.getElementById('toggleCartBtn').addEventListener('click', function(){
+      const cart = document.querySelector('.cart');
+      cart.style.right = cart.style.right === '0px' ? '-320px' : '0px';
+  });
 
   fetchMenuByCategories();
   cartRefreshing();

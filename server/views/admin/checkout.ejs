@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/styles/checkout.css">
 </head>
 <body>
+  <%- include('../components/nav') %>
+  <%- include('../components/header') %>
 
+  <div class="checkout"></div>
   <div class="orderList">
 
   </div>
@@ -14,6 +18,102 @@
 <script>
   const fetchOrderUrl = `/api/1.0/admin/fetchOrder`;
   const orderList = document.querySelector('.orderList');
+  const deleteOrderUrl = `/api/1.0/admin/deleteOrder`
+  
+
+  function toggleListBoxVisibility(orderId) {
+  const listContainer = document.querySelector(`.listContainer[data-order-id="${orderId}"]`);
+  
+  if (listContainer.style.maxHeight && listContainer.style.maxHeight !== '0px') {
+    listContainer.style.maxHeight = '0px'; 
+    listContainer.style.padding = '0'; 
+    listContainer.style.border = '0'; 
+  } else {
+    listContainer.style.maxHeight = '3000px'; 
+    listContainer.style.padding = '20px'; 
+    listContainer.style.border = '1px solid #ddd'; 
+  }
+}
+
+  function deleteOrder(id){
+    fetch(deleteOrderUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+      .then(res => res.json)
+      .then(data => {
+        alert('刪除成功');
+        location.reload();
+      })
+  }
+
+  function getOrderItems(items){
+    const item = items.order_Items;
+    const orderList = document.querySelector('.orderList');
+    const checkoutButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+    const listContainer = document.createElement('div');
+
+    cancelButton.setAttribute('data-order-id', items._id); 
+    checkoutButton.setAttribute('data-order-id', items._id); 
+
+    listContainer.classList.add('listContainer');
+    listContainer.setAttribute('data-order-id', items._id); // 添加 data 属性
+
+    checkoutButton.classList.add('checkoutButton');
+    cancelButton.classList.add('cancelButton');
+    
+    checkoutButton.innerText = 'Checkout';
+    cancelButton.innerText = 'Cancel';
+    
+    item.forEach((value, index) => {
+      const listBox = document.createElement('div');
+      const id = document.createElement('p');
+      const name = document.createElement('p');
+      const price = document.createElement('p');
+      const qty = document.createElement('p');
+      const amount = document.createElement('p');
+
+
+      listBox.classList.add(`listBox${index}`);
+      listBox.classList.add(`listBox`);
+      listBox.setAttribute('data-order-id', items._id); // 添加 data 属性
+      listContainer.appendChild(listBox);
+
+      id.innerText = `商品編號：${value.item_ID}`;
+      name.innerText = `品名：${value.name}`
+      price.innerText = `單價：${value.price}`;
+      qty.innerText = `數量：${value.qty}`;
+      amount.innerText = `總價：${value.price * value.qty}`;
+
+      listBox.appendChild(id);
+      listBox.appendChild(name);
+      listBox.appendChild(price);
+      listBox.appendChild(qty);
+      listBox.appendChild(amount);
+
+      listBox.appendChild(checkoutButton);
+      listBox.appendChild(cancelButton);
+      orderList.appendChild(listContainer);
+    })
+
+
+
+    checkoutButton.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-order-id');
+        const baseUrl = window.location.origin + window.location.pathname;
+        window.location.href = `${baseUrl}/${id}`;
+    })
+
+    cancelButton.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-order-id');
+        deleteOrder(id);
+    })
+
+  }
 
   function fetchOrder(){
     fetch(fetchOrderUrl)
@@ -21,16 +121,26 @@
       .then(data => {
         data.forEach((i) => {
           const order = document.createElement('div');
-          order.innerText = JSON.stringify(i, null, 4);
           order.classList.add('order');
-          order.style.display = 'flex';
-          order.style.marginBottom = '100px';
           orderList.appendChild(order);
+          order.id = i._id;
+          order.innerText = `訂單編號：${i._id}\n點餐時間：${i.order_Time}`;
+          
+          getOrderItems(i);
+                 
         })
       });
   }
 
   fetchOrder();
+
+  document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('order')) {
+    const orderId = e.target.id;
+    toggleListBoxVisibility(orderId);
+  }
+});
+
 </script>  
 </body>
 </html>

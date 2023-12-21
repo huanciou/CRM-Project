@@ -1,0 +1,113 @@
+@charset "UTF-8";
+body {
+  color: #333;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0px;
+  text-align: center;
+}
+body .orderList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body .orderList .order {
+  display: flex;
+  background-color: rgba(255, 224, 178, 0.3);
+  margin: 20px;
+  height: 160px;
+  width: 90%;
+  border: 10px double #ffdab9;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+body .listContainer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.7s ease-out;
+  background-color: #f9f9f9;
+  margin: 0px 0;
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+body .listContainer button {
+  background-color: #4267b2; /* Facebook的蓝色 */
+  color: white; /* 文字颜色为白色 */
+  padding: 10px 20px; /* 上下10px、左右20px的内边距 */
+  border: none; /* 无边框 */
+  border-radius: 5px; /* 轻微的圆角 */
+  font-size: 16px; /* 字体大小 */
+  cursor: pointer; /* 鼠标悬停时的手形光标 */
+  margin: 10px; /* 外边距 */
+  transition: background-color 0.3s; /* 鼠标悬停时背景色的过渡效果 */
+}
+body .listContainer button:hover {
+  background-color: #365899; /* 鼠标悬停时的背景色变深 */
+}
+body .listContainer .listBox {
+  padding: 10px 30px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+  z-index: 999;
+}
+.navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: transparent;
+}
+.navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5rem;
+  color: white;
+}
+.navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.navbar-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+.scroll-small .navbar-top {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px ridge #e0e0e0;
+  border-radius: 6px;
+}
+.scroll-small .navbar-brand {
+  margin-left: 20px;
+  margin-right: auto;
+  font-size: 1.5em;
+  color: black;
+}
+.scroll-small .navbar-links {
+  display: flex;
+  margin: 10px;
+}
+.scroll-small .navbar-links a {
+  margin: 0 10px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.scroll-small .navbar-links a:hover {
+  color: #007bff;
+}/*# sourceMappingURL=checkout.css.map */

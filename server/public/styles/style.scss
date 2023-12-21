@@ -3,3 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+// body {
+//   background-image: url('https://d3nexs9enmvorf.cloudfront.net/7004c86f-2483-4bd6-afeb-11e53baaf119.webp');
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-attachment: fixed;
+// }
+
+@import './menuSetup';
+@import './order';
+@import './checkout';
+@import './pay';
+@import './navbar';

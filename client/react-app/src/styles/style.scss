@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+}
+
+#cart-button {
+  position: fixed;
+  z-index: 999;
+  cursor: pointer;
+  font-size: 32px;
+  transition: color 1s ease;
+  color: #1f56c5;
+
+  &:hover {
+    font-size: 36px;
+    color: rgba(21, 73, 176, 0.6);
+  }
+}
+
+.checkout-button {
+  &:hover {
+    color: #5b7bb2;
+    background-color: black;
+    border-color: #5b7bb2;
+  }
+}
+
+.layout-login-button {
+  margin-top: 40px;
+}
+
+#homepage {
+  background-color: black;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+.drift-text {
+  animation: drift 1.5s ease-in-out infinite;
+  display: inline-block; /* 這樣才能使 transform 生效 */
+}
+
+/* 可以添加更多動畫效果，比如閃爍 */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.blink-text {
+  animation: blink 1.5s linear infinite;
+}
+
+body {
+  min-height: 100vh;
+  // background-image: url('https://d3nexs9enmvorf.cloudfront.net/output.webp');
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  // background-attachment: fixed;
+}
+
+@import './profile';
+@import './switch';
+@import './card';
+@import './history';
+@import './credits';

@@ -1,46 +1,74 @@
 import { Router } from 'express';
-import {
-  postLogin,
-  postSetup,
-  postAuth,
-} from '../../controllers/admin/setup.js';
+import { postLogin, postAuth } from '../../controllers/admin/setup.js';
 
 import {
   createMenuCategory,
+  createMenuTags,
   createMenuContents,
   deleteMenuCategory,
+  deleteMenuTag,
   deleteMenuContent,
   fetchMenuByCategories,
   fetchMenuCategories,
+  fetchMenuTags,
 } from '../../controllers/api/admin/menu.js';
 
-import { createOrder, fetchOrder } from '../../controllers/api/admin/order.js';
+import {
+  createOrder,
+  fetchOrder,
+  deleteOrder,
+  fetchDashboard,
+} from '../../controllers/api/admin/order.js';
+
+import { getMenu } from '../../controllers/admin/menu.js';
+import { postCheckout } from '../../controllers/api/admin/checkout.js';
 import fieldsUpload from '../../utils/fieldsUpload.js';
+
+import { postAdminSignUp } from '../../controllers/api/admin/adminSignUp.js';
+import { fetchSetup, postSetup } from '../../controllers/api/admin/setUp.js';
+import { dbChecker } from '../../middleware/dbChecker.js';
 
 const router = Router();
 
 router.route('/login').post(postLogin);
 
-router.route('/setup').post(postSetup);
+router.route('/setup').post(dbChecker, postSetup);
+router.route('/fetchSetup').get(dbChecker, fetchSetup);
 
 router.route('/auth').post(postAuth);
 
-router.route('/admin/createMenuCategory').post(createMenuCategory);
+router.route('/createMenuCategory').post(dbChecker, createMenuCategory);
+
+router.route('/createMenuTags').post(dbChecker, createMenuTags);
 
 router
-  .route('/admin/createMenuContents')
-  .post(fieldsUpload, createMenuContents);
+  .route('/createMenuContents')
+  .post(dbChecker, fieldsUpload, createMenuContents);
 
-router.route('/admin/fetchMenuCategories').get(fetchMenuCategories);
+router.route('/fetchMenuCategories').get(dbChecker, fetchMenuCategories);
 
-router.route('/admin/deleteMeunCategory').post(deleteMenuCategory);
+router.route('/fetchMenuTags').get(dbChecker, fetchMenuTags);
 
-router.route('/admin/deleteMeunContent').post(deleteMenuContent);
+router.route('/deleteMenuTag').post(dbChecker, deleteMenuTag);
 
-router.route('/admin/fetchMenuByCategories').get(fetchMenuByCategories);
+router.route('/deleteMenuCategory').post(dbChecker, deleteMenuCategory);
 
-router.route('/admin/fetchOrder').get(fetchOrder);
+router.route('/deleteMenuContent').post(dbChecker, deleteMenuContent);
 
-router.route('/admin/createOrder').post(createOrder);
+router.route('/fetchMenuByCategories').get(dbChecker, fetchMenuByCategories);
+
+router.route('/fetchOrder').get(dbChecker, fetchOrder);
+
+router.route('/createOrder').post(dbChecker, createOrder);
+
+router.route('/deleteOrder').post(dbChecker, deleteOrder);
+
+router.route('/postCheckout').post(dbChecker, postCheckout);
+
+router.route('/adminSignUp').post(dbChecker, postAdminSignUp);
+
+router.route('/fetchDashboard').post(dbChecker, fetchDashboard);
+
+router.route('/menu').get(dbChecker, getMenu);
 
 export default router;

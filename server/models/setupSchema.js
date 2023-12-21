@@ -3,10 +3,30 @@ import mongoose from 'mongoose';
 const setupSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+  },
+  location: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  credits: {
+    type: Number,
+    default: Number.MAX_SAFE_INTEGER,
+  },
+  campaign: {
+    type: String,
+  },
+  update_time: {
+    type: Date,
   },
 });
 
-const setup = mongoose.model('Setup', setupSchema);
+setupSchema.pre('save', function (next) {
+  if (!this.update_time) {
+    this.update_time = this._id.getTimestamp();
+  }
+  next();
+});
 
-export default setup;
+export default setupSchema;

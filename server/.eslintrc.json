@@ -5,7 +5,7 @@
     },
     "extends": [
         "airbnb"
-        //"plugin:prettier/recommended"
+        // "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -17,6 +17,10 @@
         "import/extensions": ["error", "ignorePackages", {
             "js": "always",
             "jsx": "always"
-        }]
+        }],
+        "camelcase": "off",
+        "no-shadow":"off",
+        "operator-linebreak":"off",
+        "no-use-before-define":"off"
     }
 }

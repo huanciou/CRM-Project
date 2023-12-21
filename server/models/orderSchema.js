@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
-  customer_ID: {
+  table_ID: {
     type: String,
     required: true,
   },
@@ -11,6 +11,13 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      name: {
+        type: String,
+        required: true,
+      },
+      tags: {
+        type: String,
+      },
       qty: {
         type: Number,
         default: 1,
@@ -19,14 +26,27 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      amount: {
+        type: Number,
+      },
+      main_image: {
+        type: String,
+      },
+      category: {
+        type: String,
+      },
     },
   ],
   requests: {
     type: String,
-    default: 'Null',
   },
   order_Time: {
     type: Date,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    select: false,
   },
 });
 
@@ -37,6 +57,18 @@ orderSchema.pre('save', function (next) {
   next();
 });
 
-const order = mongoose.model('Order', orderSchema);
+orderSchema.pre('save', function (next) {
+  this.order_Items.forEach((item) => {
+    if (!item.amount) {
+      item.amount = item.price * item.qty;
+    }
+  });
+  next();
+});
 
-export default order;
+orderSchema.pre('find', function (next) {
+  this.where({ isDeleted: false });
+  next();
+});
+
+export default orderSchema;

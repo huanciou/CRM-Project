@@ -1,0 +1,165 @@
+// 基本顏色和字體
+// $font-stack: 'Comic Sans MS', cursive, sans-serif;
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f8f8;
+$text-color: #333;
+
+// 基本體驗效果
+$transition: all 0.3s ease;
+
+// 主體樣式
+body {
+  // font-family: $font-stack;
+  color: $text-color;
+  background-color: $background-color;
+  margin: 0;
+  padding: 0px;
+  text-align: center;
+}
+
+// 按鈕樣式
+button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// 菜單樣式
+.menus {
+  padding: 10px;
+  .menu {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: left;
+
+    .category,
+    .name,
+    .price,
+    .story {
+      margin: 5px 0;
+    }
+
+    .img {
+      max-width: 20%; // 圖片大小調整
+      height: auto;
+      border-radius: 5px;
+      padding: 50px auto;
+      margin: 30px auto;
+      margin-bottom: 50px;
+    }
+
+    .orderQty {
+      width: 50px;
+      padding: 5px;
+      margin: 10px auto;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+
+    .orderButton {
+      background-color: $secondary-color;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin: 10px auto;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        background-color: darken($secondary-color, 10%);
+      }
+    }
+
+    .orderAmount {
+      font-size: 1.2em;
+      color: $primary-color;
+    }
+  }
+}
+
+// 購物車樣式
+.cart {
+  position: fixed;
+  right: -320px; // 初始狀態為隱藏
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  border-left: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.5s ease;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 20px;
+  h2,
+  h3 {
+    margin: 10px 0;
+  }
+
+  .cartItem {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    border: 4px double rgba(250, 128, 114, 0.516);
+    padding: 0 30px;
+    border-radius: 10px;
+
+    .img {
+      max-width: 40%; // 圖片大小調整
+      height: auto;
+      margin-left: -20px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-left: 10px;
+      padding: 0px 0px;
+    }
+  }
+
+  button {
+    margin: 35px 10px;
+  }
+}
+
+// 購物車切換按鈕樣式
+#toggleCartBtn {
+  position: fixed;
+  right: 2%;
+  top: 14%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 900;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: $primary-color;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: 50px;
+  text-align: center;
+
+  &:hover {
+    color: darken($primary-color, 20%);
+  }
+}
+
+@import './navbar';

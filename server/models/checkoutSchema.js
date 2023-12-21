@@ -2,38 +2,41 @@ import mongoose from 'mongoose';
 
 const checkoutSchema = new mongoose.Schema({
   customer_ID: {
-    type: Number,
+    type: String,
+  },
+  order_ID: {
+    type: String,
     required: true,
   },
   checkout_Time: {
     type: Date,
   },
-  item_Detail: [],
+  order_Items: [],
   payment_Method: {
     type: String,
-    required: true,
   },
   employee_ID: {
     type: String,
-    required: true,
   },
-  total: {
+  amount: {
     type: Number,
     required: true,
   },
   checkout_Status: {
     type: String,
-    defalut: 'Unpaid',
+    default: 'Unpaid',
   },
 });
 
-checkoutSchema.pre('save', function (next) {
-  if (!this.checkout_Time) {
-    this.checkout_Time = this._id.getTimestamp();
+checkoutSchema.pre('findOneAndUpdate', function (next) {
+  const update = this.getUpdate();
+  if (!update.$setOnInsert) {
+    update.$setOnInsert = {};
+  }
+  if (!update.$setOnInsert.checkout_Time) {
+    update.$setOnInsert.checkout_Time = new Date();
   }
   next();
 });
 
-const checkout = mongoose.model('Checkout', checkoutSchema);
-
-export default checkout;
+export default checkoutSchema;

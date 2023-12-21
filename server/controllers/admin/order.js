@@ -1,5 +1,13 @@
-function getOrder(req, res) {
-  res.render('admin/order');
+import path from 'path';
+
+export function getOrder(req, res) {
+  const { dbToken } = req;
+
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
 }
 
-export default getOrder;
+export function getDashboard(req, res) {
+  const build = path.resolve('public', 'build');
+  res.sendFile(path.join(build, 'index.html'));
+}

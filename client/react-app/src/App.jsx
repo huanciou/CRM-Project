@@ -12,8 +12,8 @@ import CheckoutPage from './components/Admin/CheckoutPage';
 import DashboardPage from './components/Admin/DashboardPage';
 import CommentsPage from './components/CommentsPage';
 import HomePage from './components/Admin/HomePage';
-import { ImageScroller } from './components/Admin/ImageScroller';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import ProtectedRoute from './components/Admin/ProtectedRoute';
 
 const App = () => {
   return (
@@ -23,10 +23,39 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
 
           <Route path="/admin/login" element={<LoginPage />} />
-          <Route path="/admin/menuSetup" element={<FormPage />} />
-          <Route path="/admin/order" element={<OrderPage />} />
-          <Route path="/admin/checkout" element={<CheckoutPage />} />
-          <Route path="/admin/dashboard" element={<DashboardPage />} />
+
+          <Route
+            path="/admin/menuSetup"
+            element={
+              <ProtectedRoute>
+                <FormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/order"
+            element={
+              <ProtectedRoute>
+                <OrderPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/user/profile/info" element={<ProfileComponent />} />
           <Route path="/user/profile/card" element={<CardComponent />} />

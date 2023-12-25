@@ -49,7 +49,7 @@ const CheckoutListComponent = ({ order, fetchOrders }) => {
 
   const data = enhancedOrder.order_Items.map((item) => ({
     ...item,
-    key: item._id, // 确保每行数据有唯一的 key
+    key: item._id, 
   }));
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const CheckoutListComponent = ({ order, fetchOrders }) => {
   const handleCancelOrder = () => {
     const deleteOrderUrl = `${apiUrl}/api/1.0/admin/deleteOrder`;
     fetch(deleteOrderUrl, {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },

@@ -27,12 +27,17 @@ import fieldsUpload from '../../utils/fieldsUpload.js';
 import { postAdminSignUp } from '../../controllers/api/admin/adminSignUp.js';
 import { fetchSetup, postSetup } from '../../controllers/api/admin/setUp.js';
 import { dbChecker } from '../../middleware/dbChecker.js';
+import authentication from '../../middleware/authentication.js';
 
 const router = Router();
 
 router.route('/login').post(postLogin);
 
-router.route('/setup').post(dbChecker, postSetup);
+router.route('/auth').get(authentication, (req, res) => {
+  res.status(200).send({ authenticated: true });
+});
+
+router.route('/setup').patch(dbChecker, postSetup);
 router.route('/fetchSetup').get(dbChecker, fetchSetup);
 
 router.route('/auth').post(postAuth);
@@ -49,11 +54,11 @@ router.route('/fetchMenuCategories').get(dbChecker, fetchMenuCategories);
 
 router.route('/fetchMenuTags').get(dbChecker, fetchMenuTags);
 
-router.route('/deleteMenuTag').post(dbChecker, deleteMenuTag);
+router.route('/deleteMenuTag').delete(dbChecker, deleteMenuTag);
 
-router.route('/deleteMenuCategory').post(dbChecker, deleteMenuCategory);
+router.route('/deleteMenuCategory').delete(dbChecker, deleteMenuCategory);
 
-router.route('/deleteMenuContent').post(dbChecker, deleteMenuContent);
+router.route('/deleteMenuContent').delete(dbChecker, deleteMenuContent);
 
 router.route('/fetchMenuByCategories').get(dbChecker, fetchMenuByCategories);
 
@@ -61,7 +66,7 @@ router.route('/fetchOrder').get(dbChecker, fetchOrder);
 
 router.route('/createOrder').post(dbChecker, createOrder);
 
-router.route('/deleteOrder').post(dbChecker, deleteOrder);
+router.route('/deleteOrder').delete(dbChecker, deleteOrder);
 
 router.route('/postCheckout').post(dbChecker, postCheckout);
 

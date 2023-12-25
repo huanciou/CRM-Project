@@ -5,10 +5,12 @@ import {
   UserOutlined,
   PlusOutlined,
   EditOutlined,
+  DashboardOutlined,
+  ShoppingCartOutlined,
+  HomeOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Modal } from 'antd';
 import { NavLink, useLocation } from 'react-router-dom';
-import ParticleComponent from './ParticleComponent';
 import AdminProfileComponent from './AdminProfileComponent';
 import '../../styles/style.css';
 
@@ -34,22 +36,11 @@ const LayoutComponent = (props) => {
 
   return (
     <Layout style={{ position: 'relative' }}>
-      <ParticleComponent
-        style={{
-          zIndex: -999, // 确保粒子效果位于内容之下
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%', // 覆盖整个 Layout
-        }}
-      />
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
-          // defaultSelectedKeys={['1']}
           selectedKeys={[currentKey]}
           items={[
             {
@@ -64,17 +55,17 @@ const LayoutComponent = (props) => {
             },
             {
               key: '3',
-              icon: <EditOutlined />,
+              icon: <ShoppingCartOutlined />,
               label: <NavLink to="/admin/checkout">結帳隊列</NavLink>,
             },
             {
               key: '4',
-              icon: <UserOutlined />,
+              icon: <DashboardOutlined />,
               label: <NavLink to="/admin/dashboard">儀表板</NavLink>,
             },
             {
               key: '5',
-              icon: <UserOutlined />,
+              icon: <HomeOutlined />,
               label: <AdminProfileComponent />,
             },
             {

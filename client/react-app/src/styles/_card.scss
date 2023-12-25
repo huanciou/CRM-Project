@@ -25,7 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px; // 调整卡片区域高度
+    height: 200px;
     margin: 10px;
     position: relative;
 
@@ -71,7 +71,6 @@
   }
 }
 
-// 可以根据需要添加媒体查询，对移动端和不同屏幕尺寸进行优化
 @media (min-width: 768px) {
   .card-component {
     .card-container {

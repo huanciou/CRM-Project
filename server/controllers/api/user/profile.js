@@ -5,24 +5,25 @@ export function fetchProfile(req, res) {
   res.json(profile);
 }
 
-export async function fetchCard(req, res) {
-  const { dbToken } = req;
-  const { admin } = await getModels(dbToken);
-  const { LOCATION_ORIGIN } = process.env;
+export async function fetchCard(req, res, next) {
+  try {
+    const { dbToken } = req;
+    const { admin } = await getModels(dbToken);
+    const { LOCATION_ORIGIN } = process.env;
 
-  // const img = await admin.find({ name: { $in: related } });
-  const img = await admin.find();
-  console.log(dbToken);
-  console.log(img);
-  const cards = img.map((i) => ({
-    img: i.campaign,
-    url: `${LOCATION_ORIGIN}/user/signIn/${i.name}`,
-  }));
+    const img = await admin.find();
+    const cards = img.map((i) => ({
+      img: i.campaign,
+      url: `${LOCATION_ORIGIN}/user/signIn/${i.name}`,
+    }));
 
-  res.json(cards);
+    res.json(cards);
+  } catch (err) {
+    next(new Error('Fetch Card Failed'));
+  }
 }
 
-export async function fetchCredits(req, res) {
+export async function fetchCredits(req, res, next) {
   const sub = req.user.id;
   const { dbToken } = req;
   const { user } = await getModels(dbToken);
@@ -33,66 +34,70 @@ export async function fetchCredits(req, res) {
     });
     res.json(userData.credits);
   } catch (err) {
-    console.error(err);
+    next(new Error('Fetch Credits Failed'));
   }
 }
 
-export async function fetchHistory(req, res) {
-  const { dbToken } = req;
-  const { history } = req.user; // 拿到一個 array
-  const { checkout, menu } = await getModels(dbToken);
-  const { CDN_LOCATION_ORIGIN } = process.env;
+export async function fetchHistory(req, res, next) {
+  try {
+    const { dbToken } = req;
+    const { history } = req.user; // 拿到一個 array
+    const { checkout, menu } = await getModels(dbToken);
+    const { CDN_LOCATION_ORIGIN } = process.env;
 
-  const checkoutData = await checkout
-    .find({
-      _id: { $in: history },
-    })
-    .select(
-      'checkout_Time amount order_Items.item_ID order_Items.qty order_Items.price order_Items.amount',
-    );
-
-  console.log(checkoutData);
-
-  const resData = await Promise.all(
-    checkoutData.map(async (checkoutDoc) => {
-      const resDataItems = await Promise.all(
-        checkoutDoc.order_Items.map(async (item) => {
-          const menuItem = await menu
-            .findOne({ _id: item.item_ID })
-            .select('name main_image');
-
-          if (!menuItem) {
-            return null;
-          }
-
-          return {
-            ...item,
-            name: menuItem.name,
-            main_image: `${CDN_LOCATION_ORIGIN}/${menuItem.main_image}`,
-          };
-        }),
+    const checkoutData = await checkout
+      .find({
+        _id: { $in: history },
+      })
+      .select(
+        'checkout_Time amount order_Items.item_ID order_Items.qty order_Items.price order_Items.amount',
       );
 
-      // 使用 filter 方法过滤掉 null 的项
-      return {
-        ...checkoutDoc._doc,
-        order_Items: resDataItems.filter((item) => item !== null),
-      };
-    }),
-  );
+    const resData = await Promise.all(
+      checkoutData.map(async (checkoutDoc) => {
+        const resDataItems = await Promise.all(
+          checkoutDoc.order_Items.map(async (item) => {
+            const menuItem = await menu
+              .findOne({ _id: item.item_ID })
+              .select('name main_image');
 
-  console.log(resData);
-  res.json(resData);
+            if (!menuItem) {
+              return null;
+            }
+
+            return {
+              ...item,
+              name: menuItem.name,
+              main_image: `${CDN_LOCATION_ORIGIN}/${menuItem.main_image}`,
+            };
+          }),
+        );
+
+        // 使用 filter 方法过滤掉 null 的项
+        return {
+          ...checkoutDoc._doc,
+          order_Items: resDataItems.filter((item) => item !== null),
+        };
+      }),
+    );
+    res.json(resData);
+  } catch (err) {
+    next(new Error('Fetch History Failed'));
+  }
 }
 
-export async function fetchStoreInfo(req, res) {
-  const { dbToken } = req;
-  const { setup } = await getModels(dbToken);
-  const setupData = await setup.findOne().sort({ update_time: -1 });
-  res.json(setupData);
+export async function fetchStoreInfo(req, res, next) {
+  try {
+    const { dbToken } = req;
+    const { setup } = await getModels(dbToken);
+    const setupData = await setup.findOne().sort({ update_time: -1 });
+    res.json(setupData);
+  } catch (err) {
+    next(new Error('Fetch Info Failed'));
+  }
 }
 
-export async function fetchComments(req, res) {
+export async function fetchComments(req, res, next) {
   try {
     const { dbToken } = req;
     const { setup } = await getModels(dbToken);
@@ -137,8 +142,7 @@ export async function fetchComments(req, res) {
     }));
 
     res.json(resData);
-  } catch (error) {
-    console.error('An error occurred:', error);
-    res.status(500).send('Internal Server Error');
+  } catch (err) {
+    next(err);
   }
 }

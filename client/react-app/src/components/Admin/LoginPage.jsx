@@ -3,6 +3,7 @@ import LoginComponent from './LoginComponent';
 import LayoutComponent from './LayoutComponent';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import ParticleComponent from './ParticleComponent';
 
 const LoginPage = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ const LoginPage = () => {
   useEffect(() => {
     const checkLoginStatus = () => {
       const adminToken = Cookies.get('adminToken');
+      console.log(adminToken);
       if (adminToken) {
         navigate('/admin/menuSetup');
       }
@@ -25,6 +27,16 @@ const LoginPage = () => {
   return (
     <div>
       <LayoutComponent>
+        <ParticleComponent
+          style={{
+            zIndex: -999, // 确保粒子效果位于内容之下
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%', // 覆盖整个 Layout
+          }}
+        />
         <h
           style={{
             display: 'flex',

@@ -29,7 +29,7 @@ app.use(express.static('public'));
 app.use(express.static(path.resolve('public', 'build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/line', lineRouter); // Need to set tihs middleware before bodyParser
+app.use('/line', lineRouter); // Need to set this middleware before bodyParser
 app.use(express.json());
 
 app.use('/api/1.0/admin', apiAdminRouter);

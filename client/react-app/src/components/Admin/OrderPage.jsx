@@ -13,12 +13,10 @@ const OrderPage = () => {
   }, []);
 
   const addToCart = (itemToAdd) => {
-    // 检查购物车中是否已有该商品
     const existingItemIndex = cartItems.findIndex(
       (cartItem) => cartItem._id === itemToAdd._id,
     );
 
-    // 如果已有，更新其数量和总价
     if (existingItemIndex > -1) {
       const newCartItems = cartItems.map((cartItem, index) =>
         index === existingItemIndex
@@ -31,7 +29,6 @@ const OrderPage = () => {
       );
       setCartItems(newCartItems);
     } else {
-      // 如果没有，添加新商品到购物车
       setCartItems([...cartItems, itemToAdd]);
     }
   };

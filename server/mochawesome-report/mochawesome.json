@@ -1,0 +1,104 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2023-12-25T12:56:41.372Z",
+    "end": "2023-12-25T12:56:41.380Z",
+    "duration": 8,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "eada9e54-f6c0-4976-b2a3-b6914e041483",
+      "title": "",
+      "fullFile": "/Users/huanciou/Desktop/iSEECRM/server/test/auth.test.js",
+      "file": "/test/auth.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cf067d8d-8c51-4ce0-bc00-14afadca18a2",
+          "title": "postLogin",
+          "fullFile": "/Users/huanciou/Desktop/iSEECRM/server/test/auth.test.js",
+          "file": "/test/auth.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should authenticate user with correct credentials and return token",
+              "fullTitle": "postLogin should authenticate user with correct credentials and return token",
+              "timedOut": false,
+              "duration": 2,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// 模擬的用戶對象\nconst mockUser = {\n  _id: '123',\n  name: 'Test User',\n  password: 'hashed_password', // 加密後的密碼\n  role: 'admin',\n  campaign: 'test_campaign',\n};\n// 模擬數據庫查找和密碼比對\nconst findOneStub = sinon.stub().returns(Promise.resolve(mockUser));\nconst compareStub = sinon\n  .stub(bcrypt, 'compare')\n  .returns(Promise.resolve(true));\nsinon\n  .stub(modelHelper, 'getModels')\n  .returns(Promise.resolve({ admin: { findOne: findOneStub } }));\nconst req = {\n  body: { account: 'test_account', password: 'test_password' },\n};\nconst res = {\n  cookie: sinon.spy(),\n  status: sinon.stub().returnsThis(),\n  send: sinon.spy(),\n};\nconst next = sinon.spy();\n// 執行函數\nawait postLogin(req, res, next);\n// 斷言\nexpect(findOneStub.calledWith({ account: 'test_account' })).to.be.true;\nexpect(compareStub.calledWith('test_password', 'hashed_password')).to.be\n  .true;\nexpect(res.cookie.calledTwice).to.be.true; // 確認設置了兩個 cookie\nexpect(res.status.calledWith(200)).to.be.true;\nexpect(res.send.calledWith('ok')).to.be.true;\n// 清理模擬\nsinon.restore();",
+              "err": {
+                "message": "TypeError: ES Modules cannot be stubbed",
+                "estack": "TypeError: ES Modules cannot be stubbed\n    at Function.stub (file:///Users/huanciou/Desktop/iSEECRM/server/node_modules/sinon/pkg/sinon-esm.js:3954:15)\n    at Sandbox.stub (file:///Users/huanciou/Desktop/iSEECRM/server/node_modules/sinon/pkg/sinon-esm.js:3433:39)\n    at Context.<anonymous> (file:///Users/huanciou/Desktop/iSEECRM/server/test/auth.test.js:24:8)\n    at process.processImmediate (node:internal/timers:478:21)",
+                "diff": null
+              },
+              "uuid": "c4d60363-593a-4256-bcf9-ae5f8f62bb70",
+              "parentUUID": "cf067d8d-8c51-4ce0-bc00-14afadca18a2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "c4d60363-593a-4256-bcf9-ae5f8f62bb70"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}

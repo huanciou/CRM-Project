@@ -1,8 +1,6 @@
 import path from 'path';
 
 export function getOrder(req, res) {
-  const { dbToken } = req;
-
   const build = path.resolve('public', 'build');
   res.sendFile(path.join(build, 'index.html'));
 }

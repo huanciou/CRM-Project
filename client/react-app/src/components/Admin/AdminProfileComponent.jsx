@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import AdminProfileForm from './AdminProfileForm';
+import ProtectedRoute from './ProtectedRoute';
 
 const AdminProfileComponent = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -46,7 +47,12 @@ const AdminProfileComponent = () => {
         onCancel={() => setOpen(false)}
         width={600}
       >
-        <AdminProfileForm profileData={profileData} onRefresh={handleRefresh} />
+        <ProtectedRoute>
+          <AdminProfileForm
+            profileData={profileData}
+            onRefresh={handleRefresh}
+          />
+        </ProtectedRoute>
       </Modal>
     </>
   );

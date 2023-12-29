@@ -5,17 +5,6 @@ import CheckoutListComponent from './CheckoutListComponent';
 
 const CheckoutCollapseComponent = ({ fetchOrders, orders }) => {
   const { token } = theme.useToken();
-  // const [orders, setOrders] = useState([]);
-  // const apiUrl = process.env.REACT_APP_API_URL;
-
-  // const fetchOrders = useCallback(() => {
-  //   fetch(`${apiUrl}/api/1.0/admin/fetchOrder`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setOrders(data);
-  //     })
-  //     .catch((error) => console.error('Error fetching orders:', error));
-  // }, [apiUrl]); // 添加 apiUrl 作為依賴
 
   useEffect(() => {
     fetchOrders();

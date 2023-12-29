@@ -2,27 +2,32 @@ import path from 'path';
 import getModels from '../../models/modelHelper.js';
 import { compare } from '../../utils/encrypt.js';
 import signJWT from '../../utils/signJWT.js';
+import { ValidationError } from '../../utils/errorHandler.js';
 
-export function getLogin(req, res) {
-  if (req.cookies.adminToken) {
-    return res.redirect('/admin/menuSetup');
+export function getLogin(req, res, next) {
+  try {
+    if (req.cookies.adminToken) {
+      res.redirect('/admin/menuSetup');
+      return;
+    }
+    res.cookie('dbToken', 'test', {
+      maxAge: 3600000,
+      path: '/',
+    });
+    const build = path.resolve('public', 'build');
+    res.sendFile(path.join(build, 'index.html'));
+  } catch (err) {
+    next(err);
   }
-  res.cookie('dbToken', 'test', {
-    maxAge: 3600000,
-    path: '/',
-  });
-  const build = path.resolve('public', 'build');
-  res.sendFile(path.join(build, 'index.html'));
 }
 
-export async function postLogin(req, res) {
+export async function postLogin(req, res, next) {
   const { account, password } = req.body;
   try {
     const { admin } = await getModels('test');
     const user = await admin.findOne({ account });
     if (user) {
       const isPasswordMatch = await compare(password, user.password);
-      console.log(`match?: ${isPasswordMatch}`);
       if (isPasswordMatch) {
         const payload = {
           id: user._id,
@@ -42,14 +47,14 @@ export async function postLogin(req, res) {
           maxAge: 3600000,
           path: '/',
         });
-        return res.status(200).send('ok');
+        res.status(200).send('ok');
+        return;
       }
-      return res.status(403).send('Wrong Info');
+      throw new ValidationError('Wrong Login information');
     }
-    return res.status(400).send('User not found');
+    throw new ValidationError('Wrong Login information');
   } catch (err) {
-    console.error(err);
-    return res.status(500).send('Internal Server Error');
+    next(err);
   }
 }
 

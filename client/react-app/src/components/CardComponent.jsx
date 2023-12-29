@@ -103,15 +103,6 @@ const CardComponent = () => {
             {profile.email || '你沒有提供信箱'}
           </div>
         </div>
-        {/* <div className="profile-actions">
-        <Link to="/user/profile/info">
-          <button className="info-button">Info</button>
-        </Link>
-
-        <Link to="/user/profile/card">
-          <button className="card-button">Card</button>
-        </Link>
-      </div> */}
         <TabsComponents
           items={[
             {

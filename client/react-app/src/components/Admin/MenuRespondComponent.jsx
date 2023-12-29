@@ -79,7 +79,7 @@ const OrderTablesComponents = () => {
   const deleteMenuContent = (record) => {
     const deleteMenuContentUrl = `${apiUrl}/api/1.0/admin/deletemenuContent`;
     fetch(deleteMenuContentUrl, {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },

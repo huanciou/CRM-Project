@@ -1,25 +1,22 @@
 import axios from 'axios';
 import getModels from '../../../models/modelHelper.js';
-import verifyJWT from '../../../utils/verifyJWT.js';
 
 const { LINE_PAY_CHANNEL_ID, LINE_PAY_CHANNEL_SERCRET } = process.env;
 
-export async function postCheckout(req, res) {
-  // const { adminToken } = req.cookies;
-  const { dbToken } = req;
-  const { order, checkout, user } = await getModels(dbToken);
+export async function postCheckout(req, res, next) {
+  try {
+    const { dbToken } = req;
+    const { order, checkout, user } = await getModels(dbToken);
 
-  // if (!adminToken) {
-  //   return res.status(401).send('Please Log-In again');
-  // }
-  // const payload = await verifyJWT(adminToken);
-
-  console.log(req.body);
-  const { type } = req.body;
-  if (type === 'LINE Pay') {
-    return handleLinePay(req, res, order, checkout, user);
+    const { type } = req.body;
+    if (type === 'LINE Pay') {
+      await handleLinePay(req, res, order, checkout, user);
+      return;
+    }
+    res.status(400).send('Something Went Wrong');
+  } catch (err) {
+    next(err);
   }
-  res.status(400).send('transaction failed');
 }
 
 async function handleLinePay(req, res, order, checkout, user) {
@@ -45,8 +42,7 @@ async function handleLinePay(req, res, order, checkout, user) {
     console.log('done');
     return res.status(200).send({ message: 'transaction successful' });
   } catch (err) {
-    console.error(err.message);
-    return res.status(400).send('transaction failed');
+    throw new Error('Handle Line Pay Failed');
   }
 }
 
@@ -70,12 +66,15 @@ function getLinePayBody(orderId, oneTimeKey, amount) {
 }
 
 async function updateOrderStatus(order, orderId) {
-  const orderUpdated = await order.findOneAndUpdate(
-    { _id: orderId },
-    { $set: { isDeleted: true } },
-    { new: true },
-  );
-  if (!orderUpdated) throw new Error('Order Not Found');
+  try {
+    const orderUpdated = await order.findOneAndUpdate(
+      { _id: orderId },
+      { $set: { isDeleted: true } },
+      { new: true },
+    );
+  } catch (err) {
+    throw new Error('Order Not Found');
+  }
 }
 
 async function updateCheckoutStatus(
@@ -85,34 +84,36 @@ async function updateCheckoutStatus(
   userId,
   order_Items,
 ) {
-  const checkoutUpdated = await checkout.findOneAndUpdate(
-    { _id: orderId },
-    {
-      $setOnInsert: {
-        _id: orderId,
-        amount,
-        checkout_Status: 'Paid',
-        order_ID: orderId,
-        order_Items,
-        customer_ID: userId,
+  try {
+    const checkoutUpdated = await checkout.findOneAndUpdate(
+      { _id: orderId },
+      {
+        $setOnInsert: {
+          _id: orderId,
+          amount,
+          checkout_Status: 'Paid',
+          order_ID: orderId,
+          order_Items,
+          customer_ID: userId,
+        },
+        $set: {},
       },
-      $set: {},
-    },
-    { new: true, upsert: true },
-  );
-  if (!checkoutUpdated) {
+      { new: true, upsert: true },
+    );
+  } catch (err) {
     throw new Error('Error creating/updating checkout');
   }
 }
 
 async function updateUserProfile(user, userId, amount) {
-  const pointsToAdd = Math.floor(amount / 100);
-  const userProfileUpdated = await user.findOneAndUpdate(
-    { sub: userId },
-    { $inc: { credits: pointsToAdd } },
-    { new: true },
-  );
-  if (!userProfileUpdated) {
+  try {
+    const pointsToAdd = Math.floor(amount / 100);
+    const userProfileUpdated = await user.findOneAndUpdate(
+      { sub: userId },
+      { $inc: { credits: pointsToAdd } },
+      { new: true },
+    );
+  } catch (err) {
     throw new Error('User not found or Profile Update Failed');
   }
 }

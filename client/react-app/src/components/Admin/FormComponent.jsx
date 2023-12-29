@@ -114,7 +114,7 @@ const FormComponent = () => {
         `${apiUrl}/api/1.0/admin/createMenuContents`,
         {
           method: 'POST',
-          body: formData, // 使用 FormData 作为请求体
+          body: formData, // 使用 FormData
         },
       );
 

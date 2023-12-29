@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  SnippetsOutlined,
+  QrcodeOutlined,
+  DollarOutlined,
+} from '@ant-design/icons';
 import { Input, InputNumber } from 'antd';
 
 const CheckoutItemsComponent = ({ order, pay, onCheckoutDataChange }) => {
@@ -42,7 +47,7 @@ const CheckoutItemsComponent = ({ order, pay, onCheckoutDataChange }) => {
         name="oneTimeKey"
         size="large"
         placeholder="LINE Pay 收款碼"
-        prefix={<UserOutlined />}
+        prefix={<QrcodeOutlined />}
         value={oneTimeKey}
         onChange={(e) => handleInputChange('oneTimeKey', e.target.value)}
       />
@@ -52,17 +57,18 @@ const CheckoutItemsComponent = ({ order, pay, onCheckoutDataChange }) => {
         name="orderId"
         size="large"
         placeholder="訂單編號"
-        prefix={<UserOutlined />}
+        prefix={<SnippetsOutlined />}
         value={order._id}
         readOnly
       />
       <br />
       <br />
       <InputNumber
+        style={{ width: 474 }}
         name="amount"
         size="large"
         placeholder="總金額"
-        prefix={<UserOutlined />}
+        prefix={<DollarOutlined />}
         value={order.amount}
         readOnly
       />

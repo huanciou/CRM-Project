@@ -88,7 +88,7 @@ const CartListComponent = ({ cartItems, setCartItems }) => {
         }}
         dataSource={cartItems}
         footer={
-          !isCartEmpty && ( // 如果购物车不为空，则显示 footer
+          !isCartEmpty && ( 
             <div style={{ marginTop: 32 }}>
               <Button type="primary" onClick={handleCheckout}>
                 點餐

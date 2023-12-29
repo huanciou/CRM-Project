@@ -28,7 +28,7 @@ const AdminProfileForm = ({ profileData, onRefresh }) => {
     };
 
     fetch(`${apiUrl}/api/1.0/admin/setup`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataToSend),
     })
@@ -56,7 +56,7 @@ const AdminProfileForm = ({ profileData, onRefresh }) => {
   return (
     <div style={{ maxHeight: '80vh' }}>
       <AvatarComponent profileData={profileData} />
-      <Divider>Read-Only Profile</Divider>
+      <Divider>目前資訊</Divider>
       <Form {...layout} form={readOnlyForm} initialValues={profileData}>
         <Form.Item name="name" label="Name">
           <Input readOnly />
@@ -68,7 +68,7 @@ const AdminProfileForm = ({ profileData, onRefresh }) => {
           <Input readOnly />
         </Form.Item>
       </Form>
-      <Divider>Editable Profile</Divider>
+      <Divider>更改資訊</Divider>
       <Form {...layout} form={form} onFinish={onFinish}>
         <Form.Item
           name="name"

@@ -1,6 +1,7 @@
 import getModels from '../../../models/modelHelper.js';
+import { ValidationError } from '../../../utils/errorHandler.js';
 
-export async function postSetup(req, res) {
+export async function postSetup(req, res, next) {
   const { name, location, phone } = req.body;
   const { dbToken } = req;
   const { setup } = await getModels(dbToken);
@@ -19,12 +20,12 @@ export async function postSetup(req, res) {
       console.log('No fields to update');
     }
   } catch (err) {
-    res.status(404).send('Update Failed');
+    next(new ValidationError('Update Failed'));
   }
   res.status(200).json({ message: 'success' });
 }
 
-export async function fetchSetup(req, res) {
+export async function fetchSetup(req, res, next) {
   const { dbToken } = req;
   const { setup } = await getModels(dbToken);
 
@@ -34,9 +35,9 @@ export async function fetchSetup(req, res) {
       console.log(setupProfile);
       res.status(200).json(setupProfile);
     } else {
-      res.status(404).json({ message: '404 Not Found' });
+      throw new Error('Internal Error');
     }
-  } catch (error) {
-    res.status(500).json({ message: '500 Internal Error' });
+  } catch (err) {
+    next(err);
   }
 }

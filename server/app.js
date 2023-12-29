@@ -10,6 +10,7 @@ import adminRouter from './routes/admin.js';
 import apiAdminRouter from './routes/api/admin.js';
 import apiUserRouter from './routes/api/user.js';
 import lineRouter from './routes/line.js';
+import { errorHandler } from './utils/errorHandler.js';
 
 import './models/menuSchema.js';
 import './models/orderSchema.js';
@@ -29,7 +30,7 @@ app.use(express.static('public'));
 app.use(express.static(path.resolve('public', 'build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/line', lineRouter); // Need to set tihs middleware before bodyParser
+app.use('/line', lineRouter); // Need to set this middleware before bodyParser
 app.use(express.json());
 
 app.use('/api/1.0/admin', apiAdminRouter);
@@ -41,6 +42,8 @@ app.get('/', (req, res) => {
   const build = path.resolve('public', 'build');
   res.sendFile(path.join(build, 'index.html'));
 });
+
+app.use(errorHandler);
 
 server.listen(SERVER_PORT, () => {
   console.log(`Server is running on port: ${SERVER_PORT}`);

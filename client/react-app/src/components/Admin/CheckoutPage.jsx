@@ -40,18 +40,6 @@ const CheckoutPage = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const handleOrderCreated = (data) => {
-  //     console.log('orderCreated event received:', data);
-  //     fetchOrders();
-  //   };
-
-  //   socket.on('orderCreated', handleOrderCreated);
-
-  //   return () => {
-  //     socket.off('orderCreated', handleOrderCreated);
-  //   };
-  // }, []);
   return (
     <div>
       <LayoutComponent>

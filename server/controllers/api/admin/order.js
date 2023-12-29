@@ -1,19 +1,24 @@
 import getModels from '../../../models/modelHelper.js';
 import { getIo } from '../../../utils/socket.js';
+import { ValidationError } from '../../../utils/errorHandler.js';
 
-export async function createOrder(req, res) {
-  const { dbToken } = req;
-  const { order } = await getModels(dbToken);
+export async function createOrder(req, res, next) {
+  try {
+    const { dbToken } = req;
+    const { order } = await getModels(dbToken);
 
-  const orderItems = req.body;
-  const io = getIo();
+    const orderItems = req.body;
+    const io = getIo();
 
-  const orderResult = await order.create(orderItems);
-  if (orderResult._id) {
-    io.emit(dbToken, 'orderCreated');
-    console.log(`socket${dbToken}`);
+    const orderResult = await order.create(orderItems);
+    if (orderResult._id) {
+      io.emit(dbToken, 'orderCreated');
+      console.log(`socket${dbToken}`);
+    }
+    res.send(orderResult);
+  } catch (err) {
+    next(new ValidationError('Create Order Failed'));
   }
-  res.send(orderResult);
 }
 
 export async function fetchOrder(req, res) {
@@ -23,20 +28,19 @@ export async function fetchOrder(req, res) {
   res.json(orderList);
 }
 
-export async function deleteOrder(req, res) {
-  const { dbToken } = req;
-  const { order } = await getModels(dbToken);
-
+export async function deleteOrder(req, res, next) {
   try {
+    const { dbToken } = req;
+    const { order } = await getModels(dbToken);
     const { id } = req.body;
     await order.updateOne({ _id: id }, { isDeleted: true });
-    res.json({ message: 'Order deleted successfully' });
+    res.json({ message: 'Order Deleted Successfully' });
   } catch (err) {
-    res.status(400).send('Order deleted failed');
+    next(new Error('Order Deleted Failed'));
   }
 }
 
-export async function fetchDashboard(req, res) {
+export async function fetchDashboard(req, res, next) {
   const { dbToken } = req;
   const { startDate, endDate } = req.body;
   const { checkout } = await getModels(dbToken);
@@ -92,7 +96,7 @@ export async function fetchDashboard(req, res) {
     ]);
     resData.checkoutAmountByDay = checkoutAmountByDay;
   } catch (err) {
-    return res.status(500).send('checkoutAmountByDay error');
+    next(new Error('checkoutAmountByDay error'));
   }
 
   try {
@@ -129,7 +133,7 @@ export async function fetchDashboard(req, res) {
     ]);
     resData.checkoutTags = checkoutTags;
   } catch (err) {
-    return res.status(500).send('checkoutTags error');
+    next(new Error('checkoutTags error'));
   }
 
   try {
@@ -154,7 +158,7 @@ export async function fetchDashboard(req, res) {
       },
       {
         $lookup: {
-          from: 'users', // 'users' 是 user 集合在 MongoDB 中的名稱
+          from: 'users',
           localField: '_id',
           foreignField: 'sub',
           as: 'userDetails',
@@ -172,10 +176,9 @@ export async function fetchDashboard(req, res) {
       },
     ]);
 
-    console.log(checkoutIDs);
     resData.checkoutIDs = checkoutIDs;
   } catch (err) {
-    return res.status(500).send('checkoutTags error');
+    next(new Error('checkoutTags error'));
   }
 
   res.json(resData);

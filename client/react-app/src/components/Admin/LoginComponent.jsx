@@ -41,7 +41,11 @@ const LoginComponent = () => {
     <Form
       name="normal_login"
       className="login-form"
-      initialValues={{ remember: true }}
+      initialValues={{
+        remember: true,
+        account: 'admin02', // 这里设置账号的初始值
+        password: '123',
+      }}
       onFinish={onFinish}
     >
       <Form.Item

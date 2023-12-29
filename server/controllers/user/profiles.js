@@ -20,6 +20,8 @@ export function getSignIn(req, res) {
   res.redirect(lineLoginUrl);
 }
 
+export function testLogin(req, res) {}
+
 export function getCallback(req, res) {
   res.render('user/signInCallback');
 }

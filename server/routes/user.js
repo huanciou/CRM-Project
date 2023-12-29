@@ -5,6 +5,7 @@ import {
   getCallback,
   getReactRoute,
   getReactRouteViaTest,
+  testLogin,
 } from '../controllers/user/profiles.js';
 
 import authentication from '../middleware/authentication.js';
@@ -13,6 +14,7 @@ import { dbChecker } from '../middleware/dbChecker.js';
 const router = Router();
 
 router.route('/loginAuth').post(dbChecker, loginAuth);
+router.route('/testLogin').get(testLogin);
 router.route('/signIn/:dbToken').get(getSignIn);
 router.route('/signInCallback').get(getCallback);
 

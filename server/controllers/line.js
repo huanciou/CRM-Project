@@ -117,7 +117,7 @@ function handleEvent(event) {
               type: 'uri',
               label: 'CARD',
               // uri: `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=${LOCATION_ORIGIN}/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal`,
-              uri: 'https://fake-shop.store/user/signIn/test',
+              uri: 'https://iseecrm.fake-shop.store/user/signIn/test',
             },
           },
           {
@@ -128,7 +128,7 @@ function handleEvent(event) {
               type: 'uri',
               label: 'WEBSITE',
               // uri: `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001826171&redirect_uri=${LOCATION_ORIGIN}/user/signInCallback&state=123456789&scope=profile%20openid%20email&ui_locales=zh-TW&bot_prompt=normal`,
-              uri: 'https://fake-shop.store/user/signIn/test',
+              uri: 'https://iseecrm.fake-shop.store/user/signIn/test',
             },
           },
           {
@@ -167,7 +167,7 @@ function chatBOTCallback(req, res) {
     .then((result) => res.json(result))
     .catch((err) => {
       console.error(err);
-      res.status(200).end();
+      res.status(500).end();
     });
 }
 

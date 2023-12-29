@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <style>
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: auto; 
+      margin-top: 50px;
+    }
+    .button-container button {
+      width: 300px;
+      height: 80px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      transition: background-color 0.3s; 
+      cursor: pointer;
+    }
+    .info-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      color: gray;
+      font-size: 24px;
+      text-align: center;
+      margin: 10px 0; 
+    }
+
+
+    @media (max-width: 600px) {
+      .button-container button {
+        width: 80%; 
+        height: 60px; 
+        font-size: 14px; 
+      }
+      .info-text {
+        font-size: 12px; 
+        height: 20px;
+      }
+      .button-container {
+        margin-top: 0;
+      }
+    }
+
+    #buttonMainPage { background-color: #3b5998; }
+    #buttonMainPage:hover { background-color: #4b69a8; }
+    #buttonSidePage { background-color: #f39c12; }
+    #buttonSidePage:hover { background-color: #f4a632; }
+    #buttonLineLogin { background-color: #00c300 }
+    #buttonLineLogin:hover { background-color: #00e600 }
+  </style>
+</head>
+<body>
+  <div class="info-text">
+    -- 測試帳號頁面目前只提供一家店家的會員卡 --
+  </div>
+  <div class="info-text">
+    -- 無法在 iSEECRM 個人資訊裡由 Cards 跳轉 --
+  </div>
+  <div class="info-text">
+    -- 請使用以下按鈕進入店家會員卡頁面 --
+  </div>
+  <div class="info-text">
+    -- 若想要使用完整功能請使用正式 Line 會員登入 --
+  </div>
+
+  <div class="button-container">
+    <button id="buttonMainPage">iSEECRM 個人資訊</button>
+    <button id="buttonSidePage">店家會員卡</button>
+    <button id="buttonLineLogin">Line 登入</button>
+  </div> 
+<script>
+  const buttonMainPage = document.querySelector('#buttonMainPage');
+  const buttonSidePage = document.querySelector('#buttonSidePage');
+  const buttonLineLogin = document.querySelector('#buttonLineLogin');
+  
+  const endpoint = `${window.location.origin}/user/profile/info`;
+  const endpoint2 = `${window.location.origin}/user/profile/credits`;
+  const endpoint3 = `${window.location.origin}/user/signIn/test`;
+
+  const jwtToken = "<%= jwtToken %>";
+   
+  buttonMainPage.addEventListener('click', () => {
+    const date = new Date();
+    date.setTime(date.getTime() + (3600 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = `jwtToken=${jwtToken}; ${expires}; path=/`;
+    document.cookie = `dbToken='test'; ${expires}; path=/`;
+
+    window.location.href = endpoint;
+  })
+
+  buttonSidePage.addEventListener('click', () => {
+    const date = new Date();
+    date.setTime(date.getTime() + (3600 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = `jwtToken=${jwtToken}; ${expires}; path=/`;
+    document.cookie = `dbToken='Umai'; ${expires}; path=/`;
+
+    window.location.href = endpoint2;
+})
+
+buttonLineLogin.addEventListener('click', () => {
+  let lineLoginUrl = `https://access.line.me/oauth2/v2.1/authorize?`;
+
+    lineLoginUrl += `response_type=code&`;
+    lineLoginUrl += `client_id=2001826171&`;
+    lineLoginUrl += `redirect_uri=${window.location.origin}/user/signInCallback&`;
+    lineLoginUrl += `state=123456789&`; // 防跨站請求
+    lineLoginUrl += `scope=profile%20openid%20email&`; 
+    lineLoginUrl += `ui_locales=zh-TW&`;
+    lineLoginUrl += `bot_prompt=normal`;
+
+    window.open(lineLoginUrl, '_self');
+})
+
+</script>
+</body>
+</html>

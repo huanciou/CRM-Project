@@ -3,7 +3,7 @@ import path from 'path';
 import signJWT from '../../utils/signJWT.js';
 import getModels from '../../models/modelHelper.js';
 
-const { LOCATION_ORIGIN } = process.env;
+const { LOCATION_ORIGIN, TEST_SUB } = process.env;
 
 export function getSignIn(req, res) {
   const { dbToken } = req.params;
@@ -20,7 +20,22 @@ export function getSignIn(req, res) {
   res.redirect(lineLoginUrl);
 }
 
-export function testLogin(req, res) {}
+export async function testLogin(req, res) {
+  const { user } = await getModels('test');
+  const sub = TEST_SUB;
+  const userProfile = await user.findOne({ sub });
+
+  const payload = {
+    id: userProfile.sub,
+    name: userProfile.name,
+    picture: userProfile.picture,
+    history: userProfile.history,
+    email: userProfile.email,
+    related: userProfile.related,
+  };
+  const jwtToken = await signJWT(payload);
+  res.render('user/testLogin', { jwtToken });
+}
 
 export function getCallback(req, res) {
   res.render('user/signInCallback');

@@ -140,7 +140,9 @@ and use "658e54c8c050de8360213328" as user number
 
 <h1 style="color: red"> For Users </h1>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/LineQRcode.png" alt="LineLogin" width="200" height="200" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 
@@ -149,7 +151,9 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/addFriend.jpg" alt="addFriend" width="200" height="400" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 
@@ -158,7 +162,9 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/profileCard.jpg" alt="profileCard" width="200" height="400" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 
@@ -167,7 +173,9 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/lineAuth.jpg" alt="lineAuth" width="200" height="400" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 
@@ -176,7 +184,9 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/lineTest.gif" alt="lineTest" width="200" height="400" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 
@@ -187,7 +197,9 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
+<p align="center">
 <img src="https://d3nexs9enmvorf.cloudfront.net/testLogin.jpg" alt="testLogin" width="200" height="400" style="margin:10px">
+</p>
 
 <div style="margin: 10px; width: 600px;">
 

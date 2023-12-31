@@ -43,7 +43,7 @@ const LoginComponent = () => {
       className="login-form"
       initialValues={{
         remember: true,
-        account: 'admin02', // 这里设置账号的初始值
+        account: 'admin02',
         password: '123',
       }}
       onFinish={onFinish}

@@ -3,10 +3,10 @@
 iSEECRM is a Customer Relationship Management (CRM) system tailored for store owners, designed to streamline business management processes, and offers an efficient and user-friendly experience
 for both businesses and their customers.
 
-<div style="display: flex; justify-content: center;">
+<p align="center">
     <img src="https://d3nexs9enmvorf.cloudfront.net/iseecrmIcon.png" width="200" height="200"
     style="border-radius: 20%; margin: 20px;">
-</div>
+</p>
 
 ## Introduction
 
@@ -17,6 +17,8 @@ Additionally, iSEECRM integrates a Line login system, eliminating the need for u
 The functionality not only enhances user engagement but also aids enterprises in compiling essential customer data, fostering an extensive network for marketing insights. Such a comprehensive approach promises both businesses and their clientele a more expedient and user-friendly experience.
 
 ## SKILLS
+
+<div style="display: flex; flex-direction: row;">
 
 <img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
@@ -40,10 +42,11 @@ The functionality not only enhances user engagement but also aids enterprises in
 <img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"/> 
 <img src="https://img.shields.io/badge/Socket.io-010101?&style=for-the-badge&logo=Socket.io&logoColor=white" />
 <img src="https://img.shields.io/badge/Line-00C300?style=for-the-badge&logo=line&logoColor=white" />
+</div>
 
 ## Demo
 
-<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<p align="center">
 
 <h1 style="color: red"> For Store Owner </h1>
 
@@ -207,7 +210,7 @@ Name: John Doe
 
 ## Architecture
 
-<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<p style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
 <img src="https://d3nexs9enmvorf.cloudfront.net/architecture.png" width="740" height="400" style="border-radius: 10px; margin: 20px;">
 
@@ -223,7 +226,7 @@ Name: John Doe
 
 - Based on specific merchants, the backend fetches Place API from Google Server to obtain Google comments for the merchants.
 
-</div>
+</p>
 
 ## Authors
 

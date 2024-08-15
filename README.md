@@ -4,7 +4,7 @@ iSEECRM is a Customer Relationship Management (CRM) system tailored for store ow
 for both businesses and their customers.
 
 <p align="center">
-    <img src="https://d3nexs9enmvorf.cloudfront.net/iseecrmIcon.png" width="200" height="200"
+    <img src="./src/icon.png" alt="icon" width="200" height="200"
     style="border-radius: 20%; margin: 20px;">
 </p>
 
@@ -50,7 +50,7 @@ The functionality not only enhances user engagement but also aids enterprises in
 
 <h1 style="color: red"> For Store Owner </h1>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/homepage.png" alt="homepage" width="600" height="400" style="margin:10px">
+<img src="./src/homepage.png" alt="homepage" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -60,7 +60,7 @@ The functionality not only enhances user engagement but also aids enterprises in
 
 </div>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/login.png" alt="login" width="600" height="400" style="margin:10px">
+<img src="./src/login.png" alt="login" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -77,7 +77,7 @@ account: admin02
 password: 123
 ```
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/setting.png" alt="setting" width="600" height="400" style="margin:10px">
+<img src="./src/setting.png" alt="setting" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -88,7 +88,7 @@ password: 123
 
 </div>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/cart.gif" alt="cart" width="600" height="400" style="margin:10px">
+<img src="./src/cart.gif" alt="cart" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -99,7 +99,7 @@ password: 123
 
 </div>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/checkout.gif" alt="checkout" width="600" height="400" style="margin:10px">
+<img src="./src/checkout.gif" alt="checkout" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -118,7 +118,7 @@ and use "658e54c8c050de8360213328" as user number
 
 ### <a href="https://sandbox-web-pay.line.me/web/sandbox/payment/oneTimeKey?countryCode=TW&paymentMethod=card&fbclid=IwAR0JzqkGSaY3xRWkiSnf7g_u3Z-KxakcM2UZ5jPanfoPMjoVrGkBsocYjFA&preset=3">> sandbox one-time key</a>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/info.gif" alt="info" width="600" height="400" style="margin:10px">
+<img src="./src/info.gif" alt="info" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -128,7 +128,7 @@ and use "658e54c8c050de8360213328" as user number
 
 </div>
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/chart.gif" alt="chart" width="600" height="400" style="margin:10px">
+<img src="./src/chart.gif" alt="chart" width="600" height="400" style="margin:10px">
 
 <div style="margin: 10px; width: 600px;">
 
@@ -141,7 +141,7 @@ and use "658e54c8c050de8360213328" as user number
 <h1 style="color: red"> For Users </h1>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/LineQRcode.png" alt="LineLogin" width="200" height="200" style="margin:10px">
+<img src="./src/LineQRcode.png" alt="LineLogin" width="200" height="200" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -152,7 +152,7 @@ and use "658e54c8c050de8360213328" as user number
 </div>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/addFriend.jpg" alt="addFriend" width="200" height="400" style="margin:10px">
+<img src="./src/addFriend.jpg" alt="addFriend" width="200" height="400" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -163,7 +163,7 @@ and use "658e54c8c050de8360213328" as user number
 </div>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/profileCard.jpg" alt="profileCard" width="200" height="400" style="margin:10px">
+<img src="./src/profileCard.jpg" alt="profileCard" width="200" height="400" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -174,7 +174,7 @@ and use "658e54c8c050de8360213328" as user number
 </div>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/lineAuth.jpg" alt="lineAuth" width="200" height="400" style="margin:10px">
+<img src="./src/lineAuth.jpg" alt="lineAuth" width="200" height="400" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -185,7 +185,7 @@ and use "658e54c8c050de8360213328" as user number
 </div>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/lineTest.gif" alt="lineTest" width="200" height="400" style="margin:10px">
+<img src="./src/lineTest.gif" alt="lineTest" width="200" height="400" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -198,7 +198,7 @@ and use "658e54c8c050de8360213328" as user number
 </div>
 
 <p align="center">
-<img src="https://d3nexs9enmvorf.cloudfront.net/testLogin.jpg" alt="testLogin" width="200" height="400" style="margin:10px">
+<img src="./src/testLogin.jpg" alt="testLogin" width="200" height="400" style="margin:10px">
 </p>
 
 <div style="margin: 10px; width: 600px;">
@@ -224,7 +224,7 @@ Name: John Doe
 
 <p style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
-<img src="https://d3nexs9enmvorf.cloudfront.net/architecture.png" width="740" height="400" style="border-radius: 10px; margin: 20px;">
+<img src="./src/architecture.png" width="740" height="400" style="border-radius: 10px; margin: 20px;">
 
 - Directed requests through a Load Balancer to EC2 Instances, which then reverse proxy to the Node.js Application server, effectively distributing user traffic to reduce server load.
 
